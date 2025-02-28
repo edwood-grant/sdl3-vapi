@@ -37,8 +37,6 @@
 /*
  * The API order goes by the category classification expressed in the docs
  * https://wiki.libsdl.org/SDL3/APIByCategory
- * Functions, constants and delegates order go by different criteria, via respecting vala style
- * guide, following the header files and other helpers, lieks the SDL3-CS bindings structure
  */
 
 ///

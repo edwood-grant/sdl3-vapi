@@ -1,0 +1,8 @@
+# Examples
+option('examples', type: 'boolean', value: true, description: 'Build SDL3 examples')
+
+# Tests
+option('tests', type: 'boolean', value: true, description: 'Build SDL3 tests')
+
+# Docs
+option('docs', type: 'boolean', value: true, description: 'Enable SDL3 valadocs generation')

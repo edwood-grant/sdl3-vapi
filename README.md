@@ -7,7 +7,7 @@ version of SDL3. Support for the rest of SDL libraries (SDL3_image, SDL_mixer)
 is planned as soon as these APIs go ABI stable.
 
 If you spot any bug, any missing functionality, or any regression, you are more
-than welcome to report it and as Issue or submit a pull/merge request. 
+then welcome to report it and to Issue or submit a pull/merge request. 
 
 Keep in mind that this is still not stable.  Most basic functionality works ok,
 but not everything has been tested, especially more advanced functions.
@@ -30,21 +30,21 @@ If you are looking for SDL2, Vala has SDL2 built-in by default already via a
 
 ## How is this vapi written?
 
-This aims to be a semi-pure port of the C headers. This means that currently,
+This aims to be a 'semi-pure' port of the C headers. This means that currently,
 this API is not 'Vala-friendly'. Some basics have been introduced:
 
-    1. All syntax is adapted to Vala style syntax. Some marcos will change syntax
-    because they become functions adapting it to vala.
-    2. Each header is contained within its own namespace. For example: `SDL_init.h`
-    wis located in the SDL3.Init namespace.
-        * The only current exceptions are `SDL_keycode.h` and `SDL_scancode.h`,
-        which are located within the SDL3.Keyboard namespace.
-    2. Whenever possible, some defines lists become enums, most enums have the
-    `SDL_` part stripper to make it mroe compact.
-    3. Most delegate have their *userdata pointer sotred as the self instance via
-    `has_target`
+1. All syntax is adapted to Vala style syntax. Some macros will change syntax
+   because they become functions adapting it to vala.
+3. Each header is contained within its own namespace. For example: `SDL_init.h`
+   is located in the `SDL3.Init` namespace.
+       * The only current exceptions are `SDL_keycode.h` and `SDL_scancode.h`,
+         which are located within the `SDL3.Keyboard` namespace.
+2. Whenever possible, some defines lists become enums, most enums have the
+   `SDL_` part stripper to make it more compact.
+3. Most delegate have their *userdata pointer stored as the self instance via
+   `has_target` and `instance_pos`
 
-Apart from these changes, all of the API should be as similar to the C API as
+Apart from these changes, all the API should be as similar to the C API as
 possible. The recommended approach is to eventually create wrappers and
 interface around this binding for your project/engine/framework.
 
@@ -86,15 +86,16 @@ executable(
     ],
 )
 ```
+
 ## Build tests and examples
 
 This repository has multiple examples and tests in their respective folders that
-yu are more than welcome to check out. If you want to compile them and try thme
+you are more than welcome to check out. If you want to compile them and try them
 out, you can do it through meson.
 
 Examples are the same examples as the official SDL3 examples, but adapted to
 Vala, plus a few more to show to do different game loops. Tests are pretty slim
-right now but more are planned.
+right now, but more are planned.
 
 Type the following on the command line in the repository root:
 
@@ -103,6 +104,7 @@ meson setup builddir
 cd builddir
 ninja
 ```
+
 To run tests, you can execute: ```ninja test```
 
 You can check the built examples in the `./builddir/examples` folder.
@@ -129,7 +131,7 @@ Here is the list of APIs that have good alternative on Vala via GLib:
 
 * SDL_log.h: Equivalent found in
   [GLib.Log](https://valadoc.org/glib-2.0/GLib.Log.html):
-* SDL_endian.h: Equivalents foun within the basic types (int/float, etc.)
+* SDL_endian.h: Equivalents found within the basic types (int/float, etc.)
   methods provided in the [GLib](https://valadoc.org/glib-2.0/index.htm) main
   namespace 
 * SDL_bits.h: Equivalent found in
@@ -162,7 +164,7 @@ There can be various reasons, included but not limited to:
 * It's not meant to be used by the final user (some defines and callbacks in the
   SDL3 docs explicitly mention this)
 
-Thsi means that, for these reason, not all API calls are implemented. However,
+This means that, for these reason, not all API calls are implemented. However,
 if you find that some signatures are worth including, do not hesitate to submit
 an issue or a PR to add to the SDL3 bindings if you think is necessary.
 

@@ -1,7 +1,9 @@
 glib_dep = dependency('glib-2.0')
 gobject_dep = dependency('gobject-2.0')
 sdl3_dep = dependency('sdl3')
+sdl3_image_dep = dependency('sdl3-image')
 
+# SDL
 subdir('Main/01-Simple')
 subdir('Main/02-MainHandled')
 subdir('Main/03-MainHandledCallbacks')
@@ -36,3 +38,8 @@ subdir('Camera/01-Read-and-Draw')
 subdir('AsyncIO/01-Load-Bitmaps')
 
 subdir('Pen/01-Drawing-Lines')
+
+# SDL Image
+subdir('SDLImage/01-Load-Image')
+subdir('SDLImage/02-Load-Animation')
+subdir('SDLImage/03-Load-Image-IO')

@@ -118,7 +118,7 @@ namespace SDL3.Main {
 [CCode (cheader_filename = "SDL3/SDL_init.h")]
 namespace SDL3.Init {
     [CCode (cname = "SDL_GetAppMetadataProperty")]
-    public static unowned string ? get_app_metadata_property (AppMetadata name);
+    public static unowned string ? get_app_metadata_property (string name);
 
     [CCode (cname = "SDL_Init")]
     public static bool init (InitFlags flags);
@@ -142,42 +142,31 @@ namespace SDL3.Init {
     public static bool set_app_metadata (string? app_name, string? app_version, string? app_identifier);
 
     [CCode (cname = "SDL_SetAppMetadataProperty")]
-    public static bool set_app_metadata_property (AppMetadata name, string? value);
+    public static bool set_app_metadata_property (string name, string? value);
+
+    [CCode (cname = "SDL_PROP_APP_METADATA_TYPE_STRING")]
+    public const string PROP_APP_METADATA_NAME_STRING;
+
+    [CCode (cname = "SDL_PROP_APP_METADATA_TYPE_STRING")]
+    public const string PROP_APP_METADATA_VERSION_STRING;
+
+    [CCode (cname = "SDL_PROP_APP_METADATA_TYPE_STRING")]
+    public const string PROP_APP_METADATA_IDENTIFIER_STRING;
+
+    [CCode (cname = "SDL_PROP_APP_METADATA_TYPE_STRING")]
+    public const string PROP_APP_METADATA_CREATOR_STRING;
+
+    [CCode (cname = "SDL_PROP_APP_METADATA_TYPE_STRING")]
+    public const string PROP_APP_METADATA_COPYRIGHT_STRING;
+
+    [CCode (cname = "SDL_PROP_APP_METADATA_TYPE_STRING")]
+    public const string PROP_APP_METADATA_URL_STRING;
+
+    [CCode (cname = "SDL_PROP_APP_METADATA_TYPE_STRING")]
+    public const string PROP_APP_METADATA_TYPE_STRING;
 
     [CCode (cname = "SDL_WasInit")]
     public static InitFlags was_init (InitFlags flags);
-
-    [CCode (cname = "string", cprefix = "SDL_PROP_APP_METADATA_", has_type_id = false)]
-    public enum AppMetadata {
-        NAME_STRING,
-        VERSION_STRING,
-        IDENTIFIER_STRING,
-        CREATOR_STRING,
-        COPYRIGHT_STRING,
-        URL_STRING,
-        TYPE_STRING;
-
-        public string to_string () {
-            switch (this) {
-            case NAME_STRING:
-                return "SDL.app.metadata.name";
-            case VERSION_STRING:
-                return "SDL.app.metadata.version";
-            case IDENTIFIER_STRING:
-                return "SDL.app.metadata.identifier";
-            case CREATOR_STRING:
-                return "SDL.app.metadata.creator";
-            case COPYRIGHT_STRING:
-                return "SDL.app.metadata.copyright";
-            case URL_STRING:
-                return "SDL.app.metadata.url";
-            case TYPE_STRING:
-                return "SDL.app.metadata.type";
-            default:
-                GLib.assert_not_reached ();
-            }
-        }
-    }
 
     [CCode (cname = "SDL_AppEvent_func", has_target = true, instance_pos = 0)]
     public delegate AppResult AppEventFunc (Events.Event event);

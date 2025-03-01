@@ -2570,6 +2570,10 @@ namespace SDL3.Pixels {
         EXTERNAL_OES,
         // TODO: Enable this enum when Motion JPG support is complete
         // MJPG,
+    } // PixelFormat
+
+    [CCode (cname = "SDL_PixelFormat", cprefix = "SDL_PIXELFORMAT_", has_type_id = false)]
+    public enum PixelFormatAliases {
         RGBA32,
         ARGB32,
         BGRA32,
@@ -2578,249 +2582,7 @@ namespace SDL3.Pixels {
         XRGB32,
         BGRX32,
         XBGR32;
-
-        public string to_string () {
-            var pixel_format = "";
-            switch (this) {
-            case UNKNOWN :
-                pixel_format = "SDL_PIXELFORMAT_UNKNOWN";
-                break;
-            case INDEX1LSB :
-                pixel_format = "SDL_PIXELFORMAT_INDEX1LSB";
-                break;
-            case INDEX1MSB :
-                pixel_format = "SDL_PIXELFORMAT_INDEX1MSB";
-                break;
-            case INDEX2LSB :
-                pixel_format = "SDL_PIXELFORMAT_INDEX2LSB";
-                break;
-            case INDEX2MSB :
-                pixel_format = "SDL_PIXELFORMAT_INDEX2MSB";
-                break;
-            case INDEX4LSB :
-                pixel_format = "SDL_PIXELFORMAT_INDEX4LSB";
-                break;
-            case INDEX4MSB :
-                pixel_format = "SDL_PIXELFORMAT_INDEX4MSB";
-                break;
-            case INDEX8 :
-                pixel_format = "SDL_PIXELFORMAT_INDEX8";
-                break;
-            case RGB332 :
-                pixel_format = "SDL_PIXELFORMAT_RGB332";
-                break;
-            case XRGB4444 :
-                pixel_format = "SDL_PIXELFORMAT_XRGB4444";
-                break;
-            case XBGR4444 :
-                pixel_format = "SDL_PIXELFORMAT_XBGR4444";
-                break;
-            case XRGB1555 :
-                pixel_format = "SDL_PIXELFORMAT_XRGB1555";
-                break;
-            case XBGR1555 :
-                pixel_format = "SDL_PIXELFORMAT_XBGR1555";
-                break;
-            case ARGB4444 :
-                pixel_format = "SDL_PIXELFORMAT_ARGB4444";
-                break;
-            case RGBA4444 :
-                pixel_format = "SDL_PIXELFORMAT_RGBA4444";
-                break;
-            case ABGR4444 :
-                pixel_format = "SDL_PIXELFORMAT_ABGR4444";
-                break;
-            case BGRA4444 :
-                pixel_format = "SDL_PIXELFORMAT_BGRA4444";
-                break;
-            case ARGB1555 :
-                pixel_format = "SDL_PIXELFORMAT_ARGB1555";
-                break;
-            case RGBA5551 :
-                pixel_format = "SDL_PIXELFORMAT_RGBA5551";
-                break;
-            case ABGR1555 :
-                pixel_format = "SDL_PIXELFORMAT_ABGR1555";
-                break;
-            case BGRA5551 :
-                pixel_format = "SDL_PIXELFORMAT_BGRA5551";
-                break;
-            case RGB565 :
-                pixel_format = "SDL_PIXELFORMAT_RGB565";
-                break;
-            case BGR565 :
-                pixel_format = "SDL_PIXELFORMAT_BGR565";
-                break;
-            case RGB24 :
-                pixel_format = "SDL_PIXELFORMAT_RGB24";
-                break;
-            case BGR24 :
-                pixel_format = "SDL_PIXELFORMAT_BGR24";
-                break;
-            case XRGB8888 :
-                pixel_format = "SDL_PIXELFORMAT_XRGB8888";
-                break;
-            case RGBX8888 :
-                pixel_format = "SDL_PIXELFORMAT_RGBX8888";
-                break;
-            case XBGR8888 :
-                pixel_format = "SDL_PIXELFORMAT_XBGR8888";
-                break;
-            case BGRX8888 :
-                pixel_format = "SDL_PIXELFORMAT_BGRX8888";
-                break;
-            case ARGB8888 :
-                pixel_format = "SDL_PIXELFORMAT_ARGB8888";
-                break;
-            case RGBA8888 :
-                pixel_format = "SDL_PIXELFORMAT_RGBA8888";
-                break;
-            case ABGR8888 :
-                pixel_format = "SDL_PIXELFORMAT_ABGR8888";
-                break;
-            case BGRA8888 :
-                pixel_format = "SDL_PIXELFORMAT_BGRA8888";
-                break;
-            case XRGB2101010 :
-                pixel_format = "SDL_PIXELFORMAT_XRGB2101010";
-                break;
-            case XBGR2101010 :
-                pixel_format = "SDL_PIXELFORMAT_XBGR2101010";
-                break;
-            case ARGB2101010 :
-                pixel_format = "SDL_PIXELFORMAT_ARGB2101010";
-                break;
-            case ABGR2101010 :
-                pixel_format = "SDL_PIXELFORMAT_ABGR2101010";
-                break;
-            case RGB48 :
-                pixel_format = "SDL_PIXELFORMAT_RGB48";
-                break;
-            case BGR48 :
-                pixel_format = "SDL_PIXELFORMAT_BGR48";
-                break;
-            case RGBA64 :
-                pixel_format = "SDL_PIXELFORMAT_RGBA64";
-                break;
-            case ARGB64 :
-                pixel_format = "SDL_PIXELFORMAT_ARGB64";
-                break;
-            case BGRA64 :
-                pixel_format = "SDL_PIXELFORMAT_BGRA64";
-                break;
-            case ABGR64 :
-                pixel_format = "SDL_PIXELFORMAT_ABGR64";
-                break;
-            case RGB48_FLOAT :
-                pixel_format = "SDL_PIXELFORMAT_RGB48_FLOAT";
-                break;
-            case BGR48_FLOAT :
-                pixel_format = "SDL_PIXELFORMAT_BGR48_FLOAT";
-                break;
-            case RGBA64_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_RGBA64_FLOAT";
-                break;
-            case ARGB64_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_ARGB64_FLOAT";
-                break;
-            case BGRA64_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_BGRA64_FLOAT";
-                break;
-            case ABGR64_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_ABGR64_FLOAT";
-                break;
-            case RGB96_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_RGB96_FLOAT";
-                break;
-            case BGR96_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_BGR96_FLOAT";
-                break;
-            case RGBA128_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_RGBA128_FLOAT";
-                break;
-            case ARGB128_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_ARGB128_FLOAT";
-                break;
-            case BGRA128_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_BGRA128_FLOAT";
-                break;
-            case ABGR128_FLOAT:
-                pixel_format = "SDL_PIXELFORMAT_ABGR128_FLOAT";
-                break;
-            case YV12:
-                pixel_format = "SDL_PIXELFORMAT_YV12";
-                break;
-            case IYUV:
-                pixel_format = "SDL_PIXELFORMAT_IYUV";
-                break;
-            case YUY2:
-                pixel_format = "SDL_PIXELFORMAT_YUY2";
-                break;
-            case UYVY:
-                pixel_format = "SDL_PIXELFORMAT_UYVY";
-                break;
-            case YVYU:
-                pixel_format = "SDL_PIXELFORMAT_YVYU";
-                break;
-            case NV12:
-                pixel_format = "SDL_PIXELFORMAT_NV12";
-                break;
-            case NV21:
-                pixel_format = "SDL_PIXELFORMAT_NV21";
-                break;
-            case P010:
-                pixel_format = "SDL_PIXELFORMAT_P010";
-                break;
-            case EXTERNAL_OES:
-                pixel_format = "SDL_PIXELFORMAT_EXTERNAL_OES";
-                break;
-            // TODO: Enable this enum when Motion JPG support is complete
-            // case MJPG:
-            // pixel_format = "SDL_PIXELFORMAT_MJPG";
-            // break;
-            default:
-                pixel_format = "";
-                break;
-            }
-
-            // TODO: This is a hack!! Is there a better way? We do this because
-            // the following are aliases, and these provoke "duplicate case"
-            // errors when attempting to execute "to_string ()". So we separate
-            // the call in two switches to avoid that duplicate case error
-            if (pixel_format == "") {
-                switch (this) {
-                case RGBA32:
-                    pixel_format = "SDL_PIXELFORMAT_RGBA32";
-                    break;
-                case ARGB32:
-                    pixel_format = "SDL_PIXELFORMAT_ARGB32";
-                    break;
-                case BGRA32:
-                    pixel_format = "SDL_PIXELFORMAT_BGRA32";
-                    break;
-                case ABGR32:
-                    pixel_format = "SDL_PIXELFORMAT_ABGR32";
-                    break;
-                case RGBX32:
-                    pixel_format = "SDL_PIXELFORMAT_RGBX32";
-                    break;
-                case XRGB32:
-                    pixel_format = "SDL_PIXELFORMAT_XRGB32";
-                    break;
-                case BGRX32:
-                    pixel_format = "SDL_PIXELFORMAT_BGRX32";
-                    break;
-                case XBGR32:
-                    pixel_format = "SDL_PIXELFORMAT_XBGR32";
-                    break;
-                default:
-                    GLib.assert_not_reached ();
-                }
-            }
-
-            return pixel_format;
-        }
-    } // PixelFormat
+    } // PixelFormatAliases
 
     [CCode (cname = "SDL_PixelType", cprefix = "SDL_PIXELTYPE_", has_type_id = false)]
     public enum PixelType {
@@ -4175,8 +3937,6 @@ namespace SDL3.Events {
         DISPLAY_DESKTOP_MODE_CHANGED,
         DISPLAY_CURRENT_MODE_CHANGED,
         DISPLAY_CONTENT_SCALE_CHANGED,
-        DISPLAY_FIRST,
-        DISPLAY_LAST,
 
         // Window events
         WINDOW_SHOWN,
@@ -4186,13 +3946,13 @@ namespace SDL3.Events {
         WINDOW_RESIZED,
         WINDOW_PIXEL_SIZE_CHANGED,
         WINDOW_METAL_VIEW_RESIZED,
-        WINDOW_MINIMIZE,
-        WINDOW_MAXIMIZE,
-        WINDOW_RESTORE,
-        WINDOW_MOUSE_ENTE,
-        WINDOW_MOUSE_LEAV,
-        WINDOW_FOCUS_GAINE,
-        WINDOW_FOCUS_LOS,
+        WINDOW_MINIMIZED,
+        WINDOW_MAXIMIZED,
+        WINDOW_RESTORED,
+        WINDOW_MOUSE_ENTER,
+        WINDOW_MOUSE_LEAVE,
+        WINDOW_FOCUS_GAINED,
+        WINDOW_FOCUS_LOST,
         WINDOW_CLOSE_REQUESTED,
         WINDOW_HIT_TEST,
         WINDOW_ICCPROF_CHANGED,
@@ -4204,8 +3964,6 @@ namespace SDL3.Events {
         WINDOW_LEAVE_FULLSCREEN,
         WINDOW_DESTROYED,
         WINDOW_HDR_STATE_CHANGED,
-        WINDOW_FIRST,
-        WINDOW_LAST,
 
         // Keyboard Events
         KEY_DOWN,
@@ -4310,7 +4068,15 @@ namespace SDL3.Events {
 
         // This just makes sure the enum is the size of Uint32 on C
         ENUM_PADDING
-    } // EventAction
+    } // EventType
+
+    [CCode (cname = "SDL_EventType", cprefix = "SDL_EVENT_", has_type_id = false)]
+    public enum EventTypeAliases {
+        WINDOW_FIRST,
+        WINDOW_LAST,
+        DISPLAY_FIRST,
+        DISPLAY_LAST,
+    } // EventTypeAlias
 } // SDL3.Events
 
 ///

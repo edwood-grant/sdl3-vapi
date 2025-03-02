@@ -2557,21 +2557,32 @@ namespace SDL3.Pixels {
         NV21,
         P010,
         EXTERNAL_OES,
-        // TODO: Enable this enum when Motion JPG support is complete
-        // MJPG,
-    } // PixelFormat
+        MJPG;
+        [CCode (cname = "SDL_PIXELFORMAT_RGBA32")]
+        public const PixelFormat RGBA32;
 
-    [CCode (cname = "SDL_PixelFormat", cprefix = "SDL_PIXELFORMAT_", has_type_id = false)]
-    public enum PixelFormatAliases {
-        RGBA32,
-        ARGB32,
-        BGRA32,
-        ABGR32,
-        RGBX32,
-        XRGB32,
-        BGRX32,
-        XBGR32;
-    } // PixelFormatAliases
+        [CCode (cname = "SDL_PIXELFORMAT_ARGB32")]
+        public const PixelFormat ARGB32;
+
+        [CCode (cname = "SDL_PIXELFORMAT_BGRA32")]
+        public const PixelFormat BGRA32;
+
+        [CCode (cname = "SDL_PIXELFORMAT_ABGR32")]
+        public const PixelFormat ABGR32;
+
+        [CCode (cname = "SDL_PIXELFORMAT_RGBX32")]
+        public const PixelFormat RGBX32;
+
+        [CCode (cname = "SDL_PIXELFORMAT_XRGB32")]
+        public const PixelFormat XRGB32;
+
+        [CCode (cname = "SDL_PIXELFORMAT_BGRX32")]
+        public const PixelFormat BGRX32;
+
+        [CCode (cname = "SDL_PIXELFORMAT_XBGR32")]
+        public const PixelFormat XBGR32;
+
+    } // PixelFormat
 
     [CCode (cname = "SDL_PixelType", cprefix = "SDL_PIXELTYPE_", has_type_id = false)]
     public enum PixelType {
@@ -4056,16 +4067,21 @@ namespace SDL3.Events {
         LAST,
 
         // This just makes sure the enum is the size of Uint32 on C
-        ENUM_PADDING
-    } // EventType
+        ENUM_PADDING;
 
-    [CCode (cname = "SDL_EventType", cprefix = "SDL_EVENT_", has_type_id = false)]
-    public enum EventTypeAliases {
-        WINDOW_FIRST,
-        WINDOW_LAST,
-        DISPLAY_FIRST,
-        DISPLAY_LAST,
-    } // EventTypeAlias
+        // This implementes aliases from the enum
+        [CCode (cname = "SDL_EVENT_WINDOW_FIRST")]
+        public const EventType WINDOW_FIRST;
+        
+        [CCode (cname = "SDL_EVENT_WINDOW_LAST")]
+        public const EventType WINDOW_LAST;
+        
+        [CCode (cname = "SDL_EVENT_DISPLAY_FIRST")]
+        public const EventType DISPLAY_FIRST;
+        
+        [CCode (cname = "SDL_EVENT_DISPLAY_LAST")]
+        public const EventType DISPLAY_LAST;
+    } // EventType
 } // SDL3.Events
 
 ///

@@ -1824,9 +1824,6 @@ namespace SDL3.Video {
         DARK,
     } // SDL_SystemTheme;
 
-    [CCode (cname = "SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER")]
-    public const string PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER;
-
     [CCode (cname = "SDL_WINDOWPOS_CENTERED")]
     public static uint32 window_pos_centered ();
 
@@ -1850,6 +1847,240 @@ namespace SDL3.Video {
 
     [CCode (cname = "SDL_WINDOWPOS_UNDEFINED_MASK")]
     public const uint32 WINDOWPOS_UNDEFINED_MASK;
+
+    namespace SDLPropGlobalVideo {
+        [CCode (cname = "SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER")]
+        public const string WAYLAND_WL_DISPLAY_POINTER;
+    } // SDLPropGlobalVideo
+
+    namespace SDLPropWindowCreate {
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN")]
+        public const string ALWAYS_ON_TOP_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN:")]
+        public const string BORDERLESS_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN")]
+        public const string EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN")]
+        public const string FOCUSABLE_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_FULLSCREEN_BOOLEAN")]
+        public const string FULLSCREEN_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER")]
+        public const string HEIGHT_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN")]
+        public const string HIDDEN_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN")]
+        public const string HIGH_PIXEL_DENSITY_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_MAXIMIZED_BOOLEAN")]
+        public const string MAXIMIZED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_MENU_BOOLEAN")]
+        public const string MENU_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_METAL_BOOLEAN")]
+        public const string METAL_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_MINIMIZED_BOOLEAN")]
+        public const string MINIMIZED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_MODAL_BOOLEAN")]
+        public const string MODAL_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_MOUSE_GRABBED_BOOLEAN")]
+        public const string MOUSE_GRABBED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN")]
+        public const string OPENGL_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_PARENT_POINTER")]
+        public const string PARENT_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN")]
+        public const string RESIZABLE_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_TITLE_STRING")]
+        public const string TITLE_STRING;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN")]
+        public const string TRANSPARENT_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_TOOLTIP_BOOLEAN")]
+        public const string TOOLTIP_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_UTILITY_BOOLEAN")]
+        public const string UTILITY_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN")]
+        public const string VULKAN_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER")]
+        public const string WIDTH_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_X_NUMBER")]
+        public const string X_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_Y_NUMBER")]
+        public const string Y_NUMBER;
+
+        // macOS
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_COCOA_WINDOW_POINTER")]
+        public const string COCOA_WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER")]
+        public const string COCOA_VIEW_POINTER;
+
+        // Wayland
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN")]
+        public const string WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN")]
+        public const string WAYLAND_CREATE_EGL_WINDOW_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER")]
+        public const string WAYLAND_WL_SURFACE_POINTER;
+
+        // Windows
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER")]
+        public const string WIN32_HWND_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER")]
+        public const string WIN32_PIXEL_FORMAT_HWND_POINTER;
+
+        // X11
+        [CCode (cname = "SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER")]
+        public const string X11_WINDOW_NUMBER;
+    } // SDLPropWindowCreate
+
+    namespace SDLPropDisplay {
+        [CCode (cname = "SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN")]
+        public const string HDR_ENABLED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER")]
+        public const string KMSDRM_PANEL_ORIENTATION_NUMBER;
+    } // SDLPropDisplay
+
+    namespace SDLPropWindow {
+        [CCode (cname = "SDL_PROP_WINDOW_SHAPE_POINTER")]
+        public const string SHAPE_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN")]
+        public const string HDR_ENABLED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT")]
+        public const string SDR_WHITE_LEVEL_FLOAT;
+
+        [CCode (cname = "SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT")]
+        public const string HDR_HEADROOM_FLOAT;
+
+        // Android
+        [CCode (cname = "SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER")]
+        public const string ANDROID_WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER")]
+        public const string ANDROID_SURFACE_POINTER;
+
+        // iOS
+        [CCode (cname = "SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER")]
+        public const string UIKIT_WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER")]
+        public const string UIKIT_METAL_VIEW_TAG_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER")]
+        public const string UIKIT_OPENGL_FRAMEBUFFER_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER")]
+        public const string UIKIT_OPENGL_RENDERBUFFER_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER")]
+        public const string UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER;
+
+        // KMS/DRM
+        [CCode (cname = "SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER")]
+        public const string KMSDRM_DEVICE_INDEX_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER")]
+        public const string KMSDRM_DRM_FD_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER")]
+        public const string KMSDRM_GBM_DEVICE_POINTER;
+
+        // macOS
+        [CCode (cname = "SDL_PROP_WINDOW_COCOA_WINDOW_POINTER")]
+        public const string COCOA_WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER")]
+        public const string COCOA_METAL_VIEW_TAG_NUMBER;
+
+        // OpenVR
+        [CCode (cname = "SDL_PROP_WINDOW_OPENVR_OVERLAY_ID")]
+        public const string OPENVR_OVERLAY_ID;
+
+        // Vivante
+        [CCode (cname = "SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER")]
+        public const string VIVANTE_DISPLAY_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER")]
+        public const string VIVANTE_WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER")]
+        public const string VIVANTE_SURFACE_POINTER;
+
+        // Windows
+        [CCode (cname = "SDL_PROP_WINDOW_WIN32_HWND_POINTER")]
+        public const string WIN32_HWND_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WIN32_HDC_POINTER")]
+        public const string WIN32_HDC_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER")]
+        public const string WIN32_INSTANCE_POINTER;
+
+        // Wayland
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER")]
+        public const string WAYLAND_DISPLAY_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER")]
+        public const string WAYLAND_SURFACE_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER")]
+        public const string WAYLAND_VIEWPORT_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER")]
+        public const string WAYLAND_EGL_WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER")]
+        public const string WAYLAND_XDG_SURFACE_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER")]
+        public const string WAYLAND_XDG_TOPLEVEL_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING")]
+        public const string WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER")]
+        public const string WAYLAND_XDG_POPUP_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER")]
+        public const string WAYLAND_XDG_POSITIONER_POINTER;
+
+        // X11
+        [CCode (cname = "SDL_PROP_WINDOW_X11_DISPLAY_POINTER")]
+        public const string X11_DISPLAY_POINTER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_X11_SCREEN_NUMBER")]
+        public const string X11_SCREEN_NUMBER;
+
+        [CCode (cname = "SDL_PROP_WINDOW_X11_WINDOW_NUMBER")]
+        public const string X11_WINDOW_NUMBER;
+    } // SDLPropWindow
 } // SDL3.Video
 
 ///
@@ -2251,6 +2482,282 @@ namespace SDL3.Render {
 
     [CCode (cname = "SDL_RENDERER_VSYNC_ADAPTIVE")]
     public const int RENDERER_VSYNC_ADAPTIVE;
+
+    namespace SDLPropRendererCreate {
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_NAME_STRING")]
+        public const string NAME_STRING;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_WINDOW_POINTER")]
+        public const string WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_SURFACE_POINTER")]
+        public const string SURFACE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER")]
+        public const string OUTPUT_COLORSPACE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER")]
+        public const string PRESENT_VSYNC_NUMBER;
+
+        // Vulkan
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER")]
+        public const string VULKAN_INSTANCE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER")]
+        public const string VULKAN_SURFACE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER")]
+        public const string VULKAN_PHYSICAL_DEVICE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER")]
+        public const string VULKAN_DEVICE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER")]
+        public const string VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER")]
+        public const string VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER;
+    } // SDLPropRendererCreate
+
+    namespace SDLPropTextureCreate {
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER")]
+        public const string COLORSPACE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER")]
+        public const string FORMAT_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER")]
+        public const string ACCESS_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER")]
+        public const string WIDTH_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER")]
+        public const string HEIGHT_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT")]
+        public const string SDR_WHITE_POINT_FLOAT;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT")]
+        public const string HDR_HEADROOM_FLOAT;
+
+        // Direct3D 11
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTE")]
+        public const string D3D11_TEXTURE_POINTE;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER")]
+        public const string D3D11_TEXTURE_U_POINTER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER")]
+        public const string D3D11_TEXTURE_V_POINTER;
+
+        // Direct3D 12
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER")]
+        public const string D3D12_TEXTURE_POINTER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER")]
+        public const string D3D12_TEXTURE_U_POINTER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER")]
+        public const string D3D12_TEXTURE_V_POINTER;
+
+        // Metal
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER")]
+        public const string METAL_PIXELBUFFER_POINTER;
+
+        // OpenGL
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER")]
+        public const string OPENGL_TEXTURE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER")]
+        public const string OPENGL_TEXTURE_UV_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER")]
+        public const string OPENGL_TEXTURE_U_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER")]
+        public const string OPENGL_TEXTURE_V_NUMBER;
+
+        // OpenGL ES2
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER")]
+        public const string OPENGLES2_TEXTURE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER")]
+        public const string OPENGLES2_TEXTURE_UV_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER")]
+        public const string OPENGLES2_TEXTURE_U_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER")]
+        public const string OPENGLES2_TEXTURE_V_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER")]
+        public const string VULKAN_TEXTURE_NUMBER;
+    } // SDLPropTextureCreate
+
+    namespace SDLPropRenderer {
+        [CCode (cname = "SDL_PROP_RENDERER_NAME_STRING")]
+        public const string NAME_STRING;
+
+        [CCode (cname = "SDL_PROP_RENDERER_WINDOW_POINTER")]
+        public const string WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_SURFACE_POINTER")]
+        public const string SURFACE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_VSYNC_NUMBER")]
+        public const string VSYNC_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER")]
+        public const string MAX_TEXTURE_SIZE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER")]
+        public const string TEXTURE_FORMATS_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER")]
+        public const string OUTPUT_COLORSPACE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN")]
+        public const string HDR_ENABLED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT")]
+        public const string SDR_WHITE_POINT_FLOAT;
+
+        [CCode (cname = "SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT")]
+        public const string HDR_HEADROOM_FLOAT;
+
+        // Direct3D
+        [CCode (cname = "SDL_PROP_RENDERER_D3D9_DEVICE_POINTER")]
+        public const string D3D9_DEVICE_POINTER;
+
+        // Direct3D 11
+        [CCode (cname = "SDL_PROP_RENDERER_D3D11_DEVICE_POINTER")]
+        public const string D3D11_DEVICE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER")]
+        public const string D3D11_SWAPCHAIN_POINTER;
+
+        // Direct3D 12
+        [CCode (cname = "SDL_PROP_RENDERER_D3D12_DEVICE_POINTER")]
+        public const string D3D12_DEVICE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER")]
+        public const string D3D12_SWAPCHAIN_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER")]
+        public const string D3D12_COMMAND_QUEUE_POINTER;
+
+        // Vulkan
+        [CCode (cname = "SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER")]
+        public const string VULKAN_INSTANCE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER")]
+        public const string VULKAN_SURFACE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER")]
+        public const string VULKAN_PHYSICAL_DEVICE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER")]
+        public const string VULKAN_DEVICE_POINTER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER")]
+        public const string VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER")]
+        public const string VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER;
+
+        [CCode (cname = "SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER")]
+        public const string VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER;
+
+        // GPU
+        [CCode (cname = "SDL_PROP_RENDERER_GPU_DEVICE_POINTER")]
+        public const string GPU_DEVICE_POINTER;
+    } // SDLPropRenderer
+
+    namespace SDLPropTexture {
+        [CCode (cname = "SDL_PROP_TEXTURE_COLORSPACE_NUMBER")]
+        public const string COLORSPACE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_FORMAT_NUMBER")]
+        public const string FORMAT_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_ACCESS_NUMBER")]
+        public const string ACCESS_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_WIDTH_NUMBER")]
+        public const string WIDTH_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_HEIGHT_NUMBER")]
+        public const string HEIGHT_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT")]
+        public const string SDR_WHITE_POINT_FLOAT;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT")]
+        public const string HDR_HEADROOM_FLOAT;
+
+        // Direct3D 11
+        [CCode (cname = "SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER")]
+        public const string D3D11_TEXTURE_POINTER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER")]
+        public const string D3D11_TEXTURE_U_POINTER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER")]
+        public const string D3D11_TEXTURE_V_POINTER;
+
+        // Direct3D 12
+        [CCode (cname = "SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER")]
+        public const string D3D12_TEXTURE_POINTER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER")]
+        public const string D3D12_TEXTURE_U_POINTER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER")]
+        public const string D3D12_TEXTURE_V_POINTER;
+
+        // Vulkan
+        [CCode (cname = "SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER")]
+        public const string VULKAN_TEXTURE_NUMBER;
+
+        // OpenGL
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER")]
+        public const string OPENGL_TEXTURE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER")]
+        public const string OPENGL_TEXTURE_UV_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER")]
+        public const string OPENGL_TEXTURE_U_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER")]
+        public const string OPENGL_TEXTURE_V_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER")]
+        public const string OPENGL_TEXTURE_TARGET_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT")]
+        public const string OPENGL_TEX_W_FLOAT;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT")]
+        public const string OPENGL_TEX_H_FLOAT;
+
+        // OpenGL ES2
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER")]
+        public const string OPENGLES2_TEXTURE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER")]
+        public const string OPENGLES2_TEXTURE_UV_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER")]
+        public const string OPENGLES2_TEXTURE_U_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER")]
+        public const string OPENGLES2_TEXTURE_V_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER")]
+        public const string OPENGLES2_TEXTURE_TARGET_NUMBER;
+    } // SDLPropTexture
 } // SDL3.Render
 
 ///
@@ -3032,22 +3539,6 @@ namespace SDL3.Surface {
     [CCode (cname = "SDL_GetSurfaceProperties")]
     public static Properties.PropertiesID get_surface_properties (Surface surface);
 
-    [CCode (cname = "SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT")]
-    public const string PROP_SURFACE_SDR_WHITE_POINT_FLOAT;
-
-    [CCode (cname = "SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT")]
-    public const string PROP_SURFACE_HDR_HEADROOM_FLOAT;
-
-    [CCode (cname = "SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING")]
-    public const string PROP_SURFACE_TONEMAP_OPERATOR_STRING;
-
-    [CCode (cname = "SDL_PROP_SURFACE_HOTSPOT_X_NUMBER")]
-    public const string PROP_SURFACE_HOTSPOT_X_NUMBER;
-
-    [CCode (cname = "SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER")]
-    public const string PROP_SURFACE_HOTSPOT_Y_NUMBER;
-
-
     [CCode (cname = "SDL_LoadBMP")]
     public static Surface ? load_bmp (string file);
 
@@ -3191,6 +3682,23 @@ namespace SDL3.Surface {
 
     [CCode (cname = "SDL_MUSTLOCK")]
     public static bool must_lock (Surface s);
+
+    namespace SDLPropSurface {
+        [CCode (cname = "SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT")]
+        public const string SDR_WHITE_POINT_FLOAT;
+
+        [CCode (cname = "SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT")]
+        public const string HDR_HEADROOM_FLOAT;
+
+        [CCode (cname = "SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING")]
+        public const string TONEMAP_OPERATOR_STRING;
+
+        [CCode (cname = "SDL_PROP_SURFACE_HOTSPOT_X_NUMBER")]
+        public const string HOTSPOT_X_NUMBER;
+
+        [CCode (cname = "SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER")]
+        public const string HOTSPOT_Y_NUMBER;
+    } // SDLPropSurface
 } // SDL3.Surface
 
 ///
@@ -4205,6 +4713,25 @@ namespace SDL3.Keyboard {
         NUMBER_PASSWORD_HIDDEN,
         NUMBER_PASSWORD_VISIBLE,
     } // TextInputType
+
+    namespace SDLPropTextinput {
+        [CCode (cname = "SDL_PROP_TEXTINPUT_TYPE_NUMBER")]
+        public const string TYPE_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER")]
+        public const string CAPITALIZATION_NUMBER;
+
+        [CCode (cname = "SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN")]
+        public const string AUTOCORRECT_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN")]
+        public const string MULTILINE_BOOLEAN;
+
+        // Android
+        [CCode (cname = "SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER")]
+        public const string ANDROID_INPUTTYPE_NUMBER;
+    } // SDLPropTextinput
+
     ///
     /// Keyboard Keycodes (SDL_keycode.h)
     ///
@@ -5212,6 +5739,23 @@ namespace SDL3.Joystick {
 
     [CCode (cname = "SDL_JOYSTICK_AXIS_MIN")]
     public const int32 JOYSTICK_AXIS_MIN;
+
+    namespace SDLPropJoystick {
+        [CCode (cname = "SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN")]
+        public const string CAP_MONO_LED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN")]
+        public const string CAP_RGB_LED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN")]
+        public const string CAP_PLAYER_LED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN")]
+        public const string CAP_RUMBLE_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN")]
+        public const string CAP_TRIGGER_RUMBLE_BOOLEAN;
+    } // SDLPropJoystick
 } // SDL3.Joystick
 
 ///
@@ -5562,6 +6106,23 @@ namespace SDL3.Gamepad {
         NINTENDO_SWITCH_JOYCON_PAIR,
         COUNT,
     } // GamepadType
+
+    namespace SDLPropGamepad {
+        [CCode (cname = "SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN")]
+        public const string CAP_MONO_LED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN")]
+        public const string CAP_RGB_LED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN")]
+        public const string CAP_PLAYER_LED_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN")]
+        public const string CAP_RUMBLE_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN")]
+        public const string CAP_TRIGGER_RUMBLE_BOOLEAN;
+    } // SDLPropGamepad
 } // SDL3.Gamepad
 
 ///
@@ -7579,6 +8140,39 @@ namespace SDL3.Gpu {
         VERTEX,
         INSTANCE,
     } // GPUVertexInputRate
+
+    namespace SDLPropGPUDeviceCreate {
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN")]
+        public const string DEBUGMODE_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN")]
+        public const string PREFERLOWPOWER_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING")]
+        public const string NAME_STRING;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN")]
+        public const string SHADERS_PRIVATE_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN")]
+        public const string SHADERS_SPIRV_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN")]
+        public const string SHADERS_DXBC_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN")]
+        public const string SHADERS_DXIL_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN")]
+        public const string SHADERS_MSL_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN")]
+        public const string SHADERS_METALLIB_BOOLEAN;
+
+        // D3D 12
+        [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING")]
+        public const string D3D12_SEMANTIC_NAME_STRING;
+    } // SDLPropGPUDeviceCreate
 } // SDL3.Gpu
 
 ///
@@ -7656,6 +8250,20 @@ namespace SDL3.Threads {
         DETACHED,
         COMPLETE,
     } // ThreadState
+
+    namespace SDLPropThreadCreate {
+        [CCode (cname = "SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER")]
+        public const string ENTRY_FUNCTION_POINTER;
+
+        [CCode (cname = "SDL_PROP_THREAD_CREATE_NAME_STRING")]
+        public const string NAME_STRING;
+
+        [CCode (cname = "SDL_PROP_THREAD_CREATE_USERDATA_POINTER")]
+        public const string USERDATA_POINTER;
+
+        [CCode (cname = "SDL_PROP_THREAD_CREATE_STACKSIZE_NUMBER")]
+        public const string STACKSIZE_NUMBER;
+    } // SDLPropThreadCreate
 } // SDL3.Threads
 
 ///
@@ -8748,6 +9356,55 @@ namespace SDL3.Process {
         APP,
         REDIRECT,
     } // ProcessIO
+
+    namespace SDLPropProcessCreate {
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_ARGS_POINTER")]
+        public const string ARGS_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER")]
+        public const string ENVIRONMENT_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_STDIN_NUMBER")]
+        public const string STDIN_NUMBER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_STDIN_POINTER")]
+        public const string STDIN_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER")]
+        public const string STDOUT_NUMBER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_STDOUT_POINTER")]
+        public const string STDOUT_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_STDERR_NUMBER")]
+        public const string STDERR_NUMBER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_STDERR_POINTER")]
+        public const string STDERR_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN")]
+        public const string STDERR_TO_STDOUT_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN")]
+        public const string BACKGROUND_BOOLEAN;
+    } // SDLPropProcessCreate
+
+    namespace SDLPropProcess {
+        [CCode (cname = "SDL_PROP_PROCESS_PID_NUMBER")]
+        public const string PID_NUMBER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_STDIN_POINTER")]
+        public const string STDIN_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_STDOUT_POINTER")]
+        public const string STDOUT_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_STDERR_POINTER")]
+        public const string STDERR_POINTER;
+
+        [CCode (cname = "SDL_PROP_PROCESS_BACKGROUND_BOOLEAN")]
+        public const string BACKGROUND_BOOLEAN;
+    } // SDLPropProcess
 } // SDL3.Process
 
 ///
@@ -8820,6 +9477,32 @@ namespace SDL3.MessageBox {
         COLOR_BUTTON_SELECTED,
         COLOR_COUNT,
     } // MessageBoxColorType
+
+    namespace SDLPropFileDialog {
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_FILTERS_POINTER")]
+        public const string FILTERS_POINTER;
+
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER")]
+        public const string NFILTERS_NUMBER;
+
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_WINDOW_POINTER")]
+        public const string WINDOW_POINTER;
+
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_LOCATION_STRING")]
+        public const string LOCATION_STRING;
+
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_MANY_BOOLEAN")]
+        public const string MANY_BOOLEAN;
+
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_TITLE_STRING")]
+        public const string TITLE_STRING;
+
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_ACCEPT_STRING")]
+        public const string ACCEPT_STRING;
+
+        [CCode (cname = "SDL_PROP_FILE_DIALOG_CANCEL_STRING")]
+        public const string CANCEL_STRING;
+    } // SDLPropFileDialog
 } // SDL3.MessageBox
 
 ///

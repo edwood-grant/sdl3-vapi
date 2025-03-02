@@ -3,7 +3,14 @@ SDL3 Vapi bindings for Vala
 
 These are a set of vapi files for SDL3 for the [Vala
 Language](https://www.vala.dev). They are based on the current ABI stable
-version of SDL3. Support for the rest of SDL libraries (SDL3_image, SDL_mixer)
+version of SDL3. 
+
+Currently there are vapis for:
+
+* SDL3
+* SDL3 Image
+
+Support for the rest of SDL libraries (SDL_mixer, SDL_ttf, etc.)
 is planned as soon as these APIs go ABI stable.
 
 If you spot any bug, any missing functionality, or any regression, you are more
@@ -83,6 +90,33 @@ executable(
         dependency('glib-2.0'),
         dependency('gobject-2.0'),
         dependency('sdl3'),
+    ],
+)
+```
+
+### SDL3 Image
+
+Similar to SDL3, it assume you have installed it in your system, or gave the DLL/SO files available.
+
+The current SDL# Image verison supported is 3.2.0
+
+The package name is sdl3-image. It has a necessary dependency to sdl3:
+
+Example command line:
+
+`valac --vapidir ./my-vapis-dir/ --pkg sdl3 --pkg sdl3-image my_sdl3_program.vala`
+
+Example in Meson:
+
+```
+executable(
+    'my-sdl3-program',
+    'MySDLProgram.vala',
+    dependencies: [
+        dependency('glib-2.0'),
+        dependency('gobject-2.0'),
+        dependency('sdl3'),
+        dependency('sdl3-image'),
     ],
 )
 ```

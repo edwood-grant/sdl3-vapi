@@ -1,4 +1,4 @@
-valadoc = find_program ('valadoc', required: false)
+valadoc = find_program('valadoc', required: false)
 if valadoc.found()
     doc_name = meson.project_name()
 
@@ -17,7 +17,7 @@ if valadoc.found()
         '--vapidir', vapi_dir,
     ]
 
-    docsdir = join_paths (get_option ('datadir'), 'devhelp','books')
+    docsdir = join_paths(get_option('datadir'), 'devhelp', 'books')
     custom_target(
         doc_name + '-valadoc',
         input: vapi_dir + '/sdl3.vapi',
@@ -31,8 +31,8 @@ if valadoc.found()
             docs_common_valadoc_deps,
             '@INPUT@',
         ],
-        install : true,
-        install_dir : docsdir,
+        install: true,
+        install_dir: docsdir,
         build_by_default: true,
     )
 endif

@@ -1,2 +1,3 @@
 build
-data
+builddir
+examples/data

@@ -467,6 +467,10 @@ namespace SDL3.Hints {
     [CCode (cname = "SDL_HINT_JOYSTICK_GAMEINPUT")]
     public const string JOYSTICK_GAMEINPUT;
 
+    [Version (since = "3.2.5")]
+    [CCode (cname = "SDL_HINT_JOYSTICK_HAPTIC_AXES")]
+    public const string SDL_HINT_JOYSTICK_HAPTIC_AXES;
+
     [CCode (cname = "SDL_HINT_JOYSTICK_HIDAPI")]
     public const string JOYSTICK_HIDAPI;
 
@@ -2558,6 +2562,7 @@ namespace SDL3.Pixels {
         P010,
         EXTERNAL_OES,
         MJPG;
+
         [CCode (cname = "SDL_PIXELFORMAT_RGBA32")]
         public const PixelFormat RGBA32;
 
@@ -3026,6 +3031,22 @@ namespace SDL3.Surface {
 
     [CCode (cname = "SDL_GetSurfaceProperties")]
     public static Properties.PropertiesID get_surface_properties (Surface surface);
+
+    [CCode (cname = "SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT")]
+    public const string PROP_SURFACE_SDR_WHITE_POINT_FLOAT;
+
+    [CCode (cname = "SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT")]
+    public const string PROP_SURFACE_HDR_HEADROOM_FLOAT;
+
+    [CCode (cname = "SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING")]
+    public const string PROP_SURFACE_TONEMAP_OPERATOR_STRING;
+
+    [CCode (cname = "SDL_PROP_SURFACE_HOTSPOT_X_NUMBER")]
+    public const string PROP_SURFACE_HOTSPOT_X_NUMBER;
+
+    [CCode (cname = "SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER")]
+    public const string PROP_SURFACE_HOTSPOT_Y_NUMBER;
+
 
     [CCode (cname = "SDL_LoadBMP")]
     public static Surface ? load_bmp (string file);

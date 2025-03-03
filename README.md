@@ -69,7 +69,8 @@ DLL or SO files available for your project. Releases are available
 [here](https://github.com/libsdl-org/SDL/releases/). You may also want to
 compile SDL3 yourself. Don't forget to get a 3.2.x release.
 
-SDL3 is ABI stable as of now, so any SDL3 release above 3.2.4 should work ok.
+SDL3 is ABI stable as of now, so any SDL3 release above 3.2.0 should work ok
+(save some missing potential APIs.)
 
 To include it in your project, you only need to copy/add the vapi file
 (./vapi/sdl3.vapi) in your vapi directories and add the --vapidir and -pgk

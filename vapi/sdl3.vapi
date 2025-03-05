@@ -78,22 +78,20 @@ namespace SDL3.Main {
      *  * SDL3 Reference: [[https://wiki.libsdl.org/SDL3/SDL_EnterAppMainCallbacks]]
      *
      */
-#if POSIX
+#if SDL_USE_PTR_ARRAY
+    [CCode (cname = "SDL_EnterAppMainCallbacks")]
+    public static int enter_app_main_callbacks ([CCode (array_length_pos = 0.9)] string[] args,
+        [CCode (delegate_target = false)] Init.AppInitFuncGLib appinit,
+        [CCode (delegate_target = false)] Init.AppIterateFuncGLib appiter,
+        [CCode (delegate_target = false)] Init.AppEventFuncGLib appevent,
+        [CCode (delegate_target = false)] Init.AppQuitFuncGLib appquit);
+#else
     [CCode (cname = "SDL_EnterAppMainCallbacks")]
     public static int enter_app_main_callbacks ([CCode (array_length_pos = 0.9)] string[] args,
         [CCode (delegate_target = false)] Init.AppInitFuncPosix appinit,
         [CCode (delegate_target = false)] Init.AppIterateFuncPosix appiter,
         [CCode (delegate_target = false)] Init.AppEventFuncPosix appevent,
         [CCode (delegate_target = false)] Init.AppQuitFuncPosix appquit);
-
-#else
-    [CCode (cname = "SDL_EnterAppMainCallbacks")]
-    public static int enter_app_main_callbacks ([CCode (array_length_pos = 0.9)] string[] args,
-        [CCode (delegate_target = false)] Init.AppInitFunc appinit,
-        [CCode (delegate_target = false)] Init.AppIterateFunc appiter,
-        [CCode (delegate_target = false)] Init.AppEventFunc appevent,
-        [CCode (delegate_target = false)] Init.AppQuitFunc appquit);
-
 #endif
 
     /**
@@ -179,7 +177,19 @@ namespace SDL3.Init {
     [CCode (cname = "SDL_WasInit")]
     public static InitFlags was_init (InitFlags flags);
 
-#if POSIX
+#if SDL_USE_PTR_ARRAY
+    [CCode (cname = "SDL_AppEvent_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppEventFuncGLib (GLib.PtrArray app_state, Events.Event current_event);
+
+    [CCode (cname = "SDL_AppInit_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppInitFuncGLib (out GLib.PtrArray app_state, [CCode (array_length_pos = 1.9)] string[] args);
+
+    [CCode (cname = "SDL_AppIterate_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppIterateFuncGLib (GLib.PtrArray app_state);
+
+    [CCode (cname = "SDL_AppQuit_func", has_target = true, instance_pos = 0)]
+    public delegate void AppQuitFuncGLib (GLib.PtrArray app_state, AppResult result);
+#else
     [CCode (cname = "SDL_AppEvent_func", has_target = false, has_type_id = false)]
     public delegate AppResult AppEventFuncPosix (void* app_state, Events.Event current_event);
 
@@ -191,20 +201,6 @@ namespace SDL3.Init {
 
     [CCode (cname = "SDL_AppQuit_func", has_target = true, instance_pos = 0)]
     public delegate void AppQuitFuncPosix (void* app_state, AppResult result);
-
-#else
-    [CCode (cname = "SDL_AppEvent_func", has_target = false, has_type_id = false)]
-    public delegate AppResult AppEventFunc (GLib.PtrArray app_state, Events.Event current_event);
-
-    [CCode (cname = "SDL_AppInit_func", has_target = false, has_type_id = false)]
-    public delegate AppResult AppInitFunc (out GLib.PtrArray app_state, [CCode (array_length_pos = 1.9)] string[] args);
-
-    [CCode (cname = "SDL_AppIterate_func", has_target = false, has_type_id = false)]
-    public delegate AppResult AppIterateFunc (GLib.PtrArray app_state);
-
-    [CCode (cname = "SDL_AppQuit_func", has_target = true, instance_pos = 0)]
-    public delegate void AppQuitFunc (GLib.PtrArray app_state, AppResult result);
-
 #endif
 
     [Flags, CCode (cname = "int", cprefix = "SDL_INIT_", has_type_id = false)]

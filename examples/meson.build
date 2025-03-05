@@ -6,8 +6,8 @@ sdl3_image_dep = dependency('sdl3-image')
 # SDL
 subdir('Main/01-Simple')
 subdir('Main/02-MainHandled')
-subdir('Main/03-MainHandledCallbacks')
-subdir('Main/04-MainHandledCallbacksPosix')
+subdir('Main/03-MainHandledCallbacksPosix')
+subdir('Main/04-MainHandledCallbacksGLib')
 subdir('Main/05-CCodeCallbacks')
 
 subdir('Renderer/01-Clear')

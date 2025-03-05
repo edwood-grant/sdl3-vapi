@@ -22,15 +22,15 @@ SDL3.Render.Renderer? renderer = null;
 public SDL3.Init.AppResult app_init (void* * appstate, [CCode (array_length_pos = 1.0)] string[] argv) {
     SDL3.Main.set_main_ready ();
 
-    SDL3.Init.set_app_metadata ("SDL3 Vala Main 04 - CCode Callbacks", "1.0",
-                                "dev.vala.example.main-04-ccode-callbacks");
+    SDL3.Init.set_app_metadata ("SDL3 Vala Main 05 - CCode Callbacks", "1.0",
+                                "dev.vala.example.main-05-ccode-callbacks");
     bool success = Init.init (Init.InitFlags.VIDEO);
     if (!success) {
         SDL3.Log.log ("Couldn't initialize SDL: %s", SDL3.Error.get_error ());
         return SDL3.Init.AppResult.FAILURE;
     }
 
-    success = SDL3.Render.create_window_and_renderer ("SDL3 Vala Main 04 - CCode Callbacks",
+    success = SDL3.Render.create_window_and_renderer ("SDL3 Vala Main 05 - CCode Callbacks",
                                                       640, 480, 0,
                                                       out window, out renderer);
     if (!success) {

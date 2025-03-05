@@ -78,12 +78,23 @@ namespace SDL3.Main {
      *  * SDL3 Reference: [[https://wiki.libsdl.org/SDL3/SDL_EnterAppMainCallbacks]]
      *
      */
+#if POSIX
+    [CCode (cname = "SDL_EnterAppMainCallbacks")]
+    public static int enter_app_main_callbacks ([CCode (array_length_pos = 0.9)] string[] args,
+        [CCode (delegate_target = false)] Init.AppInitFuncPosix appinit,
+        [CCode (delegate_target = false)] Init.AppIterateFuncPosix appiter,
+        [CCode (delegate_target = false)] Init.AppEventFuncPosix appevent,
+        [CCode (delegate_target = false)] Init.AppQuitFuncPosix appquit);
+
+#else
     [CCode (cname = "SDL_EnterAppMainCallbacks")]
     public static int enter_app_main_callbacks ([CCode (array_length_pos = 0.9)] string[] args,
         [CCode (delegate_target = false)] Init.AppInitFunc appinit,
         [CCode (delegate_target = false)] Init.AppIterateFunc appiter,
         [CCode (delegate_target = false)] Init.AppEventFunc appevent,
         [CCode (delegate_target = false)] Init.AppQuitFunc appquit);
+
+#endif
 
     /**
      * Callback from the application to let the suspend continue. Works on Xbox GDK only.
@@ -168,6 +179,20 @@ namespace SDL3.Init {
     [CCode (cname = "SDL_WasInit")]
     public static InitFlags was_init (InitFlags flags);
 
+#if POSIX
+    [CCode (cname = "SDL_AppEvent_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppEventFuncPosix (void* app_state, Events.Event current_event);
+
+    [CCode (cname = "SDL_AppInit_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppInitFuncPosix (out void* app_state, [CCode (array_length_pos = 1.9)] string[] args);
+
+    [CCode (cname = "SDL_AppIterate_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppIterateFuncPosix (void* app_state);
+
+    [CCode (cname = "SDL_AppQuit_func", has_target = true, instance_pos = 0)]
+    public delegate void AppQuitFuncPosix (void* app_state, AppResult result);
+
+#else
     [CCode (cname = "SDL_AppEvent_func", has_target = false, has_type_id = false)]
     public delegate AppResult AppEventFunc (GLib.PtrArray app_state, Events.Event current_event);
 
@@ -179,6 +204,8 @@ namespace SDL3.Init {
 
     [CCode (cname = "SDL_AppQuit_func", has_target = true, instance_pos = 0)]
     public delegate void AppQuitFunc (GLib.PtrArray app_state, AppResult result);
+
+#endif
 
     [Flags, CCode (cname = "int", cprefix = "SDL_INIT_", has_type_id = false)]
     public enum InitFlags {
@@ -3093,7 +3120,6 @@ namespace SDL3.Pixels {
 
         [CCode (cname = "SDL_PIXELFORMAT_XBGR32")]
         public const PixelFormat XBGR32;
-
     } // PixelFormat
 
     [CCode (cname = "SDL_PixelType", cprefix = "SDL_PIXELTYPE_", has_type_id = false)]
@@ -4601,13 +4627,13 @@ namespace SDL3.Events {
         // This implementes aliases from the enum
         [CCode (cname = "SDL_EVENT_WINDOW_FIRST")]
         public const EventType WINDOW_FIRST;
-        
+
         [CCode (cname = "SDL_EVENT_WINDOW_LAST")]
         public const EventType WINDOW_LAST;
-        
+
         [CCode (cname = "SDL_EVENT_DISPLAY_FIRST")]
         public const EventType DISPLAY_FIRST;
-        
+
         [CCode (cname = "SDL_EVENT_DISPLAY_LAST")]
         public const EventType DISPLAY_LAST;
     } // EventType

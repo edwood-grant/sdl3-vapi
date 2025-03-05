@@ -42,8 +42,8 @@ public int main_func (string[] args) {
         SDL3.Render.render_clear (renderer);
         {
             SDL3.Render.set_render_draw_color (renderer, 255, 255, 255, SDL3.Pixels.ALPHA_OPAQUE);
-            SDL3.Render.render_debug_text (renderer, 135, 275, args[0]);
-            SDL3.Render.render_debug_text (renderer, 135, 300, "This uses the SDL_MAIN_HANDLED define"
+            SDL3.Render.render_debug_text (renderer, 50, 240, args[0]);
+            SDL3.Render.render_debug_text (renderer, 50, 250, "This uses the SDL_MAIN_HANDLED define"
                                            + " in meson and SDL3.Main.run_app");
         }
         SDL3.Render.render_present (renderer);

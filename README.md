@@ -52,8 +52,8 @@ this API is not 'Vala-friendly'. Some basics have been introduced:
 1. All syntax is adapted to Vala style syntax. Some macros will change syntax
    because they become functions adapting it to vala.
 3. Each header is contained within its own namespace. For example: `SDL_init.h`
-   is located in the `SDL.Init` namespace. * The only current exceptions are
-       `SDL_keycode.h` and `SDL_scancode.h`, which are located within the
+   is located in the `SDL.Init` namespace.
+       * The only current exceptions are `SDL_keycode.h` and `SDL_scancode.h`, which are located within the
          `SDL.Keyboard` namespace.
 2. Whenever possible, some defines lists become enums, most enums have the
    `SDL_` part remoed to make it more compact.

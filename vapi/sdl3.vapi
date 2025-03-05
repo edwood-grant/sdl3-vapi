@@ -73,7 +73,7 @@ namespace SDL3 {}
 [CCode (cheader_filename = "SDL3/SDL_main.h")]
 namespace SDL3.Main {
     /**
-     * Defines custom entry point callbacks for SDL's use in //SDL_MAIN_HANDLED.//
+     * Defines custom entry point callbacks for SDL's use with //SDL_MAIN_HANDLED.//
      *
      *  * SDL3 Reference: [[https://wiki.libsdl.org/SDL3/SDL_EnterAppMainCallbacks]]
      *
@@ -168,17 +168,17 @@ namespace SDL3.Init {
     [CCode (cname = "SDL_WasInit")]
     public static InitFlags was_init (InitFlags flags);
 
-    [CCode (cname = "SDL_AppEvent_func", has_target = true, instance_pos = 0)]
-    public delegate AppResult AppEventFunc (Events.Event event);
+    [CCode (cname = "SDL_AppEvent_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppEventFunc (GLib.PtrArray app_state, Events.Event current_event);
 
-    [CCode (cname = "SDL_AppInit_func", has_target = true, instance_pos = 0)]
-    public delegate AppResult AppInitFunc ([CCode (array_length_pos = 0.9)] string[] args);
+    [CCode (cname = "SDL_AppInit_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppInitFunc (out GLib.PtrArray app_state, [CCode (array_length_pos = 1.9)] string[] args);
 
-    [CCode (cname = "SDL_AppIterate_func", has_target = true)]
-    public delegate AppResult AppIterateFunc ();
+    [CCode (cname = "SDL_AppIterate_func", has_target = false, has_type_id = false)]
+    public delegate AppResult AppIterateFunc (GLib.PtrArray app_state);
 
     [CCode (cname = "SDL_AppQuit_func", has_target = true, instance_pos = 0)]
-    public delegate void AppQuitFunc (AppResult result);
+    public delegate void AppQuitFunc (GLib.PtrArray app_state, AppResult result);
 
     [Flags, CCode (cname = "int", cprefix = "SDL_INIT_", has_type_id = false)]
     public enum InitFlags {

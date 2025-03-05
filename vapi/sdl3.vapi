@@ -78,7 +78,7 @@ namespace SDL3.Main {
      *  * SDL3 Reference: [[https://wiki.libsdl.org/SDL3/SDL_EnterAppMainCallbacks]]
      *
      */
-#if SDL_USE_PTR_ARRAY
+#if SDL_MAIN_USE_PTR_ARRAY
     [CCode (cname = "SDL_EnterAppMainCallbacks")]
     public static int enter_app_main_callbacks ([CCode (array_length_pos = 0.9)] string[] args,
         [CCode (delegate_target = false)] Init.AppInitFuncGLib appinit,
@@ -177,7 +177,7 @@ namespace SDL3.Init {
     [CCode (cname = "SDL_WasInit")]
     public static InitFlags was_init (InitFlags flags);
 
-#if SDL_USE_PTR_ARRAY
+#if SDL_MAIN_USE_PTR_ARRAY
     [CCode (cname = "SDL_AppEvent_func", has_target = false, has_type_id = false)]
     public delegate AppResult AppEventFuncGLib (GLib.PtrArray app_state, Events.Event current_event);
 

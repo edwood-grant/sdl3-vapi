@@ -80,6 +80,7 @@ static SDL3.Init.AppResult iterate_function (GLib.PtrArray app_state) {
         SDL3.Render.set_render_draw_color (renderer, 255, 255, 255, SDL3.Pixels.ALPHA_OPAQUE);
         SDL3.Render.render_debug_text (renderer, 25, 240, "This uses the SDL_MAIN_HANDLED define in meson,");
         SDL3.Render.render_debug_text (renderer, 25, 255, "enter_app_main_callbacks and set_main_ready");
+        SDL3.Render.render_debug_text (renderer, 25, 285, "This also uses the SDL_MAIN_USE_PTR_ARRAY define in meson.");
     }
     SDL3.Render.render_present (renderer);
 

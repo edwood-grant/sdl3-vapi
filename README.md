@@ -10,7 +10,7 @@ Currently there are vapis for:
 * SDL3
 * SDL3 Image
 
-Support for the rest of SDL libraries (SDL_mixer, SDL_ttf, etc.)
+Support for the rest of SDL3 libraries (SDL3_mixer, SDL3_ttf, etc.)
 is planned as soon as these APIs go ABI stable.
 
 If you spot any bug, any missing functionality, or any regression, you are more
@@ -26,14 +26,23 @@ library designed to provide low level access to audio, keyboard, mouse,
 joystick, and graphics hardware via OpenGL/Direct3D/Metal/Vulkan.
 
 It is used by video playback software, emulators, and popular games including
-Valve's award-winning catalog and many Humble Bundle games. SDL officially
+Valve's award-winning catalog and many Humble Bundle games. SDL3 officially
 supports Windows, macOS, Linux, iOS, and Android, and several other platforms.
-SDL is written in C.
+SDL3 is written in C.
 
 ### What about SDL2?
 
-If you are looking for SDL2, Vala has SDL2 built-in by default already via a
-[package](https://valadoc.org/sdl2/index.htm) and SDL namespace.
+If you are looking for SDL2, Vala has SDL2 bindings default already via a
+[package](https://valadoc.org/sdl2/index.htm).
+
+Suffice to say, here's a warning:
+
+**DO NOT MIX THE SDL2 AND SDL3 vapis.**
+
+Both SDL2 and SDL3 libraries are NOT compatible and use different structures
+(the SDL2 vapi is more OOP vala-ified, whereas this vapi is more static function
+based). Furthermore, they use the same SDL namespace. So adding the SDL namespace might
+generate unwanted collision and odd behaviour.
 
 ## How is this vapi written?
 
@@ -43,13 +52,14 @@ this API is not 'Vala-friendly'. Some basics have been introduced:
 1. All syntax is adapted to Vala style syntax. Some macros will change syntax
    because they become functions adapting it to vala.
 3. Each header is contained within its own namespace. For example: `SDL_init.h`
-   is located in the `SDL3.Init` namespace.
-       * The only current exceptions are `SDL_keycode.h` and `SDL_scancode.h`,
-         which are located within the `SDL3.Keyboard` namespace.
+   is located in the `SDL.Init` namespace. * The only current exceptions are
+       `SDL_keycode.h` and `SDL_scancode.h`, which are located within the
+         `SDL.Keyboard` namespace.
 2. Whenever possible, some defines lists become enums, most enums have the
-   `SDL_` part stripper to make it more compact.
-3. Most delegate have their *userdata pointer stored as the self instance via
-   `has_target` and `instance_pos`
+   `SDL_` part remoed to make it more compact.
+3. Most delegates  (but not all) have their *userdata pointer stored as the self
+   instance via `has_target` and `instance_pos` (this might change if it proves
+   to be a problem)
 
 Apart from these changes, all the API should be as similar to the C API as
 possible. The recommended approach is to eventually create wrappers and

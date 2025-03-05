@@ -1,15 +1,15 @@
-using SDL3;
-using SDL3.Image;
+using SDL;
+using SDL.Image;
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
 const float SCALE = 4.0f;
 
-SDL3.Video.Window? window = null;
-SDL3.Render.Renderer? renderer = null;
+SDL.Video.Window? window = null;
+SDL.Render.Renderer? renderer = null;
 
-SDL3.Render.Texture? texture = null;
-SDL3.Rect.FRect dst_rect;
+SDL.Render.Texture? texture = null;
+SDL.Rect.FRect dst_rect;
 
 // This is an icon with values stored in uchar
 // You can load this directly from an IOStream to make it work via SDL Image
@@ -66,60 +66,60 @@ const uchar[] ICON_BMP = {
 };
 
 public int main (string[] args) {
-    SDL3.Init.set_app_metadata ("SDL3 Image Vala 03 - Load Image IO", "1.0",
-                                "dev.vala.example.sdl-image-03-load-image-io");
+    SDL.Init.set_app_metadata ("SDL3 Image Vala 03 - Load Image IO", "1.0",
+                               "dev.vala.example.sdl-image-03-load-image-io");
 
     bool success = Init.init (Init.InitFlags.VIDEO);
     if (!success) {
-        SDL3.Log.log ("Couldn't initialize SDL: %s", SDL3.Error.get_error ());
+        SDL.Log.log ("Couldn't initialize SDL: %s", SDL.Error.get_error ());
         return 1;
     }
-    success = SDL3.Render.create_window_and_renderer ("SDL3 Image Vala 03 - Load Image IO",
-                                                      WINDOW_WIDTH, WINDOW_HEIGHT, 0,
-                                                      out window, out renderer);
+    success = SDL.Render.create_window_and_renderer ("SDL3 Image Vala 03 - Load Image IO",
+                                                     WINDOW_WIDTH, WINDOW_HEIGHT, 0,
+                                                     out window, out renderer);
     if (!success) {
-        SDL3.Log.log ("Couldn't create window/renderer: %s", SDL3.Error.get_error ());
+        SDL.Log.log ("Couldn't create window/renderer: %s", SDL.Error.get_error ());
         return 1;
     }
 
     // Load the icon
-    texture = SDL3.Image.load_texture_io (renderer,
-                                          SDL3.IOStream.io_from_const_mem (ICON_BMP, (size_t) ICON_BMP.length),
-                                          true);
+    texture = SDL.Image.load_texture_io (renderer,
+                                         SDL.IOStream.io_from_const_mem (ICON_BMP, (size_t) ICON_BMP.length),
+                                         true);
     if (texture == null) {
-        SDL3.Log.log ("Couldn't load icon: %s\n", SDL3.Error.get_error ());
+        SDL.Log.log ("Couldn't load icon: %s\n", SDL.Error.get_error ());
         return 2;
     }
 
     bool is_running = true;
-    SDL3.Events.Event ev;
+    SDL.Events.Event ev;
     while (is_running) {
-        while (SDL3.Events.poll_event (out ev)) {
-            if (ev.type == SDL3.Events.EventType.QUIT) {
+        while (SDL.Events.poll_event (out ev)) {
+            if (ev.type == SDL.Events.EventType.QUIT) {
                 is_running = false;
             }
         }
 
         // Center the icon and scale it up
-        SDL3.Render.set_render_scale (renderer, SCALE, SCALE);
+        SDL.Render.set_render_scale (renderer, SCALE, SCALE);
         dst_rect.w = texture.w;
         dst_rect.h = texture.h;
         dst_rect.x = ((WINDOW_WIDTH / SCALE) - dst_rect.w) / 2;
         dst_rect.y = ((WINDOW_HEIGHT / SCALE) - dst_rect.h) / 2;
 
-        SDL3.Render.set_render_draw_color (renderer, 0, 0, 0, SDL3.Pixels.ALPHA_OPAQUE);
-        SDL3.Render.render_clear (renderer);
+        SDL.Render.set_render_draw_color (renderer, 0, 0, 0, SDL.Pixels.ALPHA_OPAQUE);
+        SDL.Render.render_clear (renderer);
         {
             // Draw the icon
-            SDL3.Render.render_texture (renderer, texture, null, dst_rect);
+            SDL.Render.render_texture (renderer, texture, null, dst_rect);
         }
-        SDL3.Render.render_present (renderer);
+        SDL.Render.render_present (renderer);
     }
 
-    SDL3.Render.destroy_texture (texture);
-    SDL3.Render.destroy_renderer (renderer);
-    SDL3.Video.destroy_window (window);
-    SDL3.Init.quit ();
+    SDL.Render.destroy_texture (texture);
+    SDL.Render.destroy_renderer (renderer);
+    SDL.Video.destroy_window (window);
+    SDL.Init.quit ();
 
     return 0;
 }

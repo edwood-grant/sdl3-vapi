@@ -1,4 +1,4 @@
-using SDL3;
+using SDL;
 using Snake.Data;
 
 namespace Snake {
@@ -34,7 +34,7 @@ namespace Snake {
         private bool init () {
             bool success = Init.init (Init.InitFlags.VIDEO);
             if (!success) {
-                message ("Couldn't initialize SDL: %s", SDL3.Error.get_error ());
+                message ("Couldn't initialize SDL: %s", SDL.Error.get_error ());
                 return false;
             }
 
@@ -45,7 +45,7 @@ namespace Snake {
                                                          out _window,
                                                          out _renderer);
             if (!success) {
-                message ("Couldn't create window/renderer: %s", SDL3.Error.get_error ());
+                message ("Couldn't create window/renderer: %s", SDL.Error.get_error ());
                 return false;
             }
 
@@ -95,7 +95,7 @@ namespace Snake {
         }
 
         private void iterate () {
-            var now = SDL3.Timer.get_ticks ();
+            var now = SDL.Timer.get_ticks ();
 
             // run game logic if we're at or past the time to run it.
             // if we're _really_ behind the time to run it, run it
@@ -108,8 +108,8 @@ namespace Snake {
             var r = Rect.FRect ();
             r.w = r.h = SNAKE_BLOCK_SIZE_IN_PIXELS;
 
-            SDL3.Render.set_render_draw_color (_renderer, 0, 0, 0, SDL3.Pixels.ALPHA_OPAQUE);
-            SDL3.Render.render_clear (_renderer);
+            SDL.Render.set_render_draw_color (_renderer, 0, 0, 0, SDL.Pixels.ALPHA_OPAQUE);
+            SDL.Render.render_clear (_renderer);
             {
                 for (int x = 0; x < SNAKE_GAME_WIDTH; x++) {
                     for (int y = 0; y < SNAKE_GAME_HEIGHT; y++) {
@@ -120,16 +120,16 @@ namespace Snake {
                         set_rect_xy (ref r, x, y);
 
                         if (ct == SnakeCell.FOOD) {
-                            SDL3.Render.set_render_draw_color (_renderer, 80, 80, 255, SDL3.Pixels.ALPHA_OPAQUE);
+                            SDL.Render.set_render_draw_color (_renderer, 80, 80, 255, SDL.Pixels.ALPHA_OPAQUE);
                         } else {
                             // Body
-                            SDL3.Render.set_render_draw_color (_renderer, 0, 128, 0, SDL3.Pixels.ALPHA_OPAQUE);
+                            SDL.Render.set_render_draw_color (_renderer, 0, 128, 0, SDL.Pixels.ALPHA_OPAQUE);
                         }
-                        SDL3.Render.render_fill_rect (_renderer, r);
+                        SDL.Render.render_fill_rect (_renderer, r);
                     }
                 }
             }
-            SDL3.Render.render_present (_renderer);
+            SDL.Render.render_present (_renderer);
         }
 
         private void set_rect_xy (ref Rect.FRect r, int x, int y) {

@@ -54,7 +54,7 @@
  *
  */
 [CCode (cheader_filename = "SDL3/SDL.h")]
-namespace SDL3 {}
+namespace SDL {}
 
 ///
 /// BASICS
@@ -67,15 +67,15 @@ namespace SDL3 {}
  * In Vala, this is done with custom entry point to handle manual main
  * initialization and add custom callbacks.
  *
- *  * SDL3 Reference: [[https://wiki.libsdl.org/SDL3/CategoryMain]]
+ *  * [[https://wiki.libsdl.org/SDL3/CategoryMain]]
  *
  */
 [CCode (cheader_filename = "SDL3/SDL_main.h")]
-namespace SDL3.Main {
+namespace SDL.Main {
     /**
      * Defines custom entry point callbacks for SDL's use with //SDL_MAIN_HANDLED.//
      *
-     *  * SDL3 Reference: [[https://wiki.libsdl.org/SDL3/SDL_EnterAppMainCallbacks]]
+     *  * [[https://wiki.libsdl.org/SDL3/SDL_EnterAppMainCallbacks]]
      *
      */
 #if SDL_MAIN_USE_PTR_ARRAY
@@ -97,7 +97,7 @@ namespace SDL3.Main {
     /**
      * Callback from the application to let the suspend continue. Works on Xbox GDK only.
      *
-     *  * SDL3 Reference: [[https://wiki.libsdl.org/SDL3/SDL_GDKSuspendComplete]]
+     *  * [[https://wiki.libsdl.org/SDL3/SDL_GDKSuspendComplete]]
      *
      */
     [CCode (cname = "SDL_GDKSuspendComplete")]
@@ -119,13 +119,13 @@ namespace SDL3.Main {
 
     [CCode (cname = "SDL_main_func", has_target = false)]
     public delegate int MainFunc ([CCode (array_length_pos = 0.9)] string[] args);
-} // SDL3.Main
+} // SDL.Main
 
 ///
 /// Initialization and Shutdown (SDL_init.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_init.h")]
-namespace SDL3.Init {
+namespace SDL.Init {
     [CCode (cname = "SDL_GetAppMetadataProperty")]
     public static unowned string ? get_app_metadata_property (string name);
 
@@ -224,13 +224,13 @@ namespace SDL3.Init {
         SUCCESS,
         FAILURE
     } // AppResult
-} // SDL3.Init
+} // SDL.Init
 
 ///
 /// Configuration Variables (SDL_hints.c)
 ///
 [CCode (cheader_filename = "SDL3/SDL_hints.h")]
-namespace SDL3.Hints {
+namespace SDL.Hints {
     [CCode (cname = "SDL_AddHintCallback")]
     public static bool add_hint_callback (string name, HintCallback callback);
 
@@ -976,13 +976,13 @@ namespace SDL3.Hints {
 
     [CCode (cname = "SDL_HINT_XINPUT_ENABLED")]
     public const string XINPUT_ENABLED;
-} // SDL3.Hints
+} // SDL.Hints
 
 ///
 /// Object Properties (SDL_properties.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_properties.h")]
-namespace SDL3.Properties {
+namespace SDL.Properties {
     [CCode (cname = "SDL_ClearProperty")]
     public bool clear_property (PropertiesID props, string name);
 
@@ -1065,13 +1065,13 @@ namespace SDL3.Properties {
         FLOAT,
         BOOLEAN
     } // PropertyType
-} // SDL3.Properties
+} // SDL.Properties
 
 ///
 /// Error Handling (SDL_error.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_error.h")]
-namespace SDL3.Error {
+namespace SDL.Error {
     [CCode (cname = "SDL_ClearError")]
     public static bool clear_error ();
 
@@ -1089,13 +1089,13 @@ namespace SDL3.Error {
 
     [CCode (cname = "SDL_Unsupported")]
     public static bool unsupported ();
-} // SDL3.Error
+} // SDL.Error
 
 ///
 /// Log Handling (SDL_log.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_log.h")]
-namespace SDL3.Log {
+namespace SDL.Log {
     [CCode (cname = "SDL_GetDefaultLogOutputFunction")]
     public static LogOutputFunction get_default_log_ouput_function ();
 
@@ -1193,13 +1193,13 @@ namespace SDL3.Log {
         CRITICAL,
         COUNT
     } // LogPriority
-} // SDL3.Log
+} // SDL.Log
 
 ///
 /// Assertions (SDL_assert.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_assert.h")]
-namespace SDL3.Assert {
+namespace SDL.Assert {
     [CCode (cname = "SDL_GetAssertionHandler")]
     public static AssertionHandler get_assertion_handler ();
 
@@ -1255,13 +1255,13 @@ namespace SDL3.Assert {
 
     [CCode (cname = "SDL_assert_release")]
     public static bool assert_release (bool x);
-} // SDL3.Assert
+} // SDL.Assert
 
 ///
 /// Querying SDL Version (SDL_version.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_version.h")]
-namespace SDL3.Version {
+namespace SDL.Version {
     [CCode (cname = "SDL_GetRevision")]
     public static unowned string get_revision ();
 
@@ -1294,16 +1294,16 @@ namespace SDL3.Version {
 
     [CCode (cname = "SDL_VERSION_ATLEAST")]
     public static bool sdl_version_at_least (int major, int minor, int micro);
-} // SDL3.Version
+} // SDL.Version
 
 ///
 /// Querying SDL Version (SDL_revision.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_revision.h")]
-namespace SDL3.Revision {
+namespace SDL.Revision {
     [CCode (cname = "SDL_REVISION")]
     public const string REVISION;
-} // SDL3.Revision
+} // SDL.Revision
 
 ///
 /// VIDEO
@@ -1313,7 +1313,7 @@ namespace SDL3.Revision {
 /// Display and Window Management (SDL_video.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_video.h")]
-namespace SDL3.Video {
+namespace SDL.Video {
     [CCode (cname = "SDL_CreatePopupWindow")]
     public static Window ? create_popup_window (Window parent,
         int offset_x,
@@ -1767,7 +1767,7 @@ namespace SDL3.Video {
     [CCode (cname = "SDL_DisplayMode", has_type_id = false)]
     public struct DisplayMode {
         public DisplayID display_id;
-        public SDL3.Pixels.PixelFormat format;
+        public Pixels.PixelFormat format;
         public int w;
         public int h;
         public float pixel_density;
@@ -2104,13 +2104,13 @@ namespace SDL3.Video {
         [CCode (cname = "SDL_PROP_WINDOW_X11_WINDOW_NUMBER")]
         public const string X11_WINDOW_NUMBER;
     } // SDLPropWindow
-} // SDL3.Video
+} // SDL.Video
 
 ///
 /// 2D Accelerated Rendering (SDL_render.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_render.h")]
-namespace SDL3.Render {
+namespace SDL.Render {
     [CCode (cname = "SDL_AddVulkanRenderSemaphores")]
     public static bool add_vulkan_render_semaphores (Renderer renderer,
         uint32 wait_stage_mask,
@@ -2781,12 +2781,12 @@ namespace SDL3.Render {
         [CCode (cname = "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER")]
         public const string OPENGLES2_TEXTURE_TARGET_NUMBER;
     } // SDLPropTexture
-} // SDL3.Render
+} // SDL.Render
 
 ///
 /// Pixel Formats and Conversion Routines (SDL_pixels.h)
 ///
-namespace SDL3.Pixels {
+namespace SDL.Pixels {
     [CCode (cname = "SDL_CreatePalette")]
     public static Palette ? create_palette (int ncolors);
 
@@ -3273,13 +3273,13 @@ namespace SDL3.Pixels {
 
     [CCode (cname = "PIXELTYPE")]
     public static PixelType pixel_type (PixelFormat format);
-} // SDL3.Pixels
+} // SDL.Pixels
 
 ///
 /// Blend modes (SDL_blendmode.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_blendmode.h")]
-namespace SDL3.BlendModes {
+namespace SDL.BlendModes {
     [CCode (cname = "SDL_ComposeCustomBlendMode")]
     public static BlendMode compose_custom_blend_mode (BlendFactor src_color_factor,
         BlendFactor dst_color_factor,
@@ -3322,13 +3322,13 @@ namespace SDL3.BlendModes {
         MINIMUM,
         MAXIMUM,
     } // BlendOperation;
-} // SDL3.BlendModes
+} // SDL.BlendModes
 
 ///
 /// Rectangle Functions (SDL_rect.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_rect.h")]
-namespace SDL3.Rect {
+namespace SDL.Rect {
     [CCode (cname = "SDL_GetRectAndLineIntersection")]
     public static bool get_rect_and_line_intersection (Rect rect, int x1, int y1, int x2, int y2);
 
@@ -3410,13 +3410,13 @@ namespace SDL3.Rect {
         public int w;
         public int h;
     } // Rect
-} // SDL3.Rect
+} // SDL.Rect
 
 ///
 /// Surface Creation and Simple Drawing  (SDL_surface.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_surface.h")]
-namespace SDL3.Surface {
+namespace SDL.Surface {
     [CCode (cname = "SDL_AddSurfaceAlternateImage")]
     public static bool add_surface_alternate_image (Surface surface, Surface image);
 
@@ -3721,13 +3721,13 @@ namespace SDL3.Surface {
         [CCode (cname = "SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER")]
         public const string HOTSPOT_Y_NUMBER;
     } // SDLPropSurface
-} // SDL3.Surface
+} // SDL.Surface
 
 ///
 /// Clipboard Handling  (SDL_clipboard.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_clipboard.h")]
-namespace SDL3.Clipboard {
+namespace SDL.Clipboard {
     [CCode (cname = "SDL_ClearClipboardData")]
     public static bool clear_clipboard_data ();
 
@@ -3768,13 +3768,13 @@ namespace SDL3.Clipboard {
 
     [CCode (cname = "SDL_ClipboardDataCallback", has_target = true, instance_pos = 0)]
     public delegate void ClipboardDataCallback (string mime_type, size_t size);
-} // SDL3.Clipboard
+} // SDL.Clipboard
 
 ///
 /// Vulkan Support (SDL_vulkan.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_vulkan.h")]
-namespace SDL3.Vulkan {
+namespace SDL.Vulkan {
     [CCode (cname = "SDL_Vulkan_CreateSurface")]
     public static bool create_surface (Video.Window window,
         VkInstance instance,
@@ -3814,13 +3814,13 @@ namespace SDL3.Vulkan {
 
     [CCode (cname = "VkAllocationCallbacks", has_type_id = false)]
     public struct VkAllocationCallbacks {}
-} // SDL3.Vulkan
+} // SDL.Vulkan
 
 ///
 /// Metal Support (SDL_metal.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_metal.h")]
-namespace SDL3.Metal {
+namespace SDL.Metal {
     [CCode (cname = "SDL_Metal_CreateView")]
     public static MetalView create_view (Video.Window window);
 
@@ -3832,13 +3832,13 @@ namespace SDL3.Metal {
 
     [CCode (cname = "SDL_MetalView", destroy_function = "", has_type_id = false)]
     public struct MetalView {}
-} // SDL3.Metal
+} // SDL.Metal
 
 ///
 /// Camera Support (SDL_camera.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_camera.h")]
-namespace SDL3.Camera {
+namespace SDL.Camera {
     [CCode (cname = "SDL_AcquireCameraFrame")]
     public static Surface.Surface ? aquire_camera_frame (Camera camera, out uint64 timestamp_ns);
 
@@ -3906,7 +3906,7 @@ namespace SDL3.Camera {
         FRONT_FACING,
         BACK_FACING,
     } // CameraPosition
-} // SDL3.SDL3.Camera
+} // SDL.SDL3.Camera
 
 ///
 /// INPUT EVENTS
@@ -3916,7 +3916,7 @@ namespace SDL3.Camera {
 /// Event Handling (SDL_events.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_events.h")]
-namespace SDL3.Events {
+namespace SDL.Events {
     [CCode (cname = "SDL_AddEventWatch")]
     public static bool add_event_watch (EventFilter filter);
 
@@ -4633,13 +4633,13 @@ namespace SDL3.Events {
         [CCode (cname = "SDL_EVENT_DISPLAY_LAST")]
         public const EventType DISPLAY_LAST;
     } // EventType
-} // SDL3.Events
+} // SDL.Events
 
 ///
 /// Keyboard Support (SDL_keyboard.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_keyboard.h")]
-namespace SDL3.Keyboard {
+namespace SDL.Keyboard {
     [CCode (cname = "SDL_ClearComposition")]
     public static bool clear_composition (Video.Window window);
 
@@ -5321,13 +5321,13 @@ namespace SDL3.Keyboard {
         RESERVED,
         COUNT,
     } // Scancode
-} // SDL3.Keyboard
+} // SDL.Keyboard
 
 ///
 /// Mouse Support (SDL_mouse.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_mouse.h")]
-namespace SDL3.Mouse {
+namespace SDL.Mouse {
     [CCode (cname = "SDL_CaptureMouse")]
     public static bool capture_mouse (bool enabled);
 
@@ -5456,13 +5456,13 @@ namespace SDL3.Mouse {
         W_RESIZE,
         COUNT,
     } // SystemCursor
-} // SDL3.Mouse
+} // SDL.Mouse
 
 ///
 /// Joystick Support (SDL_joystick.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_joystick.h")]
-namespace SDL3.Joystick {
+namespace SDL.Joystick {
     [CCode (cname = "SDL_AttachVirtualJoystick")]
     public static JoystickID attach_virtual_joystick (VirtualJoystickDesc desc);
 
@@ -5778,13 +5778,13 @@ namespace SDL3.Joystick {
         [CCode (cname = "SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN")]
         public const string CAP_TRIGGER_RUMBLE_BOOLEAN;
     } // SDLPropJoystick
-} // SDL3.Joystick
+} // SDL.Joystick
 
 ///
 /// Gamepad Support (SDL_gamepad.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_gamepad.h")]
-namespace SDL3.Gamepad {
+namespace SDL.Gamepad {
     [CCode (cname = "SDL_AddGamepadMapping")]
     public static int add_gamepad_mapping (string mapping);
 
@@ -6145,13 +6145,13 @@ namespace SDL3.Gamepad {
         [CCode (cname = "SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN")]
         public const string CAP_TRIGGER_RUMBLE_BOOLEAN;
     } // SDLPropGamepad
-} // SDL3.Gamepad
+} // SDL.Gamepad
 
 ///
 /// Touch Support (SDL_touch.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_touch.h")]
-namespace SDL3.Touch {
+namespace SDL.Touch {
     [CCode (cname = "SDL_GetTouchDeviceName")]
     public static unowned string get_touch_device_name (TouchID touch_id);
 
@@ -6191,13 +6191,13 @@ namespace SDL3.Touch {
 
     [CCode (cname = "SDL_TOUCH_MOUSEID")]
     public const uint32 TOUCH_MOUSEID;
-} // SDL3.Touch
+} // SDL.Touch
 
 ///
 /// Pen Support (SDL_pen.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_pen.h")]
-namespace SDL3.Pen {
+namespace SDL.Pen {
     [SimpleType, CCode (cname = "SDL_PenID", has_type_id = false)]
     public struct PenID : uint32 {}
 
@@ -6229,13 +6229,13 @@ namespace SDL3.Pen {
 
     [CCode (cname = "SDL_PEN_TOUCHID")]
     public const uint64 PEN_TOUCHID;
-} // SDL3.Pen
+} // SDL.Pen
 
 ///
 /// Sensors (SDL_sensor.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_sensor.h")]
-namespace SDL3.Sensor {
+namespace SDL.Sensor {
     [CCode (cname = "SDL_CloseSensor")]
     public static void close_sensor (Sensor sensor);
 
@@ -6298,13 +6298,13 @@ namespace SDL3.Sensor {
 
     [CCode (cname = "SDL_STANDARD_GRAVITY")]
     public const float STANDARD_GRAVITY;
-} // SDL3.Sensor
+} // SDL.Sensor
 
 ///
 /// HIDAPI (SDL_hidapi.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_hidapi.h")]
-namespace SDL3.HidApi {
+namespace SDL.HidApi {
     [CCode (cname = "SDL_hid_ble_scan")]
     public static void hid_ble_scan (bool active);
 
@@ -6421,7 +6421,7 @@ namespace SDL3.HidApi {
         I2C,
         SPI,
     } // HidBusType
-} // SDL3.HidApi
+} // SDL.HidApi
 
 ///
 /// Force Feedback ("Haptic")
@@ -6431,7 +6431,7 @@ namespace SDL3.HidApi {
 /// Force Feedback Support (SDL_haptic.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_timer.h")]
-namespace SDL3.Haptic {
+namespace SDL.Haptic {
     [CCode (cname = "SDL_CloseHaptic")]
     public static void close_haptic (Haptic haptic);
 
@@ -6689,7 +6689,7 @@ namespace SDL3.Haptic {
 
     [CCode (cname = "SDL_HAPTIC_STEERING_AXIS")]
     public const int HAPTIC_STEERING_AXIS;
-} // SDL3.Haptic
+} // SDL.Haptic
 
 ///
 /// Audio
@@ -6699,7 +6699,7 @@ namespace SDL3.Haptic {
 /// Audio Playback, Recording, and Mixing (SDL_audio.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_audio.h")]
-namespace SDL3.Audio {
+namespace SDL.Audio {
     [CCode (cname = "SDL_AudioDevicePaused")]
     public static bool audio_device_paused (AudioDeviceID devid);
 
@@ -6949,7 +6949,7 @@ namespace SDL3.Audio {
 
     [CCode (cname = "SDL_AUDIO_ISUNSIGNED")]
     public static int audio_is_unsigned (AudioFormat x);
-} // SDL3.Audio
+} // SDL.Audio
 
 ///
 /// GPU
@@ -6959,7 +6959,7 @@ namespace SDL3.Audio {
 /// 3D Rendering and GPU Compute (SDL_gpu.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_gpu.h")]
-namespace SDL3.Gpu {
+namespace SDL.Gpu {
     [CCode (cname = "SDL_AcquireGPUCommandBuffer")]
     public static GPUCommandBuffer ? acquire_gpu_command_buffer (GPUDevice device);
 
@@ -8195,7 +8195,7 @@ namespace SDL3.Gpu {
         [CCode (cname = "SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING")]
         public const string D3D12_SEMANTIC_NAME_STRING;
     } // SDLPropGPUDeviceCreate
-} // SDL3.Gpu
+} // SDL.Gpu
 
 ///
 /// Threads
@@ -8205,7 +8205,7 @@ namespace SDL3.Gpu {
 /// Thread Management (SDL_thread.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_thread.h")]
-namespace SDL3.Threads {
+namespace SDL.Threads {
     [CCode (cname = "SDL_CleanupTLS")]
     public static void cleanup_tls ();
 
@@ -8286,13 +8286,13 @@ namespace SDL3.Threads {
         [CCode (cname = "SDL_PROP_THREAD_CREATE_STACKSIZE_NUMBER")]
         public const string STACKSIZE_NUMBER;
     } // SDLPropThreadCreate
-} // SDL3.Threads
+} // SDL.Threads
 
 ///
 /// Thread Synchronization Primitives (SDL_mutex.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_mutex.h")]
-namespace SDL3.Mutex {
+namespace SDL.Mutex {
     [CCode (cname = "SDL_BroadcastCondition")]
     public static void broadcast_condition (Condition cond);
 
@@ -8391,7 +8391,7 @@ namespace SDL3.Mutex {
 
     [CCode (cname = "SDL_InitState", has_type_id = false)]
     public struct InitState {
-        public SDL3.Atomic.AtomicInt status;
+        public Atomic.AtomicInt status;
         public Threads.ThreadID thread;
         public void* reserved;
     } // InitState
@@ -8403,13 +8403,13 @@ namespace SDL3.Mutex {
         INITIALIZED,
         UNINITIALIZING,
     } // InitStatus
-} // SDL3.Mutex
+} // SDL.Mutex
 
 ///
 /// Atomic Operations (SDL_atomic.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_atomic.h")]
-namespace SDL3.Atomic {
+namespace SDL.Atomic {
     [CCode (cname = "SDL_AddAtomicInt")]
     public static int add_atomic_int (AtomicInt a, int v);
 
@@ -8485,7 +8485,7 @@ namespace SDL3.Atomic {
 
     [CCode (cname = "SDL_MemoryBarrierRelease")]
     public static void memory_barrier_release ();
-} // SDL3.Atomic
+} // SDL.Atomic
 
 ///
 /// TIME
@@ -8495,7 +8495,7 @@ namespace SDL3.Atomic {
 /// Timer Support (SDL_timer.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_timer.h")]
-namespace SDL3.Timer {
+namespace SDL.Timer {
     [CCode (cname = "SDL_AddTimer", has_target = true)]
     public static TimerID add_timer (uint32 interval, TimerCallback callback);
 
@@ -8567,13 +8567,13 @@ namespace SDL3.Timer {
 
     [CCode (cname = "SDL_US_TO_NS")]
     public static double us_to_ns (double us);
-} // SDL3.Timer
+} // SDL.Timer
 
 ///
 /// Date and Time (SDL_time.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_time.h")]
-namespace SDL3.Time {
+namespace SDL.Time {
     [CCode (cname = "SDL_DateTimeToTime")]
     public static bool datetime_to_time (Time.DateTime dt, out StdInc.Time ticks);
 
@@ -8626,7 +8626,7 @@ namespace SDL3.Time {
         24HR,
         12HR,
     } // TimeFormat
-} // SDL3.Time
+} // SDL.Time
 
 ///
 /// File and I/O Abstractions
@@ -8636,7 +8636,7 @@ namespace SDL3.Time {
 /// Filesystem Access (SDL_filesystem.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_filesystem.h")]
-namespace SDL3.FileSystem {
+namespace SDL.FileSystem {
     [CCode (cname = "SDL_CopyFile")]
     public static bool copy_file (string oldpath, string newpath);
 
@@ -8728,13 +8728,13 @@ namespace SDL3.FileSystem {
         DIRECTORY,
         OTHER,
     } // PathType
-} // SDL3.FileSystem
+} // SDL.FileSystem
 
 ///
 /// Storage Abstraction (SDL_storage.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_storage.h")]
-namespace SDL3.Storage {
+namespace SDL.Storage {
     [CCode (cname = "SDL_CloseStorage")]
     public static bool close_storage (Storage storage);
 
@@ -8831,13 +8831,13 @@ namespace SDL3.Storage {
         [CCode (cname = "space_remaining", has_target = true, instance_pos = 0)]
         public uint64 space_remaining ();
     } // StorageInterface;
-} // SDL3.Storage
+} // SDL.Storage
 
 ///
 /// I/O Streams (SDL_iostream.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_iostream.h")]
-namespace SDL3.IOStream {
+namespace SDL.IOStream {
     [CCode (cname = "SDL_CloseIO")]
     public static bool close_io (IOStream context);
 
@@ -9021,13 +9021,13 @@ namespace SDL3.IOStream {
         SEEK_CUR,
         SEEK_END,
     } // IOWhence
-} // SDL3.IOStream
+} // SDL.IOStream
 
 ///
 /// Async I/O (SDL_asyncio.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_asyncio.h")]
-namespace SDL3.AsyncIO {
+namespace SDL.AsyncIO {
     [CCode (cname = "SDL_AsyncIOFromFile")]
     public static AsyncIO async_io_from_file (string file, string mode);
 
@@ -9092,7 +9092,7 @@ namespace SDL3.AsyncIO {
         WRITE,
         CLOSE,
     } // AsyncIOTaskType
-} // SDL3.AsyncIO
+} // SDL.AsyncIO
 
 ///
 /// PLATFORM AND CPU INFORMATION
@@ -9104,7 +9104,7 @@ namespace SDL3.AsyncIO {
 /* There are defines that only exists if enabled in SDL
  * What you need to do is aks for them in Vala code, nothing more
     [CCode (cheader_filename = "SDL3/SDL_platform.h")]
-    namespace SDL3.Platform {
+    namespace SDL.Platform {
     // SDL_PLATFORM_3DS
     // SDL_PLATFORM_AIX
     // SDL_PLATFORM_ANDROID
@@ -9139,13 +9139,13 @@ namespace SDL3.AsyncIO {
     // SDL_PLATFORM_XBOXONE
     // SDL_PLATFORM_XBOXSERIES
     // SDL_WINAPI_FAMILY_PHONE
-    } // SDL3.Platform */
+    } // SDL.Platform */
 
 ///
 /// CPU Feature Detection (SDL_cpuinfo.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_cpuinfo.h")]
-namespace SDL3.CpuInfo {
+namespace SDL.CpuInfo {
     [CCode (cname = "SDL_GetCPUCacheLineSize")]
     public static int get_cpu_cache_line_size ();
 
@@ -9202,7 +9202,7 @@ namespace SDL3.CpuInfo {
 
     [CCode (cname = "SDL_CACHELINE_SIZE")]
     public const int CACHELINE_SIZE;
-} // SDL3.CpuInfo
+} // SDL.CpuInfo
 
 ///
 /// Compiler Intrinsics Detection (SDL_intrin.h)
@@ -9210,7 +9210,7 @@ namespace SDL3.CpuInfo {
 /* There are defines that only exists if enabled in SDL
  * What you need to do is aks for them in Vala code, nothing more
     [CCode (cheader_filename = "SDL3/SDL_intrin.h")]
-    namespace SDL3.Intrinsics {
+    namespace SDL.Intrinsics {
         // SDL_ALTIVEC_INTRINSICS
         // SDL_AVX2_INTRINSICS
         // SDL_AVX512F_INTRINSICS
@@ -9233,7 +9233,7 @@ namespace SDL3.CpuInfo {
 /// Byte Order and Byte Swapping (SDL_endian.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_endian.h")]
-namespace SDL3.Endian {
+namespace SDL.Endian {
     [CCode (cname = "SDL_Swap16")]
     public static uint16 swap_16 (uint16 x);
 
@@ -9281,19 +9281,19 @@ namespace SDL3.Endian {
 
     [CCode (cname = "SDL_SwapFloatLE")]
     public static float swap_float_le (float x);
-} // SDL3.Endian
+} // SDL.Endian
 
 ///
 /// Bit Manipulation (SDL_bits.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_bits.h")]
-namespace SDL3.Bits {
+namespace SDL.Bits {
     [CCode (cname = "SDL_HasExactlyOneBitSet32")]
     public static bool has_exactly_one_bit_set_32 (uint32 x);
 
     [CCode (cname = "SDL_MostSignificantBitIndex32")]
     public static int most_significant_bit_index_32 (uint32 x);
-} // SDL3.Bits
+} // SDL.Bits
 
 ///
 /// ADDITIONAL FUNCTIONALITY
@@ -9303,7 +9303,7 @@ namespace SDL3.Bits {
 /// Shared Object/DLL Management (SDL_loadso.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_loadso.h")]
-namespace SDL3.LoadSO {
+namespace SDL.LoadSO {
     [CCode (cname = "SDL_LoadFunction")]
     public static StdInc.FunctionPointer load_function (SharedObject handle, string name);
 
@@ -9315,13 +9315,13 @@ namespace SDL3.LoadSO {
 
     [CCode (cname = "SDL_SharedObject", has_type_id = false)]
     public struct SharedObject {}
-} // SDL3.LoadSO
+} // SDL.LoadSO
 
 ///
 /// Power Management Status (SDL_power.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_power.h")]
-namespace SDL3.Power {
+namespace SDL.Power {
     [CCode (cname = "SDL_GetPowerInfo")]
     public static PowerState get_power_info (out int seconds, out int percent);
 
@@ -9334,13 +9334,13 @@ namespace SDL3.Power {
         CHARGING,
         CHARGED,
     } // PowerState
-} // SDL3.Power
+} // SDL.Power
 
 ///
 /// Process Control (SDL_process.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_process.h")]
-namespace SDL3.Process {
+namespace SDL.Process {
     [CCode (cname = "SDL_CreateProcess")]
     public static Process create_process ([CCode (array_length = false)] string[] args, bool pipe_stdio);
 
@@ -9427,13 +9427,13 @@ namespace SDL3.Process {
         [CCode (cname = "SDL_PROP_PROCESS_BACKGROUND_BOOLEAN")]
         public const string BACKGROUND_BOOLEAN;
     } // SDLPropProcess
-} // SDL3.Process
+} // SDL.Process
 
 ///
 /// Message Boxes (SDL_messagebox.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_messagebox.h")]
-namespace SDL3.MessageBox {
+namespace SDL.MessageBox {
     [CCode (cname = "SDL_ShowMessageBox")]
     public static bool show_message_box (MessageBoxData messageboxdata, out int buttonid);
 
@@ -9525,13 +9525,13 @@ namespace SDL3.MessageBox {
         [CCode (cname = "SDL_PROP_FILE_DIALOG_CANCEL_STRING")]
         public const string CANCEL_STRING;
     } // SDLPropFileDialog
-} // SDL3.MessageBox
+} // SDL.MessageBox
 
 ///
 /// File Dialogs (SDL_dialog.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_dialog.h")]
-namespace SDL3.Dialog {
+namespace SDL.Dialog {
     [CCode (cname = "SDL_ShowFileDialogWithProperties", has_target = true)]
     public static void show_file_dialog_with_properties (FileDialogType type,
         DialogFileCallback callback,
@@ -9572,13 +9572,13 @@ namespace SDL3.Dialog {
         SAVEFILE,
         OPENFOLDER,
     } // FileDialogType
-} // SDL3.Dialog
+} // SDL.Dialog
 
 ///
 /// System Tray (SDL_tray.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_tray.h")]
-namespace SDL3.Tray {
+namespace SDL.Tray {
     [CCode (cname = "SDL_ClickTrayEntry")]
     public static void click_tray_entry (TrayEntry entry);
 
@@ -9668,13 +9668,13 @@ namespace SDL3.Tray {
 
     [CCode (cname = "SDL_TrayMenu", has_type_id = false)]
     public struct TrayMenu {}
-} // SDL3.Tray
+} // SDL.Tray
 
 ///
 /// Locale Info (SDL_locale.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_locale.h")]
-namespace SDL3.Locale {
+namespace SDL.Locale {
     [CCode (cname = "SDL_GetPreferredLocales")]
     public static Locale[] get_preferred_locales ();
 
@@ -9683,13 +9683,13 @@ namespace SDL3.Locale {
         public string language;
         public string? country;
     } // Locale
-} // SDL3.Locale
+} // SDL.Locale
 
 ///
 /// Platform-specific Functionality (SDL_system.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_system.h")]
-namespace SDL3.System {
+namespace SDL.System {
     [CCode (cname = "SDL_GetAndroidActivity")]
     public static void * get_android_activity ();
 
@@ -9794,13 +9794,13 @@ namespace SDL3.System {
 
     [CCode (cname = "SDL_ANDROID_EXTERNAL_STORAGE_WRITE")]
     public const uint8 ANDROID_EXTERNAL_STORAGE_WRITE;
-} // SDL3.System
+} // SDL.System
 
 ///
 /// Standard Library Functionality (SDL_stdinc.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_stdinc.h")]
-namespace SDL3.StdInc {
+namespace SDL.StdInc {
     [CCode (cname = "SDL_abs")]
     public static int abs (int x);
 
@@ -10517,13 +10517,13 @@ namespace SDL3.StdInc {
 
     [CCode (cname = "SDL_SIZE_MAX")]
     public const size_t SIZE_MAX;
-} // SDL3.StdInc
+} // SDL.StdInc
 
 ///
 /// GUIDs (SDL_guid.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_guid.h")]
-namespace SDL3.Guid {
+namespace SDL.Guid {
     [CCode (cname = "SDL_GUIDToString")]
     public static void guid_to_string (Guid guid, [CCode (array_length = false)] out string[] psz_guid, int cb_guid);
 
@@ -10534,13 +10534,13 @@ namespace SDL3.Guid {
     public struct Guid {
         public uint8 data[16];
     } // Guid
-} // SDL3.Guid
+} // SDL.Guid
 
 ///
 /// Miscellaneous (SDL_misc.h)
 ///
 [CCode (cheader_filename = "SDL3/SDL_misc.h")]
-namespace SDL3.Misc {
+namespace SDL.Misc {
     [CCode (cname = "SDL_OpenURL")]
     public static bool open_url (string[] url);
-} // SDL3.Misc
+} // SDL.Misc

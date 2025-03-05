@@ -1,4 +1,4 @@
-using SDL3;
+using SDL;
 
 // This example code looks for joystick input in the event handler, and
 // reports any changes as a flood of info.
@@ -24,10 +24,10 @@ const int WINDOW_HEIGHT = 480;
 const int MOTION_EVENT_COOLDOWN = 40;
 const float MSG_LIFETIME = 3500.0f;
 
-SDL3.Video.Window? window = null;
-SDL3.Render.Renderer ? renderer = null;
+SDL.Video.Window? window = null;
+SDL.Render.Renderer ? renderer = null;
 
-SDL3.Pixels.Color colors[64];
+SDL.Pixels.Color colors[64];
 
 // These events are spammy, only show every X milliseconds
 uint64 axis_motion_cooldown_time = 0;
@@ -36,82 +36,82 @@ uint64 ball_motion_cooldown_time = 0;
 // A simple container for use to store messages
 class EventMessage {
     public string str;
-    public SDL3.Pixels.Color color;
+    public SDL.Pixels.Color color;
     public uint64 start_ticks;
 }
 
 Array<EventMessage> event_messages;
 
-static void add_message (SDL3.Joystick.JoystickID joystick_id, string message_string) {
+static void add_message (SDL.Joystick.JoystickID joystick_id, string message_string) {
     var event_message = new EventMessage () {
         str = message_string,
         color = colors[((uint32) joystick_id) % colors.length],
-        start_ticks = SDL3.Timer.get_ticks (),
+        start_ticks = SDL.Timer.get_ticks (),
     };
 
     event_messages.append_val (event_message);
 }
 
 public int main (string[] args) {
-    SDL3.Init.set_app_metadata ("SDL3 Vala Input 02 - Joystick Events", "1.0",
-                                "dev.vala.example.input-02-joystick-events");
+    SDL.Init.set_app_metadata ("SDL3 Vala Input 02 - Joystick Events", "1.0",
+                               "dev.vala.example.input-02-joystick-events");
 
     bool success = Init.init (Init.InitFlags.VIDEO | Init.InitFlags.JOYSTICK);
     if (!success) {
-        SDL3.Log.log ("Couldn't initialize SDL: %s", SDL3.Error.get_error ());
+        SDL.Log.log ("Couldn't initialize SDL: %s", SDL.Error.get_error ());
         return 1;
     }
-    success = SDL3.Render.create_window_and_renderer ("SDL3 Vala Input 02 - Joystick Events",
-                                                      WINDOW_WIDTH, WINDOW_HEIGHT, 0,
-                                                      out window, out renderer);
+    success = SDL.Render.create_window_and_renderer ("SDL3 Vala Input 02 - Joystick Events",
+                                                     WINDOW_WIDTH, WINDOW_HEIGHT, 0,
+                                                     out window, out renderer);
     if (!success) {
-        SDL3.Log.log ("Couldn't create window/renderer: %s", SDL3.Error.get_error ());
+        SDL.Log.log ("Couldn't create window/renderer: %s", SDL.Error.get_error ());
         return 1;
     }
 
     // Random Colors!
     for (int i = 0; i < colors.length; i++) {
-        colors[i].r = (uint8) SDL3.StdInc.rand (255);
-        colors[i].g = (uint8) SDL3.StdInc.rand (255);
-        colors[i].b = (uint8) SDL3.StdInc.rand (255);
+        colors[i].r = (uint8) SDL.StdInc.rand (255);
+        colors[i].g = (uint8) SDL.StdInc.rand (255);
+        colors[i].b = (uint8) SDL.StdInc.rand (255);
         colors[i].a = 255;
     }
 
     event_messages = new Array<EventMessage> ();
 
     bool is_running = true;
-    SDL3.Events.Event ev;
+    SDL.Events.Event ev;
     while (is_running) {
-        while (SDL3.Events.poll_event (out ev)) {
+        while (SDL.Events.poll_event (out ev)) {
             switch (ev.type) {
-            case SDL3.Events.EventType.QUIT :
+            case SDL.Events.EventType.QUIT :
                 is_running = false;
                 break;
-            case SDL3.Events.EventType.JOYSTICK_ADDED :
+            case SDL.Events.EventType.JOYSTICK_ADDED :
                 var which = ev.jdevice.which;
-                var joystick = SDL3.Joystick.open_joystick (which);
+                var joystick = SDL.Joystick.open_joystick (which);
                 var msg = "";
                 if (joystick != null) {
-                    msg = "Joystick #%u add, but not opened: %s".printf (which, SDL3.Error.get_error ());
+                    msg = "Joystick #%u add, but not opened: %s".printf (which, SDL.Error.get_error ());
                 } else {
-                    msg = "Joystick #%u ('%s') added".printf (which, SDL3.Joystick.get_joystick_name (joystick));
+                    msg = "Joystick #%u ('%s') added".printf (which, SDL.Joystick.get_joystick_name (joystick));
                 }
                 add_message (which, msg);
                 break;
-            case SDL3.Events.EventType.JOYSTICK_REMOVED:
+            case SDL.Events.EventType.JOYSTICK_REMOVED:
                 var which = ev.jdevice.which;
-                var joystick = SDL3.Joystick.open_joystick (which);
+                var joystick = SDL.Joystick.open_joystick (which);
                 if (joystick != null) {
-                    var msg = "Joystick #%u ('%s') removed".printf (which, SDL3.Joystick.get_joystick_name (joystick));
+                    var msg = "Joystick #%u ('%s') removed".printf (which, SDL.Joystick.get_joystick_name (joystick));
                     add_message (which, msg);
                     // The joystick was unplugged.
-                    SDL3.Joystick.close_joystick (joystick);
+                    SDL.Joystick.close_joystick (joystick);
                 }
                 break;
-            case SDL3.Events.EventType.JOYSTICK_AXIS_MOTION:
+            case SDL.Events.EventType.JOYSTICK_AXIS_MOTION:
                 // These are spammy, only show every X milliseconds
                 axis_motion_cooldown_time = 0;
-                var now = SDL3.Timer.get_ticks ();
+                var now = SDL.Timer.get_ticks ();
                 if (now >= axis_motion_cooldown_time) {
                     var which = ev.jaxis.which;
                     axis_motion_cooldown_time = now + MOTION_EVENT_COOLDOWN;
@@ -119,10 +119,10 @@ public int main (string[] args) {
                     add_message (which, msg);
                 }
                 break;
-            case SDL3.Events.EventType.JOYSTICK_BALL_MOTION:
+            case SDL.Events.EventType.JOYSTICK_BALL_MOTION:
                 // These are spammy, only show every X milliseconds
                 ball_motion_cooldown_time = 0;
-                var now = SDL3.Timer.get_ticks ();
+                var now = SDL.Timer.get_ticks ();
                 if (now >= ball_motion_cooldown_time) {
                     var which = ev.jball.which;
                     ball_motion_cooldown_time = now + MOTION_EVENT_COOLDOWN;
@@ -133,22 +133,22 @@ public int main (string[] args) {
                     add_message (which, msg);
                 }
                 break;
-            case SDL3.Events.EventType.JOYSTICK_HAT_MOTION:
+            case SDL.Events.EventType.JOYSTICK_HAT_MOTION:
                 var which = ev.jhat.which;
-                var joystick = SDL3.Joystick.get_joystick_from_id (which);
-                var hat = SDL3.Joystick.get_joystick_hat (joystick, ev.jhat.hat);
+                var joystick = SDL.Joystick.get_joystick_from_id (which);
+                var hat = SDL.Joystick.get_joystick_hat (joystick, ev.jhat.hat);
 
                 var msg = "Joystick #%u hat %d -> %s".printf (which, ev.jhat.hat, hat.to_string ());
                 add_message (which, msg);
                 break;
-            case SDL3.Events.EventType.JOYSTICK_BUTTON_UP:
-            case SDL3.Events.EventType.JOYSTICK_BUTTON_DOWN:
+            case SDL.Events.EventType.JOYSTICK_BUTTON_UP:
+            case SDL.Events.EventType.JOYSTICK_BUTTON_DOWN:
                 var which = ev.jbutton.which;
                 var msg = "Joystick #%u button %d -> %s".printf (which, ev.jbutton.button,
                                                                  ev.jbutton.down ? "PRESSED" : "RELEASED");
                 add_message (which, msg);
                 break;
-            case SDL3.Events.EventType.JOYSTICK_BATTERY_UPDATED:
+            case SDL.Events.EventType.JOYSTICK_BATTERY_UPDATED:
                 var which = ev.jbattery.which;
                 var msg = "Joystick #%u battery -> %s - %d%%".printf (which, ev.jbattery.state.to_string (),
                                                                       ev.jbattery.percent);
@@ -160,9 +160,9 @@ public int main (string[] args) {
         }
 
         float x, y, prev_y = 0f;
-        uint64 now = SDL3.Timer.get_ticks ();
-        SDL3.Render.set_render_draw_color (renderer, 0, 0, 0, SDL3.Pixels.ALPHA_OPAQUE);
-        SDL3.Render.render_clear (renderer);
+        uint64 now = SDL.Timer.get_ticks ();
+        SDL.Render.set_render_draw_color (renderer, 0, 0, 0, SDL.Pixels.ALPHA_OPAQUE);
+        SDL.Render.render_clear (renderer);
         {
             for (int i = 0; i < event_messages.length; i++) {
                 var msg = event_messages.index (i);
@@ -172,32 +172,32 @@ public int main (string[] args) {
                     event_messages.remove_index (i);
                 }
 
-                x = (((float) WINDOW_WIDTH) - msg.str.length * SDL3.Render.DEBUG_TEXT_FONT_CHARACTER_SIZE) / 2.0f;
+                x = (((float) WINDOW_WIDTH) - msg.str.length * SDL.Render.DEBUG_TEXT_FONT_CHARACTER_SIZE) / 2.0f;
                 y = ((float) WINDOW_HEIGHT) * life_percent;
-                if ((prev_y != 0.0f) && ((prev_y - y) < ((float) SDL3.Render.DEBUG_TEXT_FONT_CHARACTER_SIZE * 2))) {
+                if ((prev_y != 0.0f) && ((prev_y - y) < ((float) SDL.Render.DEBUG_TEXT_FONT_CHARACTER_SIZE * 2))) {
                     msg.start_ticks = now;
                     break; // Wait for the previous message to tick up a little.
                 }
 
-                SDL3.Render.set_render_draw_color (renderer,
-                                                   msg.color.r,
-                                                   msg.color.g,
-                                                   msg.color.b,
-                                                   (uint8) (((float) msg.color.a) * (1.0f - life_percent)));
-                SDL3.Render.render_debug_text (renderer, x, y, msg.str);
+                SDL.Render.set_render_draw_color (renderer,
+                                                  msg.color.r,
+                                                  msg.color.g,
+                                                  msg.color.b,
+                                                  (uint8) (((float) msg.color.a) * (1.0f - life_percent)));
+                SDL.Render.render_debug_text (renderer, x, y, msg.str);
                 prev_y = y;
             }
         }
 
-        SDL3.Render.render_present (renderer);
+        SDL.Render.render_present (renderer);
     }
 
     // This sample has a little oversight. Joysticks will leak when retrieving
     // them on the events system! We let them leak for the puproses if this
     // example since we are closing.
-    SDL3.Render.destroy_renderer (renderer);
-    SDL3.Video.destroy_window (window);
-    SDL3.Init.quit ();
+    SDL.Render.destroy_renderer (renderer);
+    SDL.Video.destroy_window (window);
+    SDL.Init.quit ();
 
     return 0;
 }

@@ -134,8 +134,8 @@ namespace Snake {
 
         void new_food_pos () {
             while (true) {
-                uint x = SDL3.StdInc.rand ((int) SNAKE_GAME_WIDTH);
-                uint y = SDL3.StdInc.rand ((int) SNAKE_GAME_HEIGHT);
+                uint x = SDL.StdInc.rand ((int) SNAKE_GAME_WIDTH);
+                uint y = SDL.StdInc.rand ((int) SNAKE_GAME_HEIGHT);
                 if (get_at (x, y) == SnakeCell.NOTHING) {
                     put_cell_at (x, y, SnakeCell.FOOD);
                     break;

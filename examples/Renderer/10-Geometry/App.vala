@@ -145,8 +145,8 @@ public int main (string[] args) {
             // And an index to tell it to reuse some of the vertices between triangles...
             // Four 4 vertices, but 6 actual places they used. Indices need less bandwidth to
             // transfer and can reorder vertices easily!
-            const int INDICES[] = { 0, 1, 2, 1, 2, 3 };
-            SDL.Render.render_geometry (renderer, texture, vertices_four, INDICES);
+            int indices[] = { 0, 1, 2, 1, 2, 3 };
+            SDL.Render.render_geometry (renderer, texture, vertices_four, indices);
         }
         SDL.Render.render_present (renderer);
     }

@@ -43,6 +43,6 @@ subdir('Pen/01-Drawing-Lines')
 subdir('Demos/01-Snake')
 
 # SDL Image
-subdir('SDLImage/01-Load-Image')
-subdir('SDLImage/02-Load-Animation')
-subdir('SDLImage/03-Load-Image-IO')
+subdir('SDL_Image/01-Load-Image')
+subdir('SDL_Image/02-Load-Animation')
+subdir('SDL_Image/03-Load-Image-IO')

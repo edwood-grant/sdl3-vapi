@@ -1,7 +1,9 @@
 glib_dep = dependency('glib-2.0')
 gobject_dep = dependency('gobject-2.0')
+
 sdl3_dep = dependency('sdl3')
 sdl3_image_dep = dependency('sdl3-image')
+sdl3_ttf_dep = dependency('sdl3-ttf')
 
 # SDL
 subdir('Main/01-Simple')
@@ -46,3 +48,6 @@ subdir('Demos/01-Snake')
 subdir('SDL_Image/01-Load-Image')
 subdir('SDL_Image/02-Load-Animation')
 subdir('SDL_Image/03-Load-Image-IO')
+
+# SDL TTF
+subdir('SDL_TTF/01-Hello-World')

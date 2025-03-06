@@ -40,17 +40,18 @@
  */
 
 /**
- * The SDL3 Image Library Vala bindings This is a simple library to load images
- * of various formats as SDL surfaces. It can load BMP, GIF, JPEG, LBM, PCX,
- * PNG, PNM (PPM/PGM/PBM), QOI, TGA, XCF, XPM, and simple SVG format images. It
- * can also load AVIF, JPEG-XL, TIFF, and WebP images, depending on build
- * options.
+ * The SDL3 Image Library Vala bindings.
  *
- *   * SDL3 Image Reference: [[https://wiki.libsdl.org/SDL3_image/]]
+ * This is a simple library to load images  * of various formats as SDL
+ * surfaces. It can load BMP, GIF, JPEG, LBM, PCX, PNG, PNM (PPM/PGM/PBM),
+ * QOI, TGA, XCF, XPM, and simple SVG format images. It can also load AVIF,
+ * JPEG-XL, TIFF, and WebP images, depending on build options.
+ *
+ *   * [[https://wiki.libsdl.org/SDL3_image/]]
  */
 [CCode (cheader_filename = "SDL3_image/SDL_image.h")]
 namespace SDL.Image {
-    [Compact, CCode (cname = "IMG_Animation", free_function="")]
+    [Compact, CCode (cname = "IMG_Animation", free_function="", has_type_id = false)]
     public class Animation {
         public int w;
         public int h;
@@ -258,5 +259,5 @@ namespace SDL.Image {
     public const int VERSION;
 
     [CCode (cname = "SDL_IMAGE_VERSION_ATLEAST")]
-    public static bool sdl_image_version_at_least (int major, int minor, int micro);
+    public static bool version_at_least (int major, int minor, int micro);
 } // SDL.Image

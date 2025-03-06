@@ -2471,8 +2471,8 @@ namespace SDL.Render {
         public int refcount;
     }
 
-    [CCode (cname = "SDL_Vertex", has_type_id = false)]
-    public struct Vertex {
+    [Compact, CCode (cname = "SDL_Vertex", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
+    public class Vertex {
         public Rect.FPoint position;
         public Pixels.FColor color;
         public Rect.FPoint tex_coord;
@@ -2849,7 +2849,7 @@ namespace SDL.Pixels {
         int firstcolor,
         int ncolors);
 
-    [CCode (cname = "SDL_Color", has_type_id = false)]
+    [SimpleType, CCode (cname = "SDL_Color", destroy_function = "", has_type_id = false)]
     public struct Color {
         public uint8 r;
         public uint8 g;
@@ -2857,7 +2857,7 @@ namespace SDL.Pixels {
         public uint8 a;
     } // Color;
 
-    [CCode (cname = "SDL_FColor", has_type_id = false)]
+    [SimpleType, CCode (cname = "SDL_FColor", destroy_function = "", has_type_id = false)]
     public struct FColor {
         public float r;
         public float g;

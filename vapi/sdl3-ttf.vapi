@@ -136,7 +136,7 @@ namespace SDL.Ttf {
     [CCode (cname = "TTF_FontIsScalable")]
     public static bool font_is_scalable (Font font);
 
-    [Flags, CCode (cname = "uint32", cprefix = "TTF_STYLE_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "TTF_STYLE_", has_type_id = false)]
     public enum FontStyleFlags {
         NORMAL,
         BOLD,
@@ -522,7 +522,7 @@ namespace SDL.Ttf {
         public SDL.Rect.Rect rect;
     } // SubString;
 
-    [Flags, CCode (cname = "uint32", cprefix = "TTF_SUBSTRING_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "TTF_SUBSTRING_", has_type_id = false)]
     public enum  SubStringFlags {
         DIRECTION_MASK,
         TEXT_START,

@@ -3288,7 +3288,7 @@ namespace SDL.BlendModes {
         BlendFactor dst_alpha_factor,
         BlendOperation alpha_operation);
 
-    [CCode (cname = "uint32", cprefix = "SDL_BLENDMODE_", has_type_id = false)]
+    [CCode (cname = "Uint32", cprefix = "SDL_BLENDMODE_", has_type_id = false)]
     public enum BlendMode {
         NONE,
         BLEND,
@@ -4766,7 +4766,7 @@ namespace SDL.Keyboard {
     [CCode (cheader_filename = "SDL3/SDL_keycode.h", cname = "SDL_SCANCODE_TO_KEYCODE")]
     public static uint32 scancode_to_keycode (uint32 x);
 
-    [CCode (cheader_filename = "SDL3/SDL_keycode.h", cname = "uint32", cprefix = "SDLK_", has_type_id = false)]
+    [CCode (cheader_filename = "SDL3/SDL_keycode.h", cname = "Uint32", cprefix = "SDLK_", has_type_id = false)]
     public enum Keycode {
         UNKNOWN,
         RETURN,
@@ -7346,7 +7346,7 @@ namespace SDL.Gpu {
     [CCode (cname = "SDL_GPUBuffer", has_type_id = false)]
     public struct GPUBuffer {}
 
-    [Flags, CCode (cname = "uint32", cprefix = "SDL_GPU_BUFFERUSAGE_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "SDL_GPU_BUFFERUSAGE_", has_type_id = false)]
     public enum GPUBufferUsageFlags {
         VERTEX,
         INDEX,
@@ -7394,7 +7394,7 @@ namespace SDL.Gpu {
     [CCode (cname = "SDL_GPUShader", has_type_id = false)]
     public struct GPUShader {}
 
-    [CCode (cname = "uint32", cprefix = "SDL_GPU_SHADERFORMAT_", has_type_id = false)]
+    [CCode (cname = "Uint32", cprefix = "SDL_GPU_SHADERFORMAT_", has_type_id = false)]
     public enum GPUShaderFormat {
         INVALID,
         PRIVATE,
@@ -7408,7 +7408,7 @@ namespace SDL.Gpu {
     [CCode (cname = "SDL_GPUTexture", has_type_id = false)]
     public struct GPUTexture {}
 
-    [Flags, CCode (cname = "uint32", cprefix = "SDL_GPU_TEXTUREUSAGE_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "SDL_GPU_TEXTUREUSAGE_", has_type_id = false)]
     public enum GPUTextureUsageFlags {
         SAMPLER,
         COLOR_TARGET,
@@ -8673,12 +8673,12 @@ namespace SDL.FileSystem {
     [CCode (cname = "SDL_EnumerateDirectoryCallback", has_target = true, instance_pos = 0)]
     public delegate EnumerationResult EnumerateDirectoryCallback (string dirname, string fname);
 
-    [CCode (cname = "uint32", cprefix = "SDL_GLOB_", has_type_id = false)]
+    [CCode (cname = "Uint32", cprefix = "SDL_GLOB_", has_type_id = false)]
     public enum GlobFlags {
         CASEINSENSITIVE,
     }
 
-    [Flags, CCode (cname = "uint32", cprefix = "SDL_GPU_TEXTUREUSAGE_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "SDL_GPU_TEXTUREUSAGE_", has_type_id = false)]
     public enum GPUTextureUsageFlags {
         SAMPLER,
         COLOR_TARGET,
@@ -9443,13 +9443,13 @@ namespace SDL.MessageBox {
         string message,
         Video.Window window);
 
-    [Flags, CCode (cname = "uint32", cprefix = "SDL_MESSAGEBOX_BUTTON_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "SDL_MESSAGEBOX_BUTTON_", has_type_id = false)]
     public enum MessageBoxButtonFlags {
         RETURNKEY_DEFAULT,
         ESCAPEKEY_DEFAULT,
     } // MessageBoxButtonFlags
 
-    [Flags, CCode (cname = "uint32", cprefix = "SDL_MESSAGEBOX_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "SDL_MESSAGEBOX_", has_type_id = false)]
     public enum MessageBoxFlags {
         ERROR,
         WARNING,
@@ -9657,7 +9657,7 @@ namespace SDL.Tray {
     [CCode (cname = "SDL_TrayEntry", has_type_id = false)]
     public struct TrayEntry {}
 
-    [Flags, CCode (cname = "uint32", cprefix = "SDL_TRAYENTRY_", has_type_id = false)]
+    [Flags, CCode (cname = "Uint32", cprefix = "SDL_TRAYENTRY_", has_type_id = false)]
     public enum TrayEntryFlags {
         BUTTON,
         CHECKBOX,

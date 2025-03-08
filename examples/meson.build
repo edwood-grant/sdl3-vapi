@@ -42,6 +42,8 @@ subdir('AsyncIO/01-Load-Bitmaps')
 
 subdir('Pen/01-Drawing-Lines')
 
+subdir('GPU')
+
 subdir('Demos/01-Snake')
 
 # SDL Image

@@ -8,6 +8,7 @@ project(
 
 vapi_dir = join_paths(meson.project_source_root(), 'vapi')
 data_dir = join_paths(meson.project_source_root(), 'examples', 'data')
+shader_data_dir = join_paths(data_dir, 'shaders', 'compiled')
 add_project_arguments(['--vapidir', vapi_dir], language: 'vala')
 
 examples_enabled = get_option('examples')

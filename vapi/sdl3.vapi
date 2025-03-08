@@ -1687,9 +1687,6 @@ namespace SDL.Video {
     [Compact, CCode (cname = "SDL_GLContext", free_function = "", has_type_id = false)]
     public class GLContext {}
 
-    [SimpleType, CCode (cname = "SDL_GLContextFlag", has_type_id = false)]
-    public struct GLContextFlag : uint32 {}
-
     [CCode (cname = "int", cprefix = "SDL_GL_CONTEXT_", has_type_id = false)]
     public enum GLContextFlags {
         DEBUG_FLAG,
@@ -1697,9 +1694,6 @@ namespace SDL.Video {
         ROBUST_ACCESS_FLAG,
         RESET_ISOLATION_FLAG
     } // GLContextFlags
-
-    [SimpleType, CCode (cname = "SDL_GLContextReleaseFlag", has_type_id = false)]
-    public struct GLContextReleaseFlag : uint32 {}
 
     [CCode (cname = "int", cprefix = "SDL_GL_CONTEXT_RELEASE_", has_type_id = false)]
     public enum GLContextReleaseFlags {
@@ -2471,7 +2465,7 @@ namespace SDL.Render {
         public int refcount;
     }
 
-    [SimpleType, CCode (cname = "SDL_Vertex", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_Vertex", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
     public struct Vertex {
         public Rect.FPoint position;
         public Pixels.FColor color;
@@ -7364,8 +7358,8 @@ namespace SDL.Gpu {
         A,
     }
 
-    [CCode (cname = "SDL_GPUCommandBuffer", has_type_id = false)]
-    public struct GPUCommandBuffer {}
+    [Compact, CCode (cname = "SDL_GPUCommandBuffer", free_function = "", has_type_id = false)]
+    public class GPUCommandBuffer {}
 
     [CCode (cname = "SDL_GPUComputePass", has_type_id = false)]
     public struct GPUComputePass {}
@@ -7382,17 +7376,17 @@ namespace SDL.Gpu {
     [CCode (cname = "SDL_GPUFence", has_type_id = false)]
     public struct GPUFence {}
 
-    [CCode (cname = "SDL_GPUGraphicsPipeline", has_type_id = false)]
-    public struct GPUGraphicsPipeline {}
+    [Compact, CCode (cname = "SDL_GPUGraphicsPipeline", free_function = "", has_type_id = false)]
+    public class GPUGraphicsPipeline {}
 
-    [CCode (cname = "SDL_GPURenderPass", has_type_id = false)]
-    public struct GPURenderPass {}
+    [Compact, CCode (cname = "SDL_GPURenderPass", free_function = "", has_type_id = false)]
+    public class GPURenderPass {}
 
-    [CCode (cname = "SDL_GPUSampler", has_type_id = false)]
-    public struct GPUSampler {}
+    [Compact, CCode (cname = "SDL_GPUSampler", free_function = "", has_type_id = false)]
+    public class GPUSampler {}
 
-    [CCode (cname = "SDL_GPUShader", has_type_id = false)]
-    public struct GPUShader {}
+    [Compact, CCode (cname = "SDL_GPUShader", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
+    public class GPUShader {}
 
     [CCode (cname = "Uint32", cprefix = "SDL_GPU_SHADERFORMAT_", has_type_id = false)]
     public enum GPUShaderFormat {
@@ -7405,8 +7399,8 @@ namespace SDL.Gpu {
         METALLIB,
     }
 
-    [CCode (cname = "SDL_GPUTexture", has_type_id = false)]
-    public struct GPUTexture {}
+    [Compact, CCode (cname = "SDL_GPUTexture", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
+    public class GPUTexture {}
 
     [Flags, CCode (cname = "Uint32", cprefix = "SDL_GPU_TEXTUREUSAGE_", has_type_id = false)]
     public enum GPUTextureUsageFlags {
@@ -7488,13 +7482,13 @@ namespace SDL.Gpu {
         public uint8 padding2;
     } // GPUColorTargetBlendState
 
-    [CCode (cname = "SDL_GPUColorTargetDescription", has_type_id = false)]
+    [CCode (cname = "SDL_GPUColorTargetDescription", destroy_function = "", copy_function = "", has_type_id = false)]
     public struct GPUColorTargetDescription {
         public GPUTextureFormat format;
         public GPUColorTargetBlendState blend_state;
     } // GPUColorTargetDescription
 
-    [CCode (cname = "SDL_GPUColorTargetInfo", has_type_id = false)]
+    [CCode (cname = "SDL_GPUColorTargetInfo", destroy_function = "", copy_function = "", has_type_id = false)]
     public struct GPUColorTargetInfo {
         public GPUTexture texture;
         public uint32 mip_level;
@@ -7502,7 +7496,7 @@ namespace SDL.Gpu {
         public Pixels.FColor clear_color;
         public GPULoadOp load_op;
         public GPUStoreOp store_op;
-        public GPUTexture resolve_texture;
+        public GPUTexture? resolve_texture;
         public uint32 resolve_mip_level;
         public uint32 resolve_layer;
         public bool cycle;
@@ -7558,7 +7552,7 @@ namespace SDL.Gpu {
         public uint8 padding2;
     } // GPUDepthStencilTargetInfo;
 
-    [CCode (cname = "SDL_GPUGraphicsPipelineCreateInfo", has_type_id = false)]
+    [CCode (cname = "SDL_GPUGraphicsPipelineCreateInfo", copy_function = "", destroy_function = "", has_type_id = false)]
     public struct GPUGraphicsPipelineCreateInfo {
         public GPUShader vertex_shader;
         public GPUShader fragment_shader;
@@ -7571,10 +7565,10 @@ namespace SDL.Gpu {
         public Properties.PropertiesID props;
     } // GPUGraphicsPipelineCreateInfo
 
-    [CCode (cname = "SDL_GPUGraphicsPipelineTargetInfo", has_type_id = false)]
+    [CCode (cname = "SDL_GPUGraphicsPipelineTargetInfo", destroy_function = "", copy_function = "", has_type_id = false)]
     public struct GPUGraphicsPipelineTargetInfo {
-        public GPUColorTargetDescription color_target_descriptions;
-        public uint32 num_color_targets;
+        [CCode (array_length_cname = "num_color_targets", array_length_type = "Uint32")]
+        public GPUColorTargetDescription[] color_target_descriptions;
         public GPUTextureFormat depth_stencil_format;
         public bool has_depth_stencil_target;
         public uint8 padding1;
@@ -7650,10 +7644,10 @@ namespace SDL.Gpu {
         public Properties.PropertiesID props;
     } // GPUSamplerCreateInfo
 
-    [CCode (cname = "SDL_GPUShaderCreateInfo", has_type_id = false)]
+    [CCode (cname = "SDL_GPUShaderCreateInfo", destroy_function = "", has_type_id = false)]
     public struct GPUShaderCreateInfo {
+        public uint8* code;
         public size_t code_size;
-        public char[] code;
         public string entrypoint;
         public GPUShaderFormat format;
         public GPUShaderStage stage;
@@ -8869,10 +8863,10 @@ namespace SDL.IOStream {
     public static size_t io_printf (IOStream context, string fmt, ...);
 
     [CCode (cname = "SDL_LoadFile")]
-    public static void * load_file (string file, size_t? datasize);
+    public static void * load_file (string file, out size_t datasize);
 
     [CCode (cname = "SDL_LoadFile")]
-    public static void * load_file_io (IOStream src, size_t? datasize, bool close_io);
+    public static void * load_file_io (IOStream src, out size_t? datasize, bool close_io);
 
     [CCode (cname = "SDL_OpenIO", has_target = true)]
     public static IOStream ? open_io (IOStreamInterface iface);

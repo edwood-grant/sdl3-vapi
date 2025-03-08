@@ -8,7 +8,7 @@ deps = [glib_dep, gobject_dep, sdl3_dep]
 data_files = ['play_now_intro.wav']
 data_copy = []
 foreach file : data_files
-    copy_file = import('fs').copyfile(join_paths(data_dir, file))
+    copy_file = import('fs').copyfile(join_paths(sounds_data_dir, file))
     data_copy += copy_file
 endforeach
 

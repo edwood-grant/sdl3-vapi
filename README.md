@@ -1,18 +1,18 @@
 SDL3 Vapi bindings for Vala
 ===========================
 
-These are a set of vapi files for SDL3 for the [Vala
+These are a set of vapi files for SDL3 and related libraries for the [Vala
 Language](https://www.vala.dev). They are based on the current ABI stable
-version of SDL3. 
+version of SDL3.
 
 Currently there are vapis for:
 
-* SDL3 3.2.8 (As `SDL` namespace)
-* SDL3 Image 3.2.4 (As `SDL.Image` namespace)
-* SDL3 Ttf 3.2.0 (As `SDL.Ttf` namespace)
+* SDL3 3.2.8 (On the `SDL` namespace)
+* SDL3 Image 3.2.4 (On the `SDL.Image` namespace)
+* SDL3 Ttf 3.2.0 (On the `SDL.Ttf` namespace)
 
-Support for the rest of SDL3 libraries (SDL3_mixer, SDL3_net, SDL_rtf)
-is planned as soon as these APIs go ABI stable.
+Support for the rest of SDL3 libraries (SDL3_mixer, SDL3_net, SDL_rtf) is
+planned as soon as these APIs go ABI stable.
 
 If you spot any bug, any missing functionality, or any regression, you are more
 then welcome to report it and to Issue or submit a pull/merge request. 
@@ -31,24 +31,24 @@ Valve's award-winning catalog and many Humble Bundle games. SDL3 officially
 supports Windows, macOS, Linux, iOS, and Android, and several other platforms.
 SDL3 is written in C.
 
-### What about SDL2?
+## What about SDL2?
 
 If you are looking for SDL2, Vala has SDL2 bindings default already via a
 [package](https://valadoc.org/sdl2/index.htm).
 
 Suffice to say, here's a warning:
 
-**DO NOT MIX THE SDL2 AND SDL3 vapis.**
+**DO NOT MIX THE SDL2 AND SDL3 VAPIS.**
 
 Both SDL2 and SDL3 libraries are NOT compatible and use different structures
 (the SDL2 vapi is more OOP vala-ified, whereas this vapi is more static function
-based). Furthermore, they use the same SDL namespace. So adding the SDL namespace might
-generate unwanted collision and odd behaviour.
+based). Furthermore, they use the same SDL namespace. Mixing these two vapi sets
+will not work as intendend, and will cause odd unwanted behaviour.
 
-## How is this vapi written?
+## How are these vapis written?
 
 This aims to be a 'semi-pure' port of the C headers. This means that currently,
-this API is not 'Vala-friendly'. Some basics have been introduced:
+the API is not 'Vala-friendly'. Some basics have been introduced though:
 
 1. All syntax is adapted to Vala style syntax. Some macros will change syntax
    because they become functions adapting it to vala.
@@ -58,8 +58,8 @@ this API is not 'Vala-friendly'. Some basics have been introduced:
    * The only current exceptions are `SDL_keycode.h` and `SDL_scancode.h`, which are located within the
      `SDL.Keyboard` namespace.
    
-2. Whenever possible, some defines lists become enums, most enums have the
-   `SDL_` part remoed to make it more compact.
+2. Whenever possible, some defines lists become enums or namepsaces, most enums
+   have the `SDL_<extra_names>` prefix removed to make it more compact.
 3. Most delegates  (but not all) have their *userdata pointer stored as the self
    instance via `has_target` and `instance_pos` (this might change if it proves
    to be a problem)
@@ -75,10 +75,12 @@ In the vapi itself, the API order goes by the category classification expressed
 in the official SDL3 docs [API by
 Category](https://wiki.libsdl.org/SDL3/APIByCategory)
 
-## How to use this vapi?
+## How to use these vapis?
 
-This assumes that you have already installed SDL3 in your machine, or you have
-DLL or SO files available for your project. Releases are available
+### SDL3
+
+This guide assumes that you have already installed SDL3 in your machine, or you
+have DLL or SO files available for your project. Releases are available
 [here](https://github.com/libsdl-org/SDL/releases/). You may also want to
 compile SDL3 yourself. Don't forget to get a 3.2.x release.
 
@@ -96,6 +98,10 @@ Example command line:
 Example in Meson:
 
 ```
+# SDL3 vapis should be in the vapi folder for this example
+vapi_dir = join_paths(meson.project_source_root(), 'vapi')
+add_project_arguments(['--vapidir', vapi_dir], language: 'vala')
+
 executable(
     'my-sdl3-program',
     'MySDLProgram.vala',
@@ -107,17 +113,17 @@ executable(
 )
 ```
 
-### SDL3 Image
+### SDL3 Image or SDL3 TTF
 
-Similar to SDL3, it assume you have installed it in your system, or gave the DLL/SO files available.
+Similar to SDL3, it assumes you have installed these libraries it in your
+system, or have the DLL/SO files available.
 
-The current SDL# Image verison supported is 3.2.0
-
-The package name is sdl3-image. It has a necessary dependency to sdl3:
+The package dependency names are sdl3-image ad sdl3-ttf. All have a necessary
+dependency to the sdl3 vapi:
 
 Example command line:
 
-`valac --vapidir ./my-vapis-dir/ --pkg sdl3 --pkg sdl3-image my_sdl3_program.vala`
+`valac --vapidir ./my-vapis-dir/ --pkg sdl3 --pkg sdl3-image --pkg sdl3-ttf my_sdl3_program.vala`
 
 Example in Meson:
 
@@ -130,6 +136,7 @@ executable(
         dependency('gobject-2.0'),
         dependency('sdl3'),
         dependency('sdl3-image'),
+        dependency('sdl3-ttf'),
     ],
 )
 ```
@@ -140,9 +147,15 @@ This repository has multiple examples and tests in their respective folders that
 you are more than welcome to check out. If you want to compile them and try them
 out, you can do it through meson.
 
-Examples are the same examples as the official SDL3 examples, but adapted to
-Vala, plus a few more to show to do different game loops. Tests are pretty slim
-right now, but more are planned.
+Some examples are the same examples as the official SDL3 examples, but adapted
+to Vala, plus a few more to show to do different game loops. Tests are pretty
+slim right now, but more are planned.
+
+In particular, extra samples are:
+
+* SDL GPU samples: adapted from TheSpyDog GPU Examples
+* SDL3 Image: adapted from the SDL3 Image tests
+* SDL3 TTF: adapted from the SDL3 TTF tests
 
 Type the following on the command line in the repository root:
 
@@ -152,16 +165,15 @@ cd builddir
 ninja
 ```
 
-To run tests, you can execute: ```ninja test```
-
-You can check the built examples in the `./builddir/examples` folder.
+To run tests, you can execute: ```ninja test```. You can check and run the built
+examples in the `./builddir/examples` folder.
 
 ## Vala docs
 
 Docs are non-existent right now, but they are planned. The aim is to provide a
 simple description of each function with a URL to the official SDL3 docs. The
-SDL3 docs are pretty complete and provide good info, so we think it's best to
-just keep the reference there.
+original SDL3 docs are pretty complete and provide good info, so it's best to
+just keep the reference there and ppint to it via URL.
 
 To build docs, just set the _docs_ meson option in `./meson_options.txt` to
 true, and run ninja normally.
@@ -194,9 +206,9 @@ Here is the list of APIs that have good alternative on Vala via GLib:
 That being said, this vapi nonetheless implements these headers such as it can,
 for portability’s sake within other SDL3-baed projects.
 
-If you don't want to use GLib and stay in a POSIX interface. These libraries
-provide functional compiler independent implementations of many useful functions
-of the C Standard Library.
+If you don't want to use GLib and stay in a POSIX, truly multiplatform
+interface. These libraries provide functional compiler independent
+implementations of many useful functions of the C Standard Library.
 
 ## Wait, how much of the SDL3 API was implemented?
 
@@ -474,3 +486,11 @@ The following API signatures are things that you can ask as a conditional
 compilation define, but are not implementable in the vapi:
 
 * SDL_NOLONGLONG
+
+#### SDL3_ttf/SDL_ttf.h
+
+The following API signatures were not implemented in the vapi because they are
+considered for backwards compatobiloty, somehitng which makes little sense in
+the context of this vapi:
+
+* TTF_MAJOR_VERSION

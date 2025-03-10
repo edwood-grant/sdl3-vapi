@@ -1,7 +1,7 @@
 project(
     'sdl3',
     ['c', 'vala'],
-    version: '3.2.6',
+    version: '3.2.8',
     license: 'GPLv3',
     default_options: ['warning_level=2'],
 )

@@ -7,9 +7,9 @@ version of SDL3.
 
 Currently there are vapis for:
 
-* SDL3 (As `SDL` namespace)
-* SDL3 Image (As `SDL.Image` namespace)
-* SDL3 Ttf (As `SDL.Ttf` namespace)
+* SDL3 3.2.8 (As `SDL` namespace)
+* SDL3 Image 3.2.4 (As `SDL.Image` namespace)
+* SDL3 Ttf 3.2.0 (As `SDL.Ttf` namespace)
 
 Support for the rest of SDL3 libraries (SDL3_mixer, SDL3_net, SDL_rtf)
 is planned as soon as these APIs go ABI stable.

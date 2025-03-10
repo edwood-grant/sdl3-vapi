@@ -4,9 +4,9 @@ using SDL;
 public void test_version_macros () {
     assert (SDL.Version.MAJOR == 3);
     assert (SDL.Version.MINOR == 2);
-    assert (SDL.Version.MICRO == 6);
-    assert (SDL.Version.VERSION == 3002006);
-    assert (SDL.Revision.REVISION == "release-3.2.6-0-g65864190c");
+    assert (SDL.Version.MICRO == 8);
+    assert (SDL.Version.VERSION == 3002008);
+    assert (SDL.Revision.REVISION == "release-3.2.8-0-gf6864924f");
 }
 
 public void test_version_functions () {

@@ -339,9 +339,6 @@ namespace SDL.Ttf {
     [CCode (cname = "TTF_InsertTextString")]
     public static bool insert_text_string (Text text, int offset, string text_to_insert);
 
-    // Not implemente due to backward compatibility inecesary for the bindings
-    // #define TTF_MAJOR_VERSION   SDL_TTF_MAJOR_VERSION
-
     [CCode (cname = "TTF_MeasureString")]
     public static bool measure_string (Font font,
         string text,
@@ -520,7 +517,7 @@ namespace SDL.Ttf {
         public int line_index;
         public int cluster_index;
         public SDL.Rect.Rect rect;
-    } // SubString;
+    } // SubString
 
     [Flags, CCode (cname = "Uint32", cprefix = "TTF_SUBSTRING_", has_type_id = false)]
     public enum  SubStringFlags {

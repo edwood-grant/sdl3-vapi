@@ -92,7 +92,7 @@ namespace SDL.Ttf {
     public static TextEngine ? create_surface_text_engine ();
 
     [CCode (cname = "TTF_CreateText")]
-    public static Text ? create_text (TextEngine engine, Font font, string text);
+    public static Text ? create_text (TextEngine engine, Font font, string text, size_t length);
 
     [CCode (cname = "TTF_DeleteTextString")]
     public static bool delete_text_string (Text text, int offset, int length);
@@ -200,7 +200,7 @@ namespace SDL.Ttf {
     public static HorizontalAlignment get_font_wrap_alignment (Font font);
 
     [CCode (cname = "TTF_GetFreeTypeVersion")]
-    public static void get_freetype_version (out int? major, out int? minor, out int? patch);
+    public static void get_freetype_version (out int major, out int minor, out int patch);
 
     [CCode (cname = "TTF_GetGlyphImage")]
     public static SDL.Surface.Surface ? get_glyph_image (Font font, uint32 ch, ImageType image_type);
@@ -209,7 +209,7 @@ namespace SDL.Ttf {
     public static SDL.Surface.Surface ? get_glyph_image_for_index (Font font, uint32 glyph_index, ImageType image_type);
 
     [CCode (cname = "TTF_GetGlyphKerning")]
-    public static bool get_glyph_kerning (Font font, uint32 previous_ch, uint32 ch, out int? kerning);
+    public static bool get_glyph_kerning (Font font, uint32 previous_ch, uint32 ch, out int kerning);
 
     [CCode (cname = "TTF_GetGlyphMetrics")]
     public static bool get_glyph_metrics (Font font,
@@ -230,7 +230,7 @@ namespace SDL.Ttf {
     public static GPUTextEngineWinding get_gpu_text_engine_windind (TextEngine engine);
 
     [CCode (cname = "TTF_GetHarfBuzzVersion")]
-    public static void get_harf_buzz_version (out int? major, out int? minor, out int? patch);
+    public static void get_harf_buzz_version (out int major, out int minor, out int patch);
 
     [CCode (cname = "TTF_GetNextTextSubString")]
     public static bool get_next_text_substring (Text text, SubString substring, out SubString next);
@@ -272,7 +272,7 @@ namespace SDL.Ttf {
     public static uint32 get_text_script (Text text);
 
     [CCode (cname = "TTF_GetTextSize")]
-    public static bool get_text_size (Text text, out int? w, out int? h);
+    public static bool get_text_size (Text text, out int w, out int h);
 
     [CCode (cname = "TTF_GetTextSubString")]
     public static bool get_text_substring (Text text, int offset, out SubString substring);
@@ -296,7 +296,7 @@ namespace SDL.Ttf {
         COUNTER_CLOCKWISE,
     } // GPUTextEngineWinding
 
-    [CCode (cname = "TTF_GPUAtlasDrawSequence", has_type_id = false)]
+    [CCode (cname = "TTF_GPUAtlasDrawSequence", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUAtlasDrawSequence {
         public SDL.Gpu.GPUTexture atlas_texture; /**< Texture atlas that stores the glyphs */
         public SDL.Rect.FPoint[] xy; /**< An array of vertex positions */
@@ -337,14 +337,14 @@ namespace SDL.Ttf {
     public static bool init ();
 
     [CCode (cname = "TTF_InsertTextString")]
-    public static bool insert_text_string (Text text, int offset, string text_to_insert);
+    public static bool insert_text_string (Text text, int offset, string text_to_insert, size_t length);
 
     [CCode (cname = "TTF_MeasureString")]
     public static bool measure_string (Font font,
         string text,
         int max_width,
-        out int? measured_width,
-        out size_t? measured_length);
+        out int measured_width,
+        out size_t measured_length);
 
     [CCode (cname = "TTF_OpenFont")]
     public static Font ? open_font (string file, float point_size);
@@ -435,7 +435,7 @@ namespace SDL.Ttf {
                                                                    string text,
                                                                    size_t length,
                                                                    SDL.Pixels.Color fg,
-                                                                   int wrapLength);
+                                                                   int wrap_length);
 
     [CCode (cname = "TTF_SetFontDirection")]
     public static bool set_font_direction (Font font, Direction direction);
@@ -498,7 +498,7 @@ namespace SDL.Ttf {
     public static bool set_text_script (Text text, uint32 script);
 
     [CCode (cname = "TTF_SetTextString")]
-    public static bool set_text_string (Text text, string text_to_set);
+    public static bool set_text_string (Text text, string text_to_set, size_t length);
 
     [CCode (cname = "TTF_SetTextWrapWhitespaceVisible")]
     public static bool set_text_wrap_whitespace_visible (Text text, bool visible);
@@ -509,7 +509,7 @@ namespace SDL.Ttf {
     [CCode (cname = "TTF_StringToTag")]
     public static uint32 string_to_tag (string text);
 
-    [CCode (cname = "TTF_SubString", has_type_id = false)]
+    [CCode (cname = "TTF_SubString", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct SubString {
         public SubStringFlags flags;
         public int offset;
@@ -520,7 +520,7 @@ namespace SDL.Ttf {
     } // SubString
 
     [Flags, CCode (cname = "Uint32", cprefix = "TTF_SUBSTRING_", has_type_id = false)]
-    public enum  SubStringFlags {
+    public enum SubStringFlags {
         DIRECTION_MASK,
         TEXT_START,
         LINE_START,
@@ -531,8 +531,9 @@ namespace SDL.Ttf {
     [CCode (cname = "TTF_TagToString")]
     public static void tag_to_string (uint32 tag, out string? text);
 
-    [CCode (cname = "TTF_Text", has_type_id = false)]
-    public struct Text {
+    [Compact, CCode (cname = "TTF_Text", destroy_function = "",
+                     ref_function = "", unref_function = "", has_type_id = false)]
+    public class Text {
         public string text;
         public int num_lines;
         public int refcount;

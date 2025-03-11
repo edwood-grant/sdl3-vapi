@@ -2465,7 +2465,7 @@ namespace SDL.Render {
         public int refcount;
     }
 
-    [CCode (cname = "SDL_Vertex", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_Vertex", has_type_id = false)]
     public struct Vertex {
         public Rect.FPoint position;
         public Pixels.FColor color;
@@ -7482,13 +7482,13 @@ namespace SDL.Gpu {
         public uint8 padding2;
     } // GPUColorTargetBlendState
 
-    [CCode (cname = "SDL_GPUColorTargetDescription", destroy_function = "", copy_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_GPUColorTargetDescription", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUColorTargetDescription {
         public GPUTextureFormat format;
         public GPUColorTargetBlendState blend_state;
     } // GPUColorTargetDescription
 
-    [CCode (cname = "SDL_GPUColorTargetInfo", destroy_function = "", copy_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_GPUColorTargetInfo", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUColorTargetInfo {
         public GPUTexture texture;
         public uint32 mip_level;
@@ -7552,7 +7552,7 @@ namespace SDL.Gpu {
         public uint8 padding2;
     } // GPUDepthStencilTargetInfo;
 
-    [CCode (cname = "SDL_GPUGraphicsPipelineCreateInfo", copy_function = "", destroy_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_GPUGraphicsPipelineCreateInfo", has_copy_function = false, destroy_function = "", has_type_id = false)]
     public struct GPUGraphicsPipelineCreateInfo {
         public GPUShader vertex_shader;
         public GPUShader fragment_shader;
@@ -7565,7 +7565,7 @@ namespace SDL.Gpu {
         public Properties.PropertiesID props;
     } // GPUGraphicsPipelineCreateInfo
 
-    [CCode (cname = "SDL_GPUGraphicsPipelineTargetInfo", destroy_function = "", copy_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_GPUGraphicsPipelineTargetInfo", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUGraphicsPipelineTargetInfo {
         [CCode (array_length_cname = "num_color_targets", array_length_type = "Uint32")]
         public GPUColorTargetDescription[] color_target_descriptions;

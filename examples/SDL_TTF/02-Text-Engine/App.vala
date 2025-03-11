@@ -1,7 +1,7 @@
 using SDL;
 
-// A basic sample for SDL_ttf. Loads a font with a fallback, draws it to a
-// surface then a texture. and it finally renders it on the screen
+// This sample uses a text engine to render text
+// It can simplify the rendering process in general
 
 // The fonts are:
 // "HomeVideo" by GGBotNrt
@@ -23,20 +23,19 @@ const string FONT_FALLBACK_NAME = "OpenMoji-black-glyf.ttf";
 
 SDL.Video.Window? window = null;
 SDL.Render.Renderer? renderer = null;
-SDL.Render.Texture? text_texture = null;
 SDL.Ttf.Font? font_normal = null;
 SDL.Ttf.Font? font_fallback = null;
 
 int main (string[] args) {
-    SDL.Init.set_app_metadata ("SDL3 Vala TTF 01 - Hello", "1.0",
-                               "dev.vala.example.ttf-01-hello");
+    SDL.Init.set_app_metadata ("SDL3 Vala TTF 02 - Text Engine", "1.0",
+                               "dev.vala.example.ttf-02-text-engine");
 
     bool success = Init.init (Init.InitFlags.VIDEO);
     if (!success) {
         SDL.Log.log ("Couldn't initialize SDL: %s", SDL.Error.get_error ());
         return 1;
     }
-    success = SDL.Render.create_window_and_renderer ("SDL3 Vala TTF 01 - Hello",
+    success = SDL.Render.create_window_and_renderer ("SDL3 Vala TTF 02 - Text Engine",
                                                      WINDOW_WIDTH, WINDOW_HEIGHT, 0,
                                                      out window, out renderer);
     if (!success) {
@@ -71,28 +70,40 @@ int main (string[] args) {
         SDL.Log.log ("Couldn't add fallback font: %s\n", SDL.Error.get_error ());
     }
 
-    // Create the text surface and convert it to a texture
-    // The "_wrapped" version of these methods will take int account linebreaks and the width limit
-    // If you don't want to wrap, use the normal functions like SDL.Ttf.render_text_blended ()
-    var text_surface = SDL.Ttf.render_text_blended_wrapped (font_normal,
-                                                            "Hello world! 💻\n\nThis text message comes "
-                                                            + "from SDL ⚙ and Vala ✌️",
-                                                            0,
-                                                            COLOR_WHITE,
-                                                            MAX_TEXT_WRAP_WIDTH);
-    if (text_surface != null) {
-        text_texture = SDL.Render.create_texture_from_surface (renderer, text_surface);
-        SDL.Surface.destroy_surface (text_surface);
-    } else {
-        SDL.Log.log ("Couldn't create text: %s\n", SDL.Error.get_error ());
+    // The first example renders a text directly to a surface. This can be a bit cumbersome.
+    // A text engine from TTF will save you a lot of boilerplate and make things easier
+    // There are engines for surfaces, for the SDL rednerer and for GPU
+    //
+    // Text engines have some sensible defualt, but you can change them with  SDL.Ttf.set_text_xyx
+    // You can have multiple text engines for diferent properties, font and more
+    //
+    // You can also switch engines in real teim if you need to change properties about a text
+    var text_engine = SDL.Ttf.create_renderer_text_engine (renderer);
+    if (text_engine == null) {
+        SDL.Log.log ("Couldn't create a renderer text engine: %s\n", SDL.Error.get_error ());
         return 3;
     }
+    var ttf_text_01 = SDL.Ttf.create_text (text_engine, font_normal, "Hello world! 💻\n\nThis text message comes "
+                                           + "from SDL ⚙ and Vala ✌️\n\nWe are using a TextEngine to render this", 0);
 
-    var dst_rect = SDL.Rect.FRect ();
-    dst_rect.w = text_texture.w;
-    dst_rect.h = text_texture.h;
-    dst_rect.x = (WINDOW_WIDTH - dst_rect.w) / 2.0f;
-    dst_rect.y = (WINDOW_HEIGHT - dst_rect.h) / 2.0f;
+    if (ttf_text_01 == null) {
+        SDL.Log.log ("Couldn't create text from text engine: %s\n", SDL.Error.get_error ());
+        return 3;
+    }
+    SDL.Ttf.set_text_wrap_width (ttf_text_01, MAX_TEXT_WRAP_WIDTH);
+
+    var ttf_text_02 = SDL.Ttf.create_text (text_engine, font_normal,
+                                           "Current Ticks: %s".printf (SDL.Timer.get_ticks ().to_string ()), 0);
+    if (ttf_text_02 == null) {
+        SDL.Log.log ("Couldn't create text from text engine: %s\n", SDL.Error.get_error ());
+        return 3;
+    }
+    SDL.Ttf.set_text_color (ttf_text_02, 200, 0, 200, 255);
+
+    int? w, h;
+    SDL.Ttf.get_text_size (ttf_text_01, out w, out h);
+    float x = (WINDOW_WIDTH - w) / 2.0f;
+    float y = (WINDOW_HEIGHT - h) / 2.0f;
 
     bool is_running = true;
     SDL.Events.Event ev;
@@ -103,20 +114,32 @@ int main (string[] args) {
             }
         }
 
+        // Update text on ttf_text_02
+        // On a simple texture we woudl have to "re_render", which takes CP time
+        // With this. changing text is faster and easier.
+        var str = "Current Ticks: %s".printf (SDL.Timer.get_ticks ().to_string ());
+        SDL.Ttf.set_text_string (ttf_text_02, str, 0);
+
         SDL.Render.set_render_draw_color (renderer, 0, 0, 0, SDL.Pixels.ALPHA_OPAQUE);
         SDL.Render.render_clear (renderer);
         {
-            SDL.Render.render_texture (renderer, text_texture, null, dst_rect);
+            SDL.Ttf.draw_renderer_text (ttf_text_01, x, y);
+            SDL.Ttf.draw_renderer_text (ttf_text_02, x + 100, y + 350);
         }
         SDL.Render.render_present (renderer);
     }
 
     SDL.Render.destroy_renderer (renderer);
     SDL.Video.destroy_window (window);
+
+    SDL.Ttf.destroy_text (ttf_text_01);
+    SDL.Ttf.destroy_text (ttf_text_02);
+    SDL.Ttf.destroy_renderer_text_engine (text_engine);
+
     SDL.Ttf.close_font (font_normal);
     SDL.Ttf.close_font (font_fallback);
+
     SDL.Ttf.quit ();
     SDL.Init.quit ();
-
     return 0;
 }

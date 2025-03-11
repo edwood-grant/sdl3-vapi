@@ -53,3 +53,4 @@ subdir('SDL_Image/03-Load-Image-IO')
 
 # SDL TTF
 subdir('SDL_TTF/01-Hello-World')
+subdir('SDL_TTF/02-Text-Engine')

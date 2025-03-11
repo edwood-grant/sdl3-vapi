@@ -117,6 +117,9 @@ int main (string[] args) {
         // Update text on ttf_text_02
         // On a simple texture we woudl have to "re_render", which takes CP time
         // With this. changing text is faster and easier.
+        //
+        // There are also functions to insert, delete and append text.
+        // This can be a very powerful tool to create things like texboxes.
         var str = "Current Ticks: %s".printf (SDL.Timer.get_ticks ().to_string ());
         SDL.Ttf.set_text_string (ttf_text_02, str, 0);
 

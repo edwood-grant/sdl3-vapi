@@ -74,17 +74,17 @@ int main (string[] args) {
     // A text engine from TTF will save you a lot of boilerplate and make things easier
     // There are engines for surfaces, for the SDL rednerer and for GPU
     //
-    // Text engines have some sensible defualt, but you can change them with  SDL.Ttf.set_text_xyx
+    // Text engines have some sensible defaults, but you can change them with  SDL.Ttf.set_text_xyx
     // You can have multiple text engines for diferent properties, font and more
     //
-    // You can also switch engines in real teim if you need to change properties about a text
+    // You can also switch engines in real time if you need to change properties about a text
     var text_engine = SDL.Ttf.create_renderer_text_engine (renderer);
     if (text_engine == null) {
         SDL.Log.log ("Couldn't create a renderer text engine: %s\n", SDL.Error.get_error ());
         return 3;
     }
     var ttf_text_01 = SDL.Ttf.create_text (text_engine, font_normal, "Hello world! 💻\n\nThis text message comes "
-                                           + "from SDL ⚙ and Vala ✌️\n\nWe are using a TextEngine to render this", 0);
+                                           + "from SDL ⚙ and Vala ✌️\n\nWe are using a GPU TextEngine to render", 0);
 
     if (ttf_text_01 == null) {
         SDL.Log.log ("Couldn't create text from text engine: %s\n", SDL.Error.get_error ());
@@ -115,8 +115,8 @@ int main (string[] args) {
         }
 
         // Update text on ttf_text_02
-        // On a simple texture we woudl have to "re_render", which takes CP time
-        // With this. changing text is faster and easier.
+        // On a simple texture we would have to "re_render", which takes CPU time
+        // With this approach, changing text is faster and easier.
         //
         // There are also functions to insert, delete and append text.
         // This can be a very powerful tool to create things like texboxes.

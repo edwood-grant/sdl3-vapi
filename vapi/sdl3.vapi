@@ -1660,20 +1660,20 @@ namespace SDL.Video {
     [SimpleType, CCode (cname = "SDL_DisplayID", has_type_id = false)]
     public struct DisplayID : uint32 {}
 
-    [CCode (cname = "SDL_DisplayModeData", has_type_id = false)]
-    public struct DisplayModeData {}
+    [Compact, CCode (cname = "SDL_DisplayModeData", free_function = "", has_type_id = false)]
+    public class DisplayModeData {}
 
-    [CCode (cname = "SDL_EGLAttrib")]
-    public struct EGLAttrib {}
+    [Compact, CCode (cname = "SDL_EGLAttrib", free_function = "", has_type_id = false)]
+    public class EGLAttrib {}
 
     [CCode (cname = "SDL_EGLAttribArrayCallback", has_target = true)]
     public delegate EGLAttrib EGLAttribArrayCallback ();
 
-    [CCode (cname = "SDL_EGLConfig", has_type_id = false)]
-    public struct EGLConfig {}
+    [Compact, CCode (cname = "SDL_EGLConfig", free_function = "", has_type_id = false)]
+    public class EGLConfig {}
 
-    [CCode (cname = "SDL_EGLDisplay", has_type_id = false)]
-    public struct EGLDisplay {}
+    [Compact, CCode (cname = "SDL_EGLDisplay", free_function = "", has_type_id = false)]
+    public class EGLDisplay {}
 
     [SimpleType, CCode (cname = "SDL_EGLint", has_type_id = false)]
     public struct EGLint : int {}
@@ -1681,8 +1681,8 @@ namespace SDL.Video {
     [CCode (cname = "SDL_EGLIntArrayCallback", has_target = true, instance_pos = 0)]
     public delegate EGLint[] EGLIntArrayCallback (EGLDisplay display, EGLConfig config);
 
-    [CCode (cname = "SDL_EGLSurface", has_type_id = false)]
-    public struct EGLSurface {}
+    [Compact, CCode (cname = "SDL_EGLSurface", free_function = "", has_type_id = false)]
+    public class EGLSurface {}
 
     [Compact, CCode (cname = "SDL_GLContext", free_function = "", has_type_id = false)]
     public class GLContext {}
@@ -3797,17 +3797,17 @@ namespace SDL.Vulkan {
     [CCode (cname = "SDL_Vulkan_UnloadLibrary")]
     public static void unload_library ();
 
-    [CCode (cname = "VkInstance", has_type_id = false)]
-    public struct VkInstance {}
+    [Compact, CCode (cname = "VkInstance", free_function = "", has_type_id = false)]
+    public class VkInstance {}
 
     [SimpleType, CCode (cname = "VkSurfaceKHR", has_type_id = false)]
     public struct VkSurfaceKHR : uint64 {}
 
-    [CCode (cname = "VkPhysicalDevice", has_type_id = false)]
-    public struct VkPhysicalDevice {}
+    [Compact, CCode (cname = "VkPhysicalDevice", free_function = "", has_type_id = false)]
+    public class VkPhysicalDevice {}
 
-    [CCode (cname = "VkAllocationCallbacks", has_type_id = false)]
-    public struct VkAllocationCallbacks {}
+    [Compact, CCode (cname = "VkAllocationCallbacks", free_function = "", has_type_id = false)]
+    public class VkAllocationCallbacks {}
 } // SDL.Vulkan
 
 ///
@@ -3824,8 +3824,8 @@ namespace SDL.Metal {
     [CCode (cname = "SDL_Metal_GetLayer")]
     public static void * get_layer (MetalView view);
 
-    [CCode (cname = "SDL_MetalView", destroy_function = "", has_type_id = false)]
-    public struct MetalView {}
+    [Compact, CCode (cname = "SDL_MetalView",  free_function = "", has_type_id = false)]
+    public class MetalView {}
 } // SDL.Metal
 
 ///
@@ -6272,8 +6272,8 @@ namespace SDL.Sensor {
     [CCode (cname = "SDL_UpdateSensors")]
     public static void update_sensors ();
 
-    [CCode (cname = "SDL_Sensor", has_type_id = false)]
-    public struct Sensor {}
+    [Compact, CCode (cname = "SDL_Sensor", free_function = "", has_type_id = false)]
+    public class Sensor {}
 
     [SimpleType, CCode (cname = "SDL_SensorID", has_type_id = false)]
     public struct SensorID : uint32 {}
@@ -6385,8 +6385,8 @@ namespace SDL.HidApi {
     [CCode (cname = "SDL_hid_write")]
     public static int hid_write (HidDevice dev, char[] data);
 
-    [CCode (cname = "SDL_hid_device", has_type_id = false)]
-    public struct HidDevice {}
+    [Compact, CCode (cname = "SDL_hid_device", free_function = "", has_type_id = false)]
+    public class HidDevice {}
 
     [CCode (cname = "SDL_hid_device_info", has_type_id = false)]
     public struct HidDeviceInfo {
@@ -6516,8 +6516,8 @@ namespace SDL.Haptic {
     [CCode (cname = "SDL_UpdateHapticEffect")]
     public static bool update_haptic_effect (Haptic haptic, int effect, HapticEffect data);
 
-    [CCode (cname = "SDL_Haptic", has_type_id = false)]
-    public struct Haptic {}
+    [Compact, CCode (cname = "SDL_Haptic", free_function = "", has_type_id = false)]
+    public class Haptic {}
 
     [SimpleType, CCode (cname = "SDL_HapticID", has_type_id = false)]
     public struct HapticID : uint32 {}
@@ -7070,11 +7070,11 @@ namespace SDL.Gpu {
         bool cycle);
 
     [CCode (cname = "SDL_CreateGPUBuffer")]
-    public static GPUBuffer ? create_gpu_buffer (GPUDevice device, GPUBufferCreateInfo createinfo);
+    public static GPUBuffer ? create_gpu_buffer (GPUDevice device, GPUBufferCreateInfo create_info);
 
     [CCode (cname = "SDL_CreateGPUComputePipeline")]
     public static GPUComputePipeline ? create_compute_pipeline (GPUDevice device,
-        GPUComputePipelineCreateInfo createinfo);
+        GPUComputePipelineCreateInfo create_info);
 
     [CCode (cname = "SDL_CreateGPUDevice")]
     public static GPUDevice ? create_gpu_device (GPUShaderFormat format_flags, bool debug_mode, string? name);
@@ -7084,20 +7084,20 @@ namespace SDL.Gpu {
 
     [CCode (cname = "SDL_CreateGPUGraphicsPipeline")]
     public static GPUGraphicsPipeline ? create_gpu_graphics_pipeline (GPUDevice device,
-        GPUGraphicsPipelineCreateInfo createinfo);
+        GPUGraphicsPipelineCreateInfo create_info);
 
     [CCode (cname = "SDL_CreateGPUSampler")]
-    public static GPUSampler ? create_gpu_sampler (GPUDevice device, GPUSamplerCreateInfo createinfo);
+    public static GPUSampler ? create_gpu_sampler (GPUDevice device, GPUSamplerCreateInfo create_info);
 
     [CCode (cname = "SDL_CreateGPUShader")]
-    public static GPUShader ? create_gpu_shader (GPUDevice device, GPUShaderCreateInfo createinfo);
+    public static GPUShader ? create_gpu_shader (GPUDevice device, GPUShaderCreateInfo create_info);
 
     [CCode (cname = "SDL_CreateGPUTexture")]
-    public static GPUTexture ? create_gpu_texture (GPUDevice device, GPUTextureCreateInfo createinfo);
+    public static GPUTexture ? create_gpu_texture (GPUDevice device, GPUTextureCreateInfo create_info);
 
     [CCode (cname = "SDL_CreateGPUTransferBuffer")]
     public static GPUTransferBuffer ? create_gpu_transfer_buffer (GPUDevice device,
-        GPUTransferBufferCreateInfo createinfo);
+        GPUTransferBufferCreateInfo create_info);
 
     [CCode (cname = "SDL_DestroyGPUDevice")]
     public static void destroy_gpu_device (GPUDevice device);
@@ -7337,8 +7337,8 @@ namespace SDL.Gpu {
         Video.Window window,
         GPUSwapchainComposition swapchain_composition);
 
-    [CCode (cname = "SDL_GPUBuffer", has_type_id = false)]
-    public struct GPUBuffer {}
+    [Compact, CCode (cname = "SDL_GPUBuffer", free_function = "", has_type_id = false)]
+    public class GPUBuffer {}
 
     [Flags, CCode (cname = "Uint32", cprefix = "SDL_GPU_BUFFERUSAGE_", has_type_id = false)]
     public enum GPUBufferUsageFlags {
@@ -7361,20 +7361,20 @@ namespace SDL.Gpu {
     [Compact, CCode (cname = "SDL_GPUCommandBuffer", free_function = "", has_type_id = false)]
     public class GPUCommandBuffer {}
 
-    [CCode (cname = "SDL_GPUComputePass", has_type_id = false)]
-    public struct GPUComputePass {}
+    [Compact, CCode (cname = "SDL_GPUComputePass", free_function = "", has_type_id = false)]
+    public class GPUComputePass {}
 
-    [CCode (cname = "SDL_GPUComputePipeline", has_type_id = false)]
-    public struct GPUComputePipeline {}
+    [Compact, CCode (cname = "SDL_GPUComputePipeline", free_function = "", has_type_id = false)]
+    public class GPUComputePipeline {}
 
-    [CCode (cname = "SDL_GPUCopyPass", has_type_id = false)]
-    public struct GPUCopyPass {}
+    [Compact, CCode (cname = "SDL_GPUCopyPass", free_function = "", has_type_id = false)]
+    public class GPUCopyPass {}
 
     [Compact, CCode (cname = "SDL_GPUDevice", free_function = "", has_type_id = false)]
     public class GPUDevice {}
 
-    [CCode (cname = "SDL_GPUFence", has_type_id = false)]
-    public struct GPUFence {}
+    [Compact, CCode (cname = "SDL_GPUFence", free_function = "", has_type_id = false)]
+    public class GPUFence {}
 
     [Compact, CCode (cname = "SDL_GPUGraphicsPipeline", free_function = "", has_type_id = false)]
     public class GPUGraphicsPipeline {}
@@ -7413,8 +7413,8 @@ namespace SDL.Gpu {
         COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE,
     }
 
-    [CCode (cname = "SDL_GPUTransferBuffer", has_type_id = false)]
-    public struct GPUTransferBuffer {}
+    [Compact, CCode (cname = "SDL_GPUTransferBuffer", free_function = "", has_type_id = false)]
+    public class GPUTransferBuffer {}
 
     [CCode (cname = "SDL_GPUBlitInfo", has_type_id = false)]
     public struct GPUBlitInfo {
@@ -7552,7 +7552,7 @@ namespace SDL.Gpu {
         public uint8 padding2;
     } // GPUDepthStencilTargetInfo;
 
-    [CCode (cname = "SDL_GPUGraphicsPipelineCreateInfo", has_copy_function = false, destroy_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_GPUGraphicsPipelineCreateInfo", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUGraphicsPipelineCreateInfo {
         public GPUShader vertex_shader;
         public GPUShader fragment_shader;
@@ -7739,7 +7739,7 @@ namespace SDL.Gpu {
     [CCode (cname = "SDL_GPUTransferBufferCreateInfo", has_type_id = false)]
     public struct GPUTransferBufferCreateInfo {
         public GPUTransferBufferUsage usage;
-        public int32 size;
+        public uint32 size;
         Properties.PropertiesID props;
     } // GPUTransferBufferCreateInfo
 
@@ -7765,12 +7765,12 @@ namespace SDL.Gpu {
         public uint32 instance_step_rate;
     } // GPUVertexBufferDescription
 
-    [CCode (cname = "SDL_GPUVertexInputState", has_type_id = false)]
+    [CCode (cname = "SDL_GPUVertexInputState", destroy_function = "", has_copy_function= false, has_type_id = false)]
     public struct GPUVertexInputState {
+        [CCode (array_length_cname = "num_vertex_buffers", array_length_type = "Uint32")]
         public GPUVertexBufferDescription[] vertex_buffer_descriptions;
-        public uint32 num_vertex_buffers;
+        [CCode (array_length_cname = "num_vertex_attributes", array_length_type = "Uint32")]
         public GPUVertexAttribute[] vertex_attributes;
-        public uint32 num_vertex_attributes;
     } // GPUVertexInputState
 
     [CCode (cname = "SDL_GPUViewport", has_type_id = false)]
@@ -8236,8 +8236,8 @@ namespace SDL.Threads {
     [CCode (cname = "SDL_WaitThread")]
     public static void wait_thread (Thread thread, out int status);
 
-    [CCode (cname = "SDL_Thread", has_type_id = false)]
-    public struct Thread {}
+    [Compact, CCode (cname = "SDL_Thread", free_function = "", has_type_id = false)]
+    public class Thread {}
 
     [CCode (cname = "SDL_ThreadFunction", has_target = true)]
     public delegate int ThreadFunction ();
@@ -8372,10 +8372,10 @@ namespace SDL.Mutex {
     public static bool wait_semaphore_timeout (Semaphore sem, int32 timeout_ms);
 
     [Compact, CCode (cname = "SDL_Condition", free_function = "", has_type_id = false)]
-    public struct Condition {}
+    public class Condition {}
 
     [Compact, CCode (cname = "SDL_Mutex", free_function = "", has_type_id = false)]
-    public struct Mutex {}
+    public class Mutex {}
 
     [Compact, CCode (cname = "SDL_RWLock", free_function = "", has_type_id = false)]
     public class RWLock {}
@@ -8785,8 +8785,8 @@ namespace SDL.Storage {
     [CCode (cname = "SDL_WriteStorageFile")]
     public static bool write_sotrage_file (Storage storage, string path, void* source, uint64 length);
 
-    [CCode (cname = "SDL_Storage", has_type_id = false)]
-    public struct Storage {}
+    [Compact, CCode (cname = "SDL_Storage", free_function = "", has_type_id = false)]
+    public class Storage {}
 
     [CCode (cname = "SDL_StorageInterface", has_type_id = false)]
     public struct StorageInterface {
@@ -9055,13 +9055,13 @@ namespace SDL.AsyncIO {
     [CCode (cname = "SDL_WriteAsyncIO", has_target = true)]
     public static bool write_async_io (AsyncIO asyncio, ref void* ptr, uint64 offset, uint64 size, AsyncIOQueue queue);
 
-    [CCode (cname = "SDL_AsyncIO", has_type_id = false)]
-    public struct AsyncIO {}
+    [Compact, CCode (cname = "SDL_AsyncIO", free_function = "", has_type_id = false)]
+    public class AsyncIO {}
 
     [Compact, CCode (cname = "SDL_AsyncIOQueue", free_function = "", has_type_id = false)]
     public class AsyncIOQueue {}
 
-    [CCode (cname = "SDL_AsyncIOOutcome", has_type_id = false)]
+    [CCode (cname = "SDL_AsyncIOOutcome", destroy_function = "", has_type_id = false)]
     public struct AsyncIOOutcome {
         public AsyncIO asyncio;
         public AsyncIOTaskType type;
@@ -9307,8 +9307,8 @@ namespace SDL.LoadSO {
     [CCode (cname = "SDL_UnloadObject")]
     public static void unload_object (SharedObject handle);
 
-    [CCode (cname = "SDL_SharedObject", has_type_id = false)]
-    public struct SharedObject {}
+    [Compact, CCode (cname = "SDL_SharedObject", free_function = "", has_type_id = false)]
+    public class SharedObject {}
 } // SDL.LoadSO
 
 ///
@@ -9648,8 +9648,8 @@ namespace SDL.Tray {
     [CCode (cname = "SDL_TrayCallback", has_target = true, instance_pos = 0)]
     public delegate void TrayCallback (TrayEntry entry);
 
-    [CCode (cname = "SDL_TrayEntry", has_type_id = false)]
-    public struct TrayEntry {}
+    [Compact, CCode (cname = "SDL_TrayEntry", free_function = "", has_type_id = false)]
+    public class TrayEntry {}
 
     [Flags, CCode (cname = "Uint32", cprefix = "SDL_TRAYENTRY_", has_type_id = false)]
     public enum TrayEntryFlags {
@@ -9660,8 +9660,8 @@ namespace SDL.Tray {
         CHECKED,
     } // SDL_TrayEntryFlags;
 
-    [CCode (cname = "SDL_TrayMenu", has_type_id = false)]
-    public struct TrayMenu {}
+    [Compact, CCode (cname = "SDL_TrayMenu", free_function = "", has_type_id = false)]
+    public class TrayMenu {}
 } // SDL.Tray
 
 ///
@@ -9714,8 +9714,8 @@ namespace SDL.System {
     [CCode (cname = "SDL_GetGDKDefaultUser")]
     public static bool get_gdk_default_user (out XUserHandle out_user_handle);
 
-    [CCode (cname = "XUserHandle", has_type_id = false)]
-    public struct XUserHandle {}
+    [Compact, CCode (cname = "XUserHandle", free_function = "", has_type_id = false)]
+    public class XUserHandle {}
 
     [CCode (cname = "SDL_GetSandbox")]
     public static Sandbox get_sandbox ();
@@ -9762,8 +9762,8 @@ namespace SDL.System {
     [CCode (cname = "SDL_SetWindowsMessageHook", has_target = true)]
     public static void set_windows_message_hook (WindowsMessageHook callback);
 
-    [CCode (cname = "MSG", has_type_id = false)]
-    public struct Msg {}
+    [Compact, CCode (cname = "MSG", free_function = "", has_type_id = false)]
+    public class Msg {}
 
     [CCode (cname = "SDL_X11EventHook", has_target = true, instance_pos = 0)]
     public delegate void X11EventHook (XEvent x_event);
@@ -9771,8 +9771,8 @@ namespace SDL.System {
     [CCode (cname = "SDL_SetX11EventHook", has_target = true)]
     public static void set_x11_event_hook (X11EventHook callback);
 
-    [CCode (cname = "XEvent", has_type_id = false)]
-    public struct XEvent {}
+    [Compact, CCode (cname = "XEvent", free_function = "", has_type_id = false)]
+    public class XEvent {}
 
     [CCode (cname = "SDL_Sandbox", cprefix = "SDL_SANDBOX_", has_type_id = false)]
     public enum Sandbox {
@@ -10341,8 +10341,8 @@ namespace SDL.StdInc {
     [CCode (cname = "SDL_FunctionPointer", has_target = false)]
     public delegate void FunctionPointer ();
 
-    [CCode (cname = "SDL_iconv_t", has_type_id = false)]
-    public struct Iconv {}
+    [Compact, CCode (cname = "SDL_iconv_t", free_function = "", has_type_id = false)]
+    public class Iconv {}
 
     [CCode (cname = "SDL_malloc_func", has_target = false)]
     public delegate void * MallocFunc (size_t size);
@@ -10350,8 +10350,8 @@ namespace SDL.StdInc {
     [CCode (cname = "SDL_realloc_func", has_target = false)]
     public delegate void * ReallocFunc (void* mem, size_t size);
 
-    [CCode (cname = "SDL_Time", has_type_id = false)]
-    public struct Time {}
+    [Compact, CCode (cname = "SDL_Time", free_function = "", has_type_id = false)]
+    public class Time {}
 
     [CCode (cname = "SDL_MAX_TIME")]
     public const int64 MAX_TIME;

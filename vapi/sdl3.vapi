@@ -7337,7 +7337,7 @@ namespace SDL.Gpu {
         Video.Window window,
         GPUSwapchainComposition swapchain_composition);
 
-    [Compact, CCode (cname = "SDL_GPUBuffer", free_function = "", has_type_id = false)]
+    [Compact, CCode (cname = "SDL_GPUBuffer", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
     public class GPUBuffer {}
 
     [Flags, CCode (cname = "Uint32", cprefix = "SDL_GPU_BUFFERUSAGE_", has_type_id = false)]
@@ -7382,7 +7382,7 @@ namespace SDL.Gpu {
     [Compact, CCode (cname = "SDL_GPURenderPass", free_function = "", has_type_id = false)]
     public class GPURenderPass {}
 
-    [Compact, CCode (cname = "SDL_GPUSampler", free_function = "", has_type_id = false)]
+    [Compact, CCode (cname = "SDL_GPUSampler", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
     public class GPUSampler {}
 
     [Compact, CCode (cname = "SDL_GPUShader", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
@@ -7413,7 +7413,7 @@ namespace SDL.Gpu {
         COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE,
     }
 
-    [Compact, CCode (cname = "SDL_GPUTransferBuffer", free_function = "", has_type_id = false)]
+    [Compact, CCode (cname = "SDL_GPUTransferBuffer", free_function = "", ref_function = "", unref_function = "", has_type_id = false)]
     public class GPUTransferBuffer {}
 
     [CCode (cname = "SDL_GPUBlitInfo", has_type_id = false)]
@@ -7441,7 +7441,7 @@ namespace SDL.Gpu {
         public uint32 h;
     } // GPUBlitRegion
 
-    [CCode (cname = "SDL_GPUBufferBinding", has_type_id = false)]
+    [CCode (cname = "SDL_GPUBufferBinding", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUBufferBinding {
         public GPUBuffer buffer;
         public uint32 offset;
@@ -7460,7 +7460,7 @@ namespace SDL.Gpu {
         public uint32 offset;
     } // GPUBufferLocation
 
-    [CCode (cname = "SDL_GPUBufferRegion", has_type_id = false)]
+    [CCode (cname = "SDL_GPUBufferRegion", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUBufferRegion {
         public GPUBuffer buffer;
         public uint32 offset;
@@ -7722,7 +7722,7 @@ namespace SDL.Gpu {
         public uint32 d;
     } // GPUTextureRegion
 
-    [CCode (cname = "SDL_GPUTextureSamplerBinding", has_type_id = false)]
+    [CCode (cname = "SDL_GPUTextureSamplerBinding", destroy_function = "", has_type_id = false)]
     public struct GPUTextureSamplerBinding {
         public GPUTexture texture;
         public GPUSampler sampler;
@@ -7743,7 +7743,7 @@ namespace SDL.Gpu {
         Properties.PropertiesID props;
     } // GPUTransferBufferCreateInfo
 
-    [CCode (cname = "SDL_GPUTransferBufferLocation", has_type_id = false)]
+    [CCode (cname = "SDL_GPUTransferBufferLocation", destroy_function = "", has_type_id = false)]
     public struct GPUTransferBufferLocation {
         public GPUTransferBuffer transfer_buffer;
         public uint32 offset;
@@ -7765,7 +7765,7 @@ namespace SDL.Gpu {
         public uint32 instance_step_rate;
     } // GPUVertexBufferDescription
 
-    [CCode (cname = "SDL_GPUVertexInputState", destroy_function = "", has_copy_function= false, has_type_id = false)]
+    [CCode (cname = "SDL_GPUVertexInputState", destroy_function = "", has_copy_function = false, has_type_id = false)]
     public struct GPUVertexInputState {
         [CCode (array_length_cname = "num_vertex_buffers", array_length_type = "Uint32")]
         public GPUVertexBufferDescription[] vertex_buffer_descriptions;

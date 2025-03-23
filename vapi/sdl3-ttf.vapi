@@ -223,8 +223,8 @@ namespace SDL.Ttf {
     [CCode (cname = "TTF_GetGlyphScript")]
     public static uint32 get_glyph_script (uint32 ch);
 
-    [CCode (cname = "TTF_GetGPUTextDrawData", array_null_terminated = true)]
-    public static GPUAtlasDrawSequence[] ? get_gpu_text_draw_data (Text text);
+    [CCode (cname = "TTF_GetGPUTextDrawData", array_length = false, array_null_terminated = true)]
+    public static GPUAtlasDrawSequence ? get_gpu_text_draw_data (Text text);
 
     [CCode (cname = "TTF_GetGPUTextEngineWinding")]
     public static GPUTextEngineWinding get_gpu_text_engine_windind (TextEngine engine);
@@ -296,16 +296,18 @@ namespace SDL.Ttf {
         COUNTER_CLOCKWISE,
     } // GPUTextEngineWinding
 
-    [CCode (cname = "TTF_GPUAtlasDrawSequence", destroy_function = "", has_copy_function = false, has_type_id = false)]
-    public struct GPUAtlasDrawSequence {
-        public SDL.Gpu.GPUTexture atlas_texture; /**< Texture atlas that stores the glyphs */
-        public SDL.Rect.FPoint[] xy; /**< An array of vertex positions */
-        public SDL.Rect.FPoint[] uv; /**< An array of normalized texture coordinates for each vertex */
-        public int num_vertices; /**< Number of vertices */
-        public int[] indices; /**< An array of indices into the 'vertices' arrays */
-        public int num_indices; /**< Number of indices */
-        public ImageType image_type; /**< The image type of this draw sequence */
-        public GPUAtlasDrawSequence? next; /**< The next sequence (will be NULL in case of the last sequence) */
+    [Compact, CCode (cname = "TTF_GPUAtlasDrawSequence", free_function = "",
+                     has_copy_function = false, has_type_id = false)]
+    public class GPUAtlasDrawSequence {
+        public SDL.Gpu.GPUTexture atlas_texture;
+        [CCode (array_length_cname = "num_vertices", array_length_type = "int")]
+        public SDL.Rect.FPoint[] xy;
+        [CCode (array_length_cname = "num_vertices", array_length_type = "int")]
+        public SDL.Rect.FPoint[] uv;
+        [CCode (array_length_cname = "num_indices", array_length_type = "int")]
+        public int[] indices;
+        public ImageType image_type;
+        public GPUAtlasDrawSequence? next;
     } // GPUAtlasDrawSequence
 
     [Flags, CCode (cname = "TTF_HintingFlags", cprefix = "TTF_HINTING_", has_type_id = false)]

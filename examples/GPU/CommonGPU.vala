@@ -1,5 +1,37 @@
 using SDL;
 
+public static bool common_init (string window_title,
+                                int window_width,
+                                int window_height,
+                                out Gpu.GPUDevice? gpu_device,
+                                out Video.Window? window) {
+    gpu_device = null;
+    window = null;
+
+    // Create the device, window, and bind them together
+    var gpu_flags = SDL.Gpu.GPUShaderFormat.SPIRV | SDL.Gpu.GPUShaderFormat.DXIL | SDL.Gpu.GPUShaderFormat.MSL;
+    gpu_device = SDL.Gpu.create_gpu_device (gpu_flags, true, null);
+    if (gpu_device == null) {
+        SDL.Log.log ("Couldn't crete GPU device: %s", SDL.Error.get_error ());
+        return false;
+    }
+
+    // Create the window
+    window = SDL.Video.create_window (window_title, window_width, window_height, 0);
+    if (window == null) {
+        SDL.Log.log ("CreateWindow failed: %s", SDL.Error.get_error ());
+        return false;
+    }
+
+    // Claim the window so the GPU can use it.
+    if (!SDL.Gpu.claim_window_for_gpu_device (gpu_device, window)) {
+        SDL.Log.log ("Couldn't claim window for GPU: %s", SDL.Error.get_error ());
+        return false;
+    }
+
+    return true;
+}
+
 public static SDL.Gpu.GPUShader ? load_shader (SDL.Gpu.GPUDevice device,
                                                string shader_filename,
                                                uint32 sampler_count,
@@ -19,6 +51,7 @@ public static SDL.Gpu.GPUShader ? load_shader (SDL.Gpu.GPUDevice device,
     }
 
     // Auto detect the available shader formats for the platform and choose the correct variant
+    // You don' need to do this if you are not working multiplatform though
     SDL.Gpu.GPUShaderFormat backend_formats = SDL.Gpu.get_gpu_shader_formats (device);
     SDL.Gpu.GPUShaderFormat format = SDL.Gpu.GPUShaderFormat.INVALID;
     string entry_point = "";

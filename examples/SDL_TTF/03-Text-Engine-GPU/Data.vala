@@ -106,7 +106,7 @@ public class GeometryData {
         {
             buffer = vertex_buffer,
             offset = 0,
-            size = (uint32) sizeof (Vertex) * geometry_data.vertex_count,
+            size = (uint32) sizeof (Vertex) * vertex_count,
         };
 
         // Upload the Vertex data
@@ -115,7 +115,7 @@ public class GeometryData {
         // Change the buffer for the indices
         transfer_location.offset = (uint32) sizeof (Vertex) * MAX_VERTEX_COUNT;
         buffer_region.buffer = index_buffer;
-        buffer_region.size = (uint32) sizeof (uint16) * geometry_data.index_count;
+        buffer_region.size = (uint32) sizeof (uint16) * index_count;
 
         // Upload the index data
         Gpu.upload_to_gpu_buffer (copy_pass, transfer_location, buffer_region, false);

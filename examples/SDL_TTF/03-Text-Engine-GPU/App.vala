@@ -12,64 +12,101 @@ using Math3D;
 // License: CC BY-SA 4.0
 // https://openmoji.org/
 
-float delta_time_f = 0;
-uint64 delta_time = 0;
-uint64 previous_time = 0;
+public class App {
+    private float delta_time_f = 0;
+    private uint64 delta_time = 0;
+    private uint64 previous_time = 0;
 
-float angle_y = 0;
+    private float angle_y = 0;
 
-StringBuilder? text_builder = null;
-ContextGpu gpu_ctx;
-ContextTtf ttf_ctx;
-GeometryData geometry_data;
+    private ContextGpu gpu_ctx;
+    private ContextTtf ttf_ctx;
+    private GeometryData geometry_data;
 
-Matrix4x4 proj_view;
+    private Matrix4x4 proj_view;
+    private Matrix4x4[] matrices;
 
-int main (string[] args) {
-    proj_view = Matrix4x4.perspective (StdInc.PI_F / 3.0f, 800.0f / 600.0f, 0.1f, 200.0f);
-    text_builder = new StringBuilder (DEFAULT_TEXT);
+    private StringBuilder text_builder;
+    private unowned Ttf.Text? ttf_text;
+    private Ttf.GPUAtlasDrawSequence? ttf_altas_sequence;
 
-    // Start of program by initalizing all the contexts
-    gpu_ctx = new ContextGpu ();
-    ttf_ctx = new ContextTtf ();
-    geometry_data = new GeometryData ();
+    private bool is_running = false;
 
-    if (!gpu_ctx.init ()) {
-        return -1;
+    public static int main (string[] args) {
+        var app = new App ();
+        return app.run ();
     }
 
-    if (!ttf_ctx.init (gpu_ctx.gpu_device)) {
-        return -2;
+    public App () {
+        gpu_ctx = new ContextGpu ();
+        ttf_ctx = new ContextTtf ();
+        geometry_data = new GeometryData ();
+        text_builder = new StringBuilder (DEFAULT_TEXT);
+        proj_view = Matrix4x4.perspective (StdInc.PI_F / 3.0f, 800.0f / 600.0f, 0.1f, 200.0f);
     }
 
-    // Check the method to understand what this does
-    unowned Ttf.Text? ttf_text = ttf_ctx.create_gpu_text (FONT_NORMAL_NAME,
-                                                          FONT_FALLBACK_NAME,
-                                                          FONT_POINT_SIZE,
-                                                          text_builder.str,
-                                                          Ttf.HorizontalAlignment.CENTER);
-    if (ttf_text == null) {
-        return -3;
+    public int run () {
+        if (!init ()) {
+            return -1;
+        }
+
+        is_running = true;
+        while (is_running) {
+            process_events ();
+            update ();
+            draw ();
+        }
+
+        shutdown ();
+        return 0;
     }
 
-    bool is_running = true;
-    Events.Event ev;
-    while (is_running) {
+    private void process_events () {
+        Events.Event ev;
         while (Events.poll_event (out ev)) {
             if (ev.type == Events.EventType.QUIT) {
                 is_running = false;
             }
         }
+    }
 
+    private bool init () {
+        if (!gpu_ctx.init ()) {
+            return false;
+        }
+
+        if (!ttf_ctx.init (gpu_ctx.gpu_device)) {
+            return false;
+        }
+
+        ttf_text = ttf_ctx.create_gpu_text (FONT_NORMAL_NAME,
+                                            FONT_FALLBACK_NAME,
+                                            FONT_POINT_SIZE,
+                                            text_builder.str,
+                                            Ttf.HorizontalAlignment.CENTER);
+        if (ttf_text == null) {
+            return false;
+        }
+
+        matrices = {
+            proj_view,
+            Matrix4x4.identity (),
+        };
+
+        return true;
+    }
+
+    public void update () {
         // Update the text with random chars on top
         update_ttf_text (ttf_text);
-        var altas_sequence = Ttf.get_gpu_text_draw_data (ttf_text);
+        ttf_altas_sequence = Ttf.get_gpu_text_draw_data (ttf_text);
+
         // Copy data from atlas and then map to a transfer buffer
-        geometry_data.set_data_from_atlas (altas_sequence);
+        geometry_data.set_data_from_atlas (ttf_altas_sequence);
         geometry_data.transfer_data (gpu_ctx.gpu_device, gpu_ctx.transfer_buffer);
-        // Create the command buffer
+
+        // Create the command buffer and upload the data to the GPU via a GPU copy pass
         gpu_ctx.cmd_buf = Gpu.acquire_gpu_command_buffer (gpu_ctx.gpu_device);
-        // Upload the data to the GPU via a GPU copy pass
         geometry_data.upload_data (gpu_ctx.cmd_buf, gpu_ctx.transfer_buffer,
                                    gpu_ctx.vertex_buffer, gpu_ctx.index_buffer);
 
@@ -91,24 +128,20 @@ int main (string[] args) {
         model = Math3D.Matrix4x4.multiply (model, Math3D.Matrix4x4.rotationY (angle_y));
         model = Math3D.Matrix4x4.multiply (model, Math3D.Matrix4x4.translation (0, 0, -180f));
 
-        Math3D.Matrix4x4[] matrices = {
-            proj_view,
-            model,
-        };
+        matrices[1] = model;
+    }
 
-        // Draw
+    public void draw () {
         Gpu.GPUTexture? swapchain_texture;
         Gpu.wait_and_acquire_gpu_swapchain_texture (gpu_ctx.cmd_buf, gpu_ctx.window, out swapchain_texture, null, null);
         if (swapchain_texture != null) {
-            var render_pass = Gpu.begin_gpu_render_pass (gpu_ctx.cmd_buf,
-            {
-                Gpu.GPUColorTargetInfo () {
-                    texture = swapchain_texture,
-                    clear_color = { 0.3f, 0.4f, 0.5f, 1.0f },
-                    load_op = Gpu.GPULoadOp.CLEAR,
-                    store_op = Gpu.GPUStoreOp.STORE,
-                },
-            }, null);
+            var color_target_info = Gpu.GPUColorTargetInfo () {
+                texture = swapchain_texture,
+                clear_color = { 0.3f, 0.4f, 0.5f, 1.0f },
+                load_op = Gpu.GPULoadOp.CLEAR,
+                store_op = Gpu.GPUStoreOp.STORE,
+            };
+            var render_pass = Gpu.begin_gpu_render_pass (gpu_ctx.cmd_buf, { color_target_info, }, null);
 
             // Bind the pipeline
             // Bind the matrices
@@ -129,7 +162,7 @@ int main (string[] args) {
             // And then draw their respective indices!
             int index_offset = 0;
             int vertex_offset = 0;
-            for (unowned var seq = altas_sequence; seq != null; seq = seq.next) {
+            for (unowned var seq = ttf_altas_sequence; seq != null; seq = seq.next) {
                 var sampler_binding = Gpu.GPUTextureSamplerBinding () {
                     texture = seq.atlas_texture,
                     sampler = gpu_ctx.sampler,
@@ -150,18 +183,19 @@ int main (string[] args) {
         geometry_data.index_count = 0;
     }
 
-    ttf_ctx.free ();
-    gpu_ctx.free ();
-    return 0;
-}
-
-public static void update_ttf_text (Ttf.Text text) {
-    // Make random characters
-    text_builder.erase ();
-    for (int i = 0; i < 5; i++) {
-        text_builder.append_unichar ((unichar) (65 + StdInc.rand (26)));
+    public void shutdown () {
+        ttf_ctx.free ();
+        gpu_ctx.free ();
     }
-    text_builder.append (DEFAULT_TEXT);
-    // Update the text via TTF normally
-    Ttf.set_text_string (text, text_builder.str, 0);
+
+    private void update_ttf_text (Ttf.Text text) {
+        // Make random characters
+        text_builder.erase ();
+        for (int i = 0; i < 5; i++) {
+            text_builder.append_unichar ((unichar) (65 + StdInc.rand (26)));
+        }
+        text_builder.append (DEFAULT_TEXT);
+        // Update the text via TTF normally
+        Ttf.set_text_string (text, text_builder.str, 0);
+    }
 }

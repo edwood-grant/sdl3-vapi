@@ -7722,7 +7722,8 @@ namespace SDL.Gpu {
         public uint32 d;
     } // GPUTextureRegion
 
-    [CCode (cname = "SDL_GPUTextureSamplerBinding", destroy_function = "", has_type_id = false)]
+    [CCode (cname = "SDL_GPUTextureSamplerBinding", destroy_function = "",
+            has_copy_function = false, has_type_id = false)]
     public struct GPUTextureSamplerBinding {
         public GPUTexture texture;
         public GPUSampler sampler;

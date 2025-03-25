@@ -98,7 +98,15 @@ public class App {
 
     public void update () {
         // Update the text with random chars on top
-        update_ttf_text (ttf_text);
+        text_builder.erase ();
+        for (int i = 0; i < 5; i++) {
+            text_builder.append_unichar ((unichar) (65 + StdInc.rand (26)));
+        }
+        text_builder.append (DEFAULT_TEXT);
+        // Update the text via TTF normally
+        Ttf.set_text_string (ttf_text, text_builder.str, 0);
+
+        // Get the GPU atlas data (vertices, indices and samplers)
         ttf_altas_sequence = Ttf.get_gpu_text_draw_data (ttf_text);
 
         // Copy data from atlas and then map to a transfer buffer
@@ -186,16 +194,5 @@ public class App {
     public void shutdown () {
         ttf_ctx.free ();
         gpu_ctx.free ();
-    }
-
-    private void update_ttf_text (Ttf.Text text) {
-        // Make random characters
-        text_builder.erase ();
-        for (int i = 0; i < 5; i++) {
-            text_builder.append_unichar ((unichar) (65 + StdInc.rand (26)));
-        }
-        text_builder.append (DEFAULT_TEXT);
-        // Update the text via TTF normally
-        Ttf.set_text_string (text, text_builder.str, 0);
     }
 }

@@ -149,8 +149,7 @@ public int main (string[] args) {
                 cycle_resolve_texture = false,
             };
 
-            // Don't forget to pass GPUColorTargetInfo ownership to the array here!
-            var render_pass = Gpu.begin_gpu_render_pass (cmd_buf, { (owned) color_target }, null);
+            var render_pass = Gpu.begin_gpu_render_pass (cmd_buf, { color_target }, null);
             Gpu.bind_gpu_graphics_pipeline (render_pass, use_wireframe_mode ? line_pipeline : fill_pipeline);
 
             if (use_small_viewport) {
@@ -191,23 +190,37 @@ public static Gpu.GPUGraphicsPipeline create_graphics_pipeline (Gpu.GPUDevice de
                                                                 Gpu.GPUShader fragment_shader,
                                                                 Gpu.GPUFillMode fill_mode =
                                                                 Gpu.GPUFillMode.FILL) {
+    var color_target_desc_0 = Gpu.GPUColorTargetDescription () {
+        format = Gpu.get_gpu_swapchain_texture_format (device, window),
+    };
+
+    // The pipeline info usually contains data where to draw stuff
+    // In this case, we are directly drawing onto the swapchian, i.e. the main render screen
+    // So we only need one color target descriptor
+    var pipeline_target_inf = Gpu.GPUGraphicsPipelineTargetInfo () {
+        color_target_descriptions = { color_target_desc_0, },
+    };
+
+    // The rasterizes state informs the pipeline how to draw
+    // in particular it show whast cull mode to use and what fill mode to use (lines or polygons)
+    var rasterizer_st = Gpu.GPURasterizerState () {
+        cull_mode = Gpu.GPUCullMode.NONE,
+        fill_mode = fill_mode,
+    };
+
+    // This pipeline will receive
+    // * The vertex and fragment shaders
+    // * What kind of primite you are drawing
+    // * The pipeline target information
+    // * The rasterize state information
     var create_info = Gpu.GPUGraphicsPipelineCreateInfo () {
         vertex_shader = vertex_shader,
         fragment_shader = fragment_shader,
         primitive_type = Gpu.GPUPrimitiveType.TRIANGLELIST,
-        rasterizer_state = Gpu.GPURasterizerState () {
-            cull_mode = Gpu.GPUCullMode.NONE,
-            fill_mode = fill_mode,
-        },
-
-        target_info = Gpu.GPUGraphicsPipelineTargetInfo () {
-            color_target_descriptions = {
-                Gpu.GPUColorTargetDescription () {
-                    format = Gpu.get_gpu_swapchain_texture_format (device, window),
-                }
-            },
-        },
+        rasterizer_state = rasterizer_st,
+        target_info = pipeline_target_inf,
     };
 
+    // Finally with all the important info, create the pipeline
     return Gpu.create_gpu_graphics_pipeline (device, create_info);
 }

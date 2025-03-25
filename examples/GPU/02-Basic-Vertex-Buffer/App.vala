@@ -56,30 +56,21 @@ public int main (string[] args) {
     Gpu.release_gpu_shader (gpu_device, vertex_shader);
     Gpu.release_gpu_shader (gpu_device, fragment_shader);
 
-    // Create VertexBuffer
-    vertex_buffer =
-        Gpu.create_gpu_buffer (
-                               gpu_device,
-                               Gpu.GPUBufferCreateInfo ()
-    {
+    // Create the VertexBuffer
+    var vertex_buffer_create_info = Gpu.GPUBufferCreateInfo () {
         usage = Gpu.GPUBufferUsageFlags.VERTEX,
         size = (uint32) sizeof (PositionColorVertex) * 3,
-    });
+    };
+    vertex_buffer = Gpu.create_gpu_buffer (gpu_device, vertex_buffer_create_info);
 
     // To get data into the vertex buffer, we have to use a transfer buffer
-    Gpu.GPUTransferBuffer? transfer_buffer =
-        Gpu.create_gpu_transfer_buffer (
-                                        gpu_device,
-                                        Gpu.GPUTransferBufferCreateInfo ()
-    {
+    var transfer_buffer_create_info = Gpu.GPUTransferBufferCreateInfo () {
         usage = Gpu.GPUTransferBufferUsage.UPLOAD,
         size = (uint32) sizeof (PositionColorVertex) * 3
-    });
+    };
+    Gpu.GPUTransferBuffer? transfer_buffer = Gpu.create_gpu_transfer_buffer (gpu_device, transfer_buffer_create_info);
 
-    PositionColorVertex* transfer_data =
-        (PositionColorVertex*) Gpu.map_gpu_transfer_buffer (gpu_device,
-                                                            transfer_buffer,
-                                                            false);
+    var transfer_data = (PositionColorVertex*) Gpu.map_gpu_transfer_buffer (gpu_device, transfer_buffer, false);
     transfer_data[0] = PositionColorVertex () {
         x = -1, y = -1, z = 0, r = 255, g = 0, b = 0, a = 255
     };
@@ -95,20 +86,17 @@ public int main (string[] args) {
     Gpu.GPUCommandBuffer ? upload_cmd_buf = Gpu.acquire_gpu_command_buffer (gpu_device);
     Gpu.GPUCopyPass ? copy_pass = Gpu.begin_gpu_copy_pass (upload_cmd_buf);
 
-    Gpu.upload_to_gpu_buffer (
-                              copy_pass,
-                              Gpu.GPUTransferBufferLocation ()
-    {
+    var buffer_location = Gpu.GPUTransferBufferLocation () {
         transfer_buffer = transfer_buffer,
         offset = 0,
-    },
-                              Gpu.GPUBufferRegion ()
-    {
+    };
+    var buffer_region = Gpu.GPUBufferRegion () {
         buffer = vertex_buffer,
         offset = 0,
         size = (uint32) sizeof (PositionColorVertex) * 3,
-    },
-                              false);
+    };
+    Gpu.upload_to_gpu_buffer (copy_pass, buffer_location, buffer_region, false);
+
     Gpu.end_gpu_copy_pass (copy_pass);
     Gpu.submit_gpu_command_buffer (upload_cmd_buf);
     Gpu.release_gpu_transfer_buffer (gpu_device, transfer_buffer);
@@ -154,15 +142,13 @@ public int main (string[] args) {
                 store_op = Gpu.GPUStoreOp.STORE,
             };
 
-            var render_pass = Gpu.begin_gpu_render_pass (cmd_buf, { (owned) color_target }, null);
+            var render_pass = Gpu.begin_gpu_render_pass (cmd_buf, { color_target }, null);
             Gpu.bind_gpu_graphics_pipeline (render_pass, pipeline);
-            Gpu.bind_gpu_vertex_buffers (render_pass, 0,
-            {
-                Gpu.GPUBufferBinding () {
-                    buffer = vertex_buffer,
-                    offset = 0,
-                },
-            });
+            var vertex_buffer_binding = Gpu.GPUBufferBinding () {
+                buffer = vertex_buffer,
+                offset = 0,
+            };
+            Gpu.bind_gpu_vertex_buffers (render_pass, 0, { vertex_buffer_binding, });
             Gpu.draw_gpu_primitives (render_pass, 3, 1, 0, 0);
             Gpu.end_gpu_render_pass (render_pass);
         }
@@ -192,43 +178,61 @@ public Gpu.GPUGraphicsPipeline create_graphics_pipeline (Gpu.GPUDevice device,
                                                          Gpu.GPUShader fragment_shader,
                                                          Gpu.GPUFillMode fill_mode =
                                                          Gpu.GPUFillMode.FILL) {
+    var color_target_desc_0 = Gpu.GPUColorTargetDescription () {
+        format = Gpu.get_gpu_swapchain_texture_format (device, window),
+    };
+
+    // The pipeline info usually contains data where to draw stuff
+    // In this case, we are directly drawing onto the swapchian, i.e. the main render screen
+    // So we only need one color target descriptor
+    var pipeline_target_inf = Gpu.GPUGraphicsPipelineTargetInfo () {
+        color_target_descriptions = { color_target_desc_0, },
+    };
+
+    var vertex_buffer_desc = Gpu.GPUVertexBufferDescription () {
+        slot = 0,
+        input_rate = Gpu.GPUVertexInputRate.VERTEX,
+        instance_step_rate = 0,
+        pitch = (uint32) sizeof (PositionColorVertex),
+    };
+
+    var vertex_attrib_0 = Gpu.GPUVertexAttribute () {
+        buffer_slot = 0,
+        format = Gpu.GPUVertexElementFormat.FLOAT3,
+        location = 0,
+        offset = 0,
+    };
+
+    var vertex_attrib_1 = Gpu.GPUVertexAttribute () {
+        buffer_slot = 0,
+        format = Gpu.GPUVertexElementFormat.UBYTE4_NORM,
+        location = 1,
+        offset = (uint32) sizeof (float) * 3,
+    };
+
+    // This must mimic the vertex shader input params and maps it to a struct, that is:
+    // * A description of the input, that is a PositionColorVertex struct that will contain the data
+    // * A series of attributes:
+    // * First, position: (position, three floats)
+    // * Second, color, four bytes)
+    var vertex_input_st = Gpu.GPUVertexInputState () {
+        vertex_buffer_descriptions = { vertex_buffer_desc, },
+        vertex_attributes = { vertex_attrib_0, vertex_attrib_1 },
+    };
+
+    // The pipelin will receive
+    // * The vertex and fragment shaders
+    // * What kind of primite you are drawing
+    // * The pipeline target information
+    // * The vertex input state (i.e. how the vertex shader data is aligned)
     var create_info = Gpu.GPUGraphicsPipelineCreateInfo () {
         vertex_shader = vertex_shader,
         fragment_shader = fragment_shader,
         primitive_type = Gpu.GPUPrimitiveType.TRIANGLELIST,
-
-        target_info = Gpu.GPUGraphicsPipelineTargetInfo () {
-            color_target_descriptions = {
-                Gpu.GPUColorTargetDescription () {
-                    format = Gpu.get_gpu_swapchain_texture_format (device, window),
-                }
-            },
-        },
-        vertex_input_state = Gpu.GPUVertexInputState () {
-            vertex_buffer_descriptions = {
-                Gpu.GPUVertexBufferDescription () {
-                    slot = 0,
-                    input_rate = Gpu.GPUVertexInputRate.VERTEX,
-                    instance_step_rate = 0,
-                    pitch = (uint32) sizeof (PositionColorVertex),
-                },
-            },
-            vertex_attributes = {
-                Gpu.GPUVertexAttribute () {
-                    buffer_slot = 0,
-                    format = Gpu.GPUVertexElementFormat.FLOAT3,
-                    location = 0,
-                    offset = 0,
-                },
-                Gpu.GPUVertexAttribute () {
-                    buffer_slot = 0,
-                    format = Gpu.GPUVertexElementFormat.UBYTE4_NORM,
-                    location = 1,
-                    offset = (uint32) sizeof (float) * 3,
-                },
-            },
-        },
+        target_info = pipeline_target_inf,
+        vertex_input_state = vertex_input_st,
     };
 
+    // Finally with all the important info, create the pipeline
     return Gpu.create_gpu_graphics_pipeline (device, create_info);
 }

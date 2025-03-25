@@ -59,53 +59,61 @@ public class ContextGpu {
 
     private bool create_gpu_graphics_pipeline () {
         var vertex_shader = load_shader (gpu_device, "GPUText.vert", 0, 1, 0, 0);
-        var fragment_shader = load_shader (gpu_device,
-                                           USE_SDF ? "GPUTextSDF.frag" : "GPUText.frag",
-                                           1, 0, 0, 0);
+        var fragment_shader = load_shader (gpu_device, USE_SDF ? "GPUTextSDF.frag" : "GPUText.frag", 1, 0, 0, 0);
+
+        var blend_st = Gpu.GPUColorTargetBlendState () {
+            enable_blend = true,
+            alpha_blend_op = Gpu.GPUBlendOp.ADD,
+            color_blend_op = Gpu.GPUBlendOp.ADD,
+            color_write_mask = 0xF,
+            src_alpha_blendfactor = Gpu.GPUBlendFactor.SRC_ALPHA,
+            dst_alpha_blendfactor = Gpu.GPUBlendFactor.DST_ALPHA,
+            src_color_blendfactor = Gpu.GPUBlendFactor.SRC_ALPHA,
+            dst_color_blendfactor = Gpu.GPUBlendFactor.ONE_MINUS_SRC_ALPHA,
+        };
+
+        var color_desc = Gpu.GPUColorTargetDescription () {
+            format = Gpu.get_gpu_swapchain_texture_format (this.gpu_device, this.window),
+            blend_state = blend_st,
+        };
+
         var target_inf = Gpu.GPUGraphicsPipelineTargetInfo () {
-            color_target_descriptions = { Gpu.GPUColorTargetDescription () {
-                                              format = Gpu.get_gpu_swapchain_texture_format (this.gpu_device,
-                                                                                             this.window),
-                                              blend_state = Gpu.GPUColorTargetBlendState () {
-                                                  enable_blend = true,
-                                                  alpha_blend_op = Gpu.GPUBlendOp.ADD,
-                                                  color_blend_op = Gpu.GPUBlendOp.ADD,
-                                                  color_write_mask = 0xF,
-                                                  src_alpha_blendfactor = Gpu.GPUBlendFactor.SRC_ALPHA,
-                                                  dst_alpha_blendfactor = Gpu.GPUBlendFactor.DST_ALPHA,
-                                                  src_color_blendfactor = Gpu.GPUBlendFactor.SRC_ALPHA,
-                                                  dst_color_blendfactor = Gpu.GPUBlendFactor.ONE_MINUS_SRC_ALPHA,
-                                              },
-                                          } },
+            color_target_descriptions = { color_desc, },
             has_depth_stencil_target = false,
             depth_stencil_format = Gpu.GPUTextureFormat.INVALID, // Need to init this to avoid crashes
         };
 
+        var verter_buffer_desc = Gpu.GPUVertexBufferDescription () {
+            slot = 0,
+            pitch = (uint32) sizeof (Vertex),
+            input_rate = Gpu.GPUVertexInputRate.VERTEX,
+            instance_step_rate = 0,
+        };
+
+        var veterx_attrib_0 = Gpu.GPUVertexAttribute () {
+            location = 0,
+            buffer_slot = 0,
+            format = Gpu.GPUVertexElementFormat.FLOAT3,
+            offset = 0,
+        };
+
+        var veterx_attrib_1 = Gpu.GPUVertexAttribute () {
+            location = 1,
+            buffer_slot = 0,
+            format = Gpu.GPUVertexElementFormat.FLOAT4,
+            offset = (uint32) sizeof (float) * 3,
+        };
+
+        var veterx_attrib_2 = Gpu.GPUVertexAttribute () {
+            location = 2,
+            buffer_slot = 0,
+            format = Gpu.GPUVertexElementFormat.FLOAT2,
+            offset = (uint32) sizeof (float) * 7,
+        };
+
         var vertex_st = Gpu.GPUVertexInputState () {
-            vertex_buffer_descriptions = { Gpu.GPUVertexBufferDescription () {
-                                               slot = 0,
-                                               pitch = (uint32) sizeof (Vertex),
-                                               input_rate = Gpu.GPUVertexInputRate.VERTEX,
-                                               instance_step_rate = 0,
-                                           } },
-            vertex_attributes = { Gpu.GPUVertexAttribute () {
-                                      location = 0,
-                                      buffer_slot = 0,
-                                      format = Gpu.GPUVertexElementFormat.FLOAT3,
-                                      offset = 0,
-                                  },
-                                  Gpu.GPUVertexAttribute () {
-                                      location = 1,
-                                      buffer_slot = 0,
-                                      format = Gpu.GPUVertexElementFormat.FLOAT4,
-                                      offset = (uint32) sizeof (float) * 3,
-                                  },
-                                  Gpu.GPUVertexAttribute () {
-                                      location = 2,
-                                      buffer_slot = 0,
-                                      format = Gpu.GPUVertexElementFormat.FLOAT2,
-                                      offset = (uint32) sizeof (float) * 7,
-                                  } },
+            vertex_buffer_descriptions = { verter_buffer_desc },
+            vertex_attributes = { veterx_attrib_0, veterx_attrib_1, veterx_attrib_2, },
         };
 
         var graphics_pipeline_create_info = Gpu.GPUGraphicsPipelineCreateInfo () {
@@ -164,6 +172,7 @@ public class ContextGpu {
             address_mode_v = Gpu.GPUSamplerAddressMode.CLAMP_TO_EDGE,
             address_mode_w = Gpu.GPUSamplerAddressMode.CLAMP_TO_EDGE,
         };
+
         sampler = Gpu.create_gpu_sampler (gpu_device, sampler_info);
         if (sampler == null) {
             return false;

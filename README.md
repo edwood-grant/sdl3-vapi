@@ -1,4 +1,4 @@
-# This repository has moved and its outated
+# This repository has moved!
 
 These vapi files are no longer maintained and are outdated.
 

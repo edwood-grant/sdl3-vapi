@@ -1,5 +1,18 @@
 using SDL;
 
+public struct PositionColorVertex {
+    // Position
+    public float x;
+    public float y;
+    public float z;
+
+    // Color
+    public uint8 r;
+    public uint8 g;
+    public uint8 b;
+    public uint8 a;
+}
+
 public static bool common_init (string window_title,
                                 int window_width,
                                 int window_height,
@@ -51,7 +64,7 @@ public static SDL.Gpu.GPUShader ? load_shader (SDL.Gpu.GPUDevice device,
     }
 
     // Auto detect the available shader formats for the platform and choose the correct variant
-    // You don' need to do this if you are not working multiplatform though
+    // You don' need to do this if you are not working multi-platform though
     SDL.Gpu.GPUShaderFormat backend_formats = SDL.Gpu.get_gpu_shader_formats (device);
     SDL.Gpu.GPUShaderFormat format = SDL.Gpu.GPUShaderFormat.INVALID;
     string entry_point = "";

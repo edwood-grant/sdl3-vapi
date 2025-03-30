@@ -80,7 +80,6 @@ public class ContextGpu {
         var target_inf = Gpu.GPUGraphicsPipelineTargetInfo () {
             color_target_descriptions = { color_desc, },
             has_depth_stencil_target = false,
-            depth_stencil_format = Gpu.GPUTextureFormat.INVALID, // Need to init this to avoid crashes
         };
 
         var verter_buffer_desc = Gpu.GPUVertexBufferDescription () {

@@ -42,7 +42,9 @@ public class App {
         ttf_ctx = new ContextTtf ();
         geometry_data = new GeometryData ();
         text_builder = new StringBuilder (DEFAULT_TEXT);
-        proj_view = Matrix4x4.perspective (StdInc.PI_F / 3.0f, 800.0f / 600.0f, 0.1f, 200.0f);
+        proj_view = Matrix4x4.perspective (StdInc.PI_F / 3.0f,
+                                           (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT,
+                                           0.1f, 200.0f);
     }
 
     public int run () {
